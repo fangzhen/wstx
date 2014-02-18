@@ -1,6 +1,5 @@
 package info.fzhen.wstx.wscoor;
 
-import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.context.CoordinatorContext;
 import info.fzhen.wstx.coordinator.Coordinator;
 
@@ -19,6 +18,7 @@ public class ActivationPort implements ActivationPortType{
 			CreateCoordinationContextType ccc) {
 		Coordinator coordinator = new Coordinator();
 		CoordinatorContext coordinatorContext = coordinator.createCoordinatorContext(ccc);
+		//TODO null handle
 		CoordinationContext coordinationContext = coordinatorContext.buildCoordinationContext();
 		CreateCoordinationContextResponseType response = buildCreateCoordinationContextResponse(coordinationContext);
 		return response;
