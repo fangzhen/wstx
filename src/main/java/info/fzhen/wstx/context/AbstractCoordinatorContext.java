@@ -1,15 +1,18 @@
 package info.fzhen.wstx.context;
 
+import javax.xml.ws.wsaddressing.W3CEndpointReference;
+
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContextType.Identifier;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.Expires;
 
-public class AbstractCoordinatorContext implements CoordinatorContext{
+public class AbstractCoordinatorContext implements CoordinatorContext {
 	protected EndpointReferenceType registrationERP;
-    protected String identifier;
-    protected long expires;
-    protected String coordinationType;
+	protected String identifier;
+	protected long expires;
+	protected String coordinationType;
 
 	@Override
 	public CoordinationContext buildCoordinationContext() {
@@ -22,7 +25,9 @@ public class AbstractCoordinatorContext implements CoordinatorContext{
 		Identifier id = new Identifier();
 		id.setValue(identifier);
 		coordinationContext.setIdentifier(id);
-		coordinationContext.setRegistrationService(registrationERP);
+		W3CEndpointReference w3cRegistratoiERP = new W3CEndpointReference(
+				EndpointReferenceUtils.convertToXML(registrationERP));
+		coordinationContext.setRegistrationService(w3cRegistratoiERP);
 		return null;
 	}
 

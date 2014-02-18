@@ -3,7 +3,6 @@ package org.oasis_open.docs.ws_tx.wscoor._2006._06;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyAttribute;
@@ -14,8 +13,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.namespace.QName;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 
 /**
@@ -70,8 +67,7 @@ public class CoordinationContextType {
     @XmlSchemaType(name = "anyURI")
     protected String coordinationType;
     @XmlElement(name = "RegistrationService", required = true)
-//    protected W3CEndpointReference registrationService; changed to cxf-ws-addr impl
-    protected EndpointReferenceType registrationService;
+    protected W3CEndpointReference registrationService;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -155,7 +151,7 @@ public class CoordinationContextType {
      *     {@link W3CEndpointReference }
      *     
      */
-    public EndpointReferenceType getRegistrationService() {
+    public W3CEndpointReference getRegistrationService() {
         return registrationService;
     }
 
@@ -167,7 +163,7 @@ public class CoordinationContextType {
      *     {@link W3CEndpointReference }
      *     
      */
-    public void setRegistrationService(EndpointReferenceType value) {
+    public void setRegistrationService(W3CEndpointReference value) {
         this.registrationService = value;
     }
 
