@@ -1,5 +1,7 @@
 package info.fzhen.wstx.context;
 
+import info.fzhen.wstx.util.EPRConfiguration;
+
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
@@ -9,10 +11,12 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContextType.Identi
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.Expires;
 
 public class AbstractCoordinatorContext implements CoordinatorContext {
-	protected EndpointReferenceType registrationERP;
+	protected EndpointReferenceType registrationEPR;
 	protected String identifier;
 	protected long expires;
 	protected String coordinationType;
+	
+	protected EPRConfiguration eprConfiguration;
 
 	@Override
 	public CoordinationContext buildCoordinationContext() {
@@ -26,17 +30,17 @@ public class AbstractCoordinatorContext implements CoordinatorContext {
 		id.setValue(identifier);
 		coordinationContext.setIdentifier(id);
 		W3CEndpointReference w3cRegistratoiERP = new W3CEndpointReference(
-				EndpointReferenceUtils.convertToXML(registrationERP));
+				EndpointReferenceUtils.convertToXML(registrationEPR));
 		coordinationContext.setRegistrationService(w3cRegistratoiERP);
 		return null;
 	}
 
-	public EndpointReferenceType getRegistrationERP() {
-		return registrationERP;
+	public EndpointReferenceType getRegistrationEPR() {
+		return registrationEPR;
 	}
 
-	public void setRegistrationERP(EndpointReferenceType registrationERP) {
-		this.registrationERP = registrationERP;
+	public void setRegistrationEPR(EndpointReferenceType registrationEPR) {
+		this.registrationEPR = registrationEPR;
 	}
 
 	public String getIdentifier() {

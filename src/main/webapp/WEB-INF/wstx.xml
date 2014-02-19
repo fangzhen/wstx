@@ -7,7 +7,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
-	<bean id="EPRConfiguration" class="info.fzhen.wstx.util.WstxConfiguration.EPR">
+	<bean id="EPRConfiguration" class="info.fzhen.wstx.util.EPRConfiguration">
 		<property name="host"><value>http://localhost:28080/wstx/services/</value></property>
 		<property name="activationService"><value>ActivationPort</value></property>
 		<property name="registrationService"><value>RegistrationPort</value></property>
