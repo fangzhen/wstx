@@ -2,7 +2,7 @@ package info.fzhen.wstx.util;
 
 public class EPRConfiguration {
 	private String host;
-	private String acvationService;
+	private String activationService;
 	private String registrationService;
 
 	public String getHost() {
@@ -13,19 +13,19 @@ public class EPRConfiguration {
 		this.host = host;
 	}
 
-	public String getAcvationService() {
-		return acvationService;
-	}
-
-	public void setAcvationService(String acvationService) {
-		this.acvationService = acvationService;
-	}
-
 	public String getRegistrationService() {
 		return registrationService;
 	}
 
 	public void setRegistrationService(String registrationService) {
 		this.registrationService = registrationService;
+	}
+
+	public String getActivationService() {
+		return activationService;
+	}
+
+	public void setActivationService(String activationService) {
+		this.activationService = activationService;
 	}
 }

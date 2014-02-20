@@ -19,7 +19,8 @@ http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<jaxws:endpoint id="activation"
-		implementor="info.fzhen.wstx.wscoor.ActivationPort" address="/activation"/>
+		implementor="info.fzhen.wstx.wscoor.ActivationPort" address="/activation">
+	</jaxws:endpoint>
 	<jaxws:endpoint id="registration"
 		implementor="info.fzhen.wstx.wscoor.RegistrationPort" address="/registration" />
 </beans>

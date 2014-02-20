@@ -1,7 +1,15 @@
 package info.fzhen.wstx.context;
 
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
+import info.fzhen.wstx.util.EPRConfiguration;
 
-public interface CoordinatorContext {
-	CoordinationContext buildCoordinationContext();
+public class CoordinatorContext {
+	private EPRConfiguration eprConfiguration;
+
+	public EPRConfiguration getEprConfiguration() {
+		return eprConfiguration;
+	}
+
+	public void setEprConfiguration(EPRConfiguration eprConfiguration) {
+		this.eprConfiguration = eprConfiguration;
+	}
 }

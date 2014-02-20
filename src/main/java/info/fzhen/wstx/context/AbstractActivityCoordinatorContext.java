@@ -10,13 +10,12 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContextType.Identifier;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.Expires;
 
-public class AbstractCoordinatorContext implements CoordinatorContext {
+public class AbstractActivityCoordinatorContext implements ActivityCoordinatorContext {
 	protected EndpointReferenceType registrationEPR;
 	protected String identifier;
 	protected long expires;
 	protected String coordinationType;
 	
-	protected EPRConfiguration eprConfiguration;
 
 	@Override
 	public CoordinationContext buildCoordinationContext() {
@@ -32,7 +31,7 @@ public class AbstractCoordinatorContext implements CoordinatorContext {
 		W3CEndpointReference w3cRegistratoiERP = new W3CEndpointReference(
 				EndpointReferenceUtils.convertToXML(registrationEPR));
 		coordinationContext.setRegistrationService(w3cRegistratoiERP);
-		return null;
+		return coordinationContext;
 	}
 
 	public EndpointReferenceType getRegistrationEPR() {

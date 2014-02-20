@@ -14,13 +14,13 @@ public class TestActivationPort {
 	@Test
 	public void test() {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[]{"info/fzhen/wstx/wscoor/client-beans.xml"});
-		ActivationPortType port = (ActivationPortType)context.getBean("Activation");
+				new String[]{"client-beans.xml"});
+		ActivationPortType port = (ActivationPortType)context.getBean("activation");
 		
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ccc.setCoordinationType(CoordinationType.WSAT);
 		CreateCoordinationContextResponseType res = port.createCoordinationContextOperation(ccc);
-		assertEquals(res, null);
+		assertEquals(res.getCoordinationContext().getCoordinationType(),CoordinationType.WSAT);
 	}
 
 }
