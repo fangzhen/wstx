@@ -1,9 +1,11 @@
 package info.fzhen.wstx.wscoor;
 
 import static org.junit.Assert.*;
+
 import info.fzhen.wstx.CoordinationType;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,7 +22,9 @@ public class TestActivationPort {
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ccc.setCoordinationType(CoordinationType.WSAT);
 		CreateCoordinationContextResponseType res = port.createCoordinationContextOperation(ccc);
-		assertEquals(res.getCoordinationContext().getCoordinationType(),CoordinationType.WSAT);
+		CoordinationContext coordinationContext = res.getCoordinationContext();
+		assertEquals(coordinationContext.getCoordinationType(),CoordinationType.WSAT);
+		System.out.println(coordinationContext.getRegistrationService());
 	}
 
 }

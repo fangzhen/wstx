@@ -6,6 +6,7 @@ import info.fzhen.wstx.context.ActivityCoordinatorContext;
 import info.fzhen.wstx.context.CoordinatorContext;
 import info.fzhen.wstx.util.EPRConfiguration;
 
+import java.util.List;
 import java.util.Random;
 
 import org.apache.cxf.ws.addressing.AttributedURIType;
@@ -27,7 +28,6 @@ public class Coordinator {
 	private CoordinatorContext coordinatorContext;
 
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
-//		ATActivityCoordinatorContext activityCoordinatorContext;
 		switch (ccc.getCoordinationType()) {
 		case CoordinationType.WSAT:
 			ATActivityCoordinatorContext activityCoordinatorContext;
@@ -36,7 +36,7 @@ public class Coordinator {
 			if (ccc.getExpires() != null){
 				activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
 			}
-			
+
 			EndpointReferenceType registrationEPR = new EndpointReferenceType();
 			EPRConfiguration eprConf = coordinatorContext.getEprConfiguration();
 			String regAddr = eprConf.getHost() + eprConf.getRegistrationService();
@@ -44,7 +44,10 @@ public class Coordinator {
 			addr.setValue(regAddr);
 			registrationEPR.setAddress(addr);
 			String shortId = getUniqueNum();
+
 			ReferenceParametersType ref = new ReferenceParametersType();
+			List<Object> paras = ref.getAny();
+//			paras.add(regAddr);
 			registrationEPR.setReferenceParameters(ref);//TODO referenceParameters did not set
 			activityCoordinatorContext.setRegistrationEPR(registrationEPR);
 			
