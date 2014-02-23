@@ -3,9 +3,10 @@ package info.fzhen.wstx.coordinator;
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.at.ATActivityCoordinatorContext;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
-import info.fzhen.wstx.context.CoordinatorContext;
 import info.fzhen.wstx.util.EPRConfiguration;
+import info.fzhen.wstx.util.JAXBUtils;
 
+import java.nio.channels.Pipe;
 import java.util.List;
 import java.util.Random;
 
@@ -47,8 +48,10 @@ public class Coordinator {
 
 			ReferenceParametersType ref = new ReferenceParametersType();
 			List<Object> paras = ref.getAny();
-//			paras.add(regAddr);
-			registrationEPR.setReferenceParameters(ref);//TODO referenceParameters did not set
+			PrivateInstanceType pi = new PrivateInstanceType();
+			pi.setValue(shortId);
+			JAXBUtils.addAsW3cElement(paras, PrivateInstanceType.class, pi);
+			registrationEPR.setReferenceParameters(ref);
 			activityCoordinatorContext.setRegistrationEPR(registrationEPR);
 			
 			String identifier = eprConf.getHost() + shortId;

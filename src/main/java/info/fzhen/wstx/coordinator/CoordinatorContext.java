@@ -1,4 +1,4 @@
-package info.fzhen.wstx.context;
+package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.util.EPRConfiguration;
 

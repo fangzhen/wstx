@@ -24,7 +24,9 @@ public class TestActivationPort {
 		CreateCoordinationContextResponseType res = port.createCoordinationContextOperation(ccc);
 		CoordinationContext coordinationContext = res.getCoordinationContext();
 		assertEquals(coordinationContext.getCoordinationType(),CoordinationType.WSAT);
-		System.out.println(coordinationContext.getRegistrationService());
+		System.out.println("TestActivationPort" + coordinationContext.getRegistrationService());
+		
+		context.close();
 	}
 
 }
