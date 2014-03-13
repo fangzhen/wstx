@@ -3,15 +3,8 @@ package info.fzhen.wstx.coordinator;
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.at.ATActivityCoordinatorContext;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
-import info.fzhen.wstx.util.EPRConfiguration;
-import info.fzhen.wstx.util.JAXBUtils;
-
-import java.util.List;
 import java.util.Random;
 
-import org.apache.cxf.ws.addressing.AttributedURIType;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.ws.addressing.ReferenceParametersType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 /**
  * Generalized coordinator, provide activation service and registration service.
@@ -40,25 +33,10 @@ public class Coordinator {
 			if (ccc.getExpires() != null){
 				activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
 			}
-
-			EndpointReferenceType registrationEPR = new EndpointReferenceType();
-			EPRConfiguration eprConf = coordinatorContext.getEprConfiguration();
-			String regAddr = eprConf.getHost() + eprConf.getRegistrationService();
-			AttributedURIType addr = new AttributedURIType();
-			addr.setValue(regAddr);
-			registrationEPR.setAddress(addr);
 			String shortId = getUniqueNum();
+			activityCoordinatorContext.setIdentifier(shortId);
+			activityCoordinatorContext.setCoordinatorContext(coordinatorContext);
 
-			ReferenceParametersType ref = new ReferenceParametersType();
-			List<Object> paras = ref.getAny();
-			PrivateInstanceType pi = new PrivateInstanceType();
-			pi.setValue(shortId);
-			JAXBUtils.addAsW3cElement(paras, PrivateInstanceType.class, pi);
-			registrationEPR.setReferenceParameters(ref);
-			activityCoordinatorContext.setRegistrationEPR(registrationEPR);
-			
-			String identifier = eprConf.getHost() + shortId;
-			activityCoordinatorContext.setIdentifier(identifier);
 			return activityCoordinatorContext;
 		case CoordinationType.WSBA:
 			break;
