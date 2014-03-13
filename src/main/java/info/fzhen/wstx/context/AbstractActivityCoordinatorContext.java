@@ -1,9 +1,5 @@
 package info.fzhen.wstx.context;
 
-import info.fzhen.wstx.util.JAXBUtils;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.apache.cxf.ws.addressing.EndpointReferenceType;

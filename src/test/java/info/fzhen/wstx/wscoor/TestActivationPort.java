@@ -18,13 +18,13 @@ public class TestActivationPort {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[]{"client-beans.xml"});
 		ActivationPortType port = (ActivationPortType)context.getBean("activation");
-		
+		System.out.println("TestActivationPort*** " + port.getClass());
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ccc.setCoordinationType(CoordinationType.WSAT);
 		CreateCoordinationContextResponseType res = port.createCoordinationContextOperation(ccc);
 		CoordinationContext coordinationContext = res.getCoordinationContext();
 		assertEquals(coordinationContext.getCoordinationType(),CoordinationType.WSAT);
-		System.out.println("TestActivationPort" + coordinationContext.getRegistrationService());
+		System.out.println("TestActivationPort*** " + coordinationContext.getRegistrationService());
 		
 		context.close();
 	}

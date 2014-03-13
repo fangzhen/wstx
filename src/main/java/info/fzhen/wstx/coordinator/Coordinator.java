@@ -6,7 +6,6 @@ import info.fzhen.wstx.context.ActivityCoordinatorContext;
 import info.fzhen.wstx.util.EPRConfiguration;
 import info.fzhen.wstx.util.JAXBUtils;
 
-import java.nio.channels.Pipe;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +13,11 @@ import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.ReferenceParametersType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
-
+/**
+ * Generalized coordinator, provide activation service and registration service.
+ * @author fangzhen
+ *
+ */
 public class Coordinator {
 	private static Coordinator instance;
 	
