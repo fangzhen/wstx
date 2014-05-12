@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>info.fzhen.wstx</groupId>
-	<artifactId>wstx</artifactId>
+	<artifactId>wstx-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>wstx</name>
 	<url>http://maven.apache.org</url>
