@@ -9,9 +9,6 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 /**
  * Activation service. 
- * TODO: It seems that we should define our own internal types corresponding to oasis types, 
- * since jaxb binding is superfluous here. Instead, the JAX-WS class that provide activation service
- * are fixed to these types.
  * @author fangzhen
  *
  */

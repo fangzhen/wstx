@@ -1,6 +1,6 @@
 package info.fzhen.wstx.coordinator;
 
-import info.fzhen.wstx.CoordinationType;
+import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.at.ATActivityCoordinatorContext;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
 import java.util.Random;
@@ -26,7 +26,7 @@ public class Coordinator {
 
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
 		switch (ccc.getCoordinationType()) {
-		case CoordinationType.WSAT:
+		case Constants.WSAT:
 			ATActivityCoordinatorContext activityCoordinatorContext;
 			activityCoordinatorContext = new ATActivityCoordinatorContext();
 			activityCoordinatorContext.setCoordinationType(ccc.getCoordinationType());
@@ -38,7 +38,7 @@ public class Coordinator {
 			activityCoordinatorContext.setCoordinatorContext(coordinatorContext);
 
 			return activityCoordinatorContext;
-		case CoordinationType.WSBA:
+		case Constants.WSBA:
 			break;
 		default:
 			break;
