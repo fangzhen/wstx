@@ -19,7 +19,6 @@ public class SoapTxOutInterceptor extends AbstractSoapInterceptor{
 	}
 	@Override
 	public void handleMessage(SoapMessage message) throws Fault {
-		// TODO Auto-generated method stub
 		
 	}
 

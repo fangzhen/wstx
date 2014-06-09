@@ -1,6 +1,8 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx.participant.at;
 
-public interface Participant2PC {
+import info.fzhen.wstx.participant.Participant;
+
+public interface Participant2PC extends Participant{
 	public Vote prepare ();
     public void commit ();
     public void rollback ();

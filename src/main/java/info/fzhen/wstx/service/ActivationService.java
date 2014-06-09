@@ -1,7 +1,7 @@
 package info.fzhen.wstx.service;
 
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
-import info.fzhen.wstx.coordinator.Coordinator;
+import info.fzhen.wstx.coordinator.CoordinatorManager;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
@@ -13,7 +13,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  *
  */
 public class ActivationService {
-	private static Coordinator coordinator = Coordinator.getInstance();
+	private static CoordinatorManager coordinator = CoordinatorManager.getInstance();
 	public CreateCoordinationContextResponseType createCoordinationContextOperation(
 			CreateCoordinationContextType ccc) {
 		ActivityCoordinatorContext coordinatorContext = coordinator.createActivityCoordinatorContext(ccc);
@@ -24,7 +24,7 @@ public class ActivationService {
 	}
 
 	/**
-	 * Activation services specific response info.--nothing
+	 * Activation services specific response info.--nothing currently
 	 * @param coordinationContext
 	 * @return
 	 */

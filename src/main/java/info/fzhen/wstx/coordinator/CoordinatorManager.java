@@ -11,15 +11,15 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  * @author fangzhen
  *
  */
-public class Coordinator {
-	private static Coordinator instance;
+public class CoordinatorManager {
+	private static CoordinatorManager instance;
 	
-	public static Coordinator getInstance() {
+	public static CoordinatorManager getInstance() {
 		return instance;
 	}
 
-	public static void setInstance(Coordinator instance) {
-		Coordinator.instance = instance;
+	public static void setInstance(CoordinatorManager instance) {
+		CoordinatorManager.instance = instance;
 	}
 
 	private CoordinatorContext coordinatorContext;
