@@ -2,13 +2,14 @@ package info.fzhen.wstx.simpleProcess;
 
 import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.HelloService;
-
+import info.fzhen.wstx.transaction.TransactionConfig;
+import info.fzhen.wstx.transaction.TransactionFactory;
+import info.fzhen.wstx.transaction.WsatTransaction;
+import info.fzhen.wstx.transaction.WsatTxManager;
+import info.fzhen.wstx.wsat.CompletionInitiatorPort;
 import javax.jws.WebService;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @WebService
@@ -22,14 +23,24 @@ public class HelloProcess implements Process{
 	public void execute() {
 		context = new ClassPathXmlApplicationContext(
 				new String[]{"client-beans.xml"});
-		helloSer = (HelloService)context.getBean("hello");
+
 		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
-		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
-		ccc.setCoordinationType(Constants.WSAT);
-		CreateCoordinationContextResponseType res = activationSer.createCoordinationContextOperation(ccc);
-		CoordinationContext coordinationContext = res.getCoordinationContext();				
-		//then send application messages with CC
+		TransactionConfig tc = new TransactionConfig();
+		tc.setActivationSer(activationSer);
+		tc.setCoordinationType(Constants.WSAT);
+		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(tc);
 		
+		transaction.begin();
+		//register WSAT completion protocol
+//		ATInitiator atInitiator = new ATInitiator();
+		
+		CompletionInitiatorPort initiator = new CompletionInitiatorPort();
+		WsatTxManager manager = WsatTxManager.getInstance();
+		manager.registerInitiator(initiator, transaction);
+
+		//then send application messages with CC
+		helloSer = (HelloService)context.getBean("hello");
+		helloSer.sayHello();
 		context.close();
 	}
 	
