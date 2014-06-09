@@ -11,8 +11,8 @@ public class RegistrationPort implements RegistrationPortType{
 
 	@Override
 	public RegisterResponseType registerOperation(RegisterType parameters) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("****RegisterResponseType#registerOperation");
+		return new RegisterResponseType();
 	}
 
 }

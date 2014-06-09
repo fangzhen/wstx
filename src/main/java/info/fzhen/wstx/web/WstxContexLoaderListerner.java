@@ -1,6 +1,6 @@
 package info.fzhen.wstx.web;
 
-import info.fzhen.wstx.coordinator.Coordinator;
+import info.fzhen.wstx.coordinator.CoordinatorManager;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,8 +16,8 @@ public class WstxContexLoaderListerner implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{"wstx.xml"});
-		Coordinator coordinator = (Coordinator)ctx.getBean("coordinator");
-		Coordinator.setInstance(coordinator);
+		CoordinatorManager coordinator = (CoordinatorManager)ctx.getBean("coordinator");
+		CoordinatorManager.setInstance(coordinator);
 		
 		ctx.close();
 	}

@@ -9,14 +9,14 @@ http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<bean id="EPRConfiguration" class="info.fzhen.wstx.util.EPRConfiguration">
-		<property name="host"><value>http://localhost:28080/wstx/services/</value></property>
-		<property name="activationService"><value>ActivationPort</value></property>
-		<property name="registrationService"><value>RegistrationPort</value></property>
+		<property name="host"><value>http://localhost:28080/wstx-coor/services/</value></property>
+		<property name="activationService"><value>activation</value></property>
+		<property name="registrationService"><value>registration</value></property>
 	</bean>
 	<bean id="coordinatorContext" class="info.fzhen.wstx.coordinator.CoordinatorContext">
 		<property name="eprConfiguration"><ref bean="EPRConfiguration"/></property>
 	</bean>
-	<bean id="coordinator" class="info.fzhen.wstx.coordinator.Coordinator">
+	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager">
 		<property name="coordinatorContext"><ref bean="coordinatorContext"></ref></property>
 	</bean>
 	
