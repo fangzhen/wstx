@@ -5,7 +5,7 @@
   <groupId>info.fzhen.wstx</groupId>
   <artifactId>wstx-participant</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>wstx-participant</name>
   <url>http://maven.apache.org</url>
