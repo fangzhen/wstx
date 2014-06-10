@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+ 
+    <jaxws:client id="activation"
+                  serviceClass="org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType"
+                  address="http://localhost:28080/wstx/services/activation" />
+    <cxf:bus>
+        <cxf:features>
+            <wsa:addressing/>
+        </cxf:features>
+    </cxf:bus>
+             
+</beans>
