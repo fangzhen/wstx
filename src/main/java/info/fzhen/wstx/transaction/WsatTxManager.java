@@ -1,19 +1,14 @@
 package info.fzhen.wstx.transaction;
 
 import info.fzhen.wstx.Constants;
+import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.util.W3CEndpointReferenceUtils;
-import info.fzhen.wstx.wsat.CompletionInitiatorPort;
 
 import javax.xml.transform.Source;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
-import org.apache.cxf.BusFactory;
-import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.frontend.ClientProxyFactoryBean;
-import org.apache.cxf.frontend.ServerFactoryBean;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.service.Service;
-import org.apache.cxf.service.factory.ReflectionServiceFactoryBean;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
@@ -46,7 +41,7 @@ public class WsatTxManager {
 		this.context = context;
 	}
 
-	public void registerInitiator(CompletionInitiatorPort initiator,
+	public void registerInitiator(ATInitiator initiator,
 			WsatTransaction transaction) {
 		transaction.setInitiator(initiator);
 //		initiator.setTransaction(transaction);

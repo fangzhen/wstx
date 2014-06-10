@@ -1,7 +1,7 @@
 package info.fzhen.wstx.transaction;
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.wsat.CompletionInitiatorPort;
+import info.fzhen.wstx.participant.at.ATInitiator;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
@@ -17,7 +17,7 @@ public class WsatTransaction extends WsTransaction {
 	private CoordinationContext coordinationContext;
 	
 	//participants
-	private CompletionInitiatorPort initiator;
+	private ATInitiator initiator;
 	
 	public WsatTransaction(){
 	}
@@ -36,7 +36,7 @@ public class WsatTransaction extends WsTransaction {
 		this.coordinationContext = coordinationContext;
 	}
 
-	public void setInitiator(CompletionInitiatorPort initiator) {
+	public void setInitiator(ATInitiator initiator) {
 		if (this.initiator != null){
 			throw new WstxRtException("Too many initiators. One is enough");
 		}
