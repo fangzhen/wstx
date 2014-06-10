@@ -1,4 +1,6 @@
-package info.fzhen.wstx.simpleProcess;
+package info.fzhen.wstx.test.simpleProcess;
+
+import info.fzhen.wstx.test.simpleProcess.HelloProcess;
 
 import org.junit.Test;
 

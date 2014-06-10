@@ -1,5 +1,4 @@
-package info.fzhen.wstx;
-
+package info.fzhen.wstx.test.services;
 
 import javax.jws.WebService;
 

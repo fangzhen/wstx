@@ -1,12 +1,13 @@
-package info.fzhen.wstx.simpleProcess;
+package info.fzhen.wstx.test.simpleProcess;
 
 import info.fzhen.wstx.Constants;
-import info.fzhen.wstx.HelloService;
+import info.fzhen.wstx.participant.at.ATInitiator;
+import info.fzhen.wstx.test.services.HelloService;
 import info.fzhen.wstx.transaction.TransactionConfig;
 import info.fzhen.wstx.transaction.TransactionFactory;
 import info.fzhen.wstx.transaction.WsatTransaction;
 import info.fzhen.wstx.transaction.WsatTxManager;
-import info.fzhen.wstx.wsat.CompletionInitiatorPort;
+
 import javax.jws.WebService;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
@@ -34,7 +35,7 @@ public class HelloProcess implements Process{
 		//register WSAT completion protocol
 //		ATInitiator atInitiator = new ATInitiator();
 		
-		CompletionInitiatorPort initiator = new CompletionInitiatorPort();
+		ATInitiator initiator = new ATInitiator();
 		WsatTxManager manager = WsatTxManager.getInstance();
 		manager.registerInitiator(initiator, transaction);
 

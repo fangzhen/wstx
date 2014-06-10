@@ -26,6 +26,8 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		</cxf:features>
 	</cxf:bus>
 	
+	<jaxws:endpoint id="helloService"
+		implementor="info.fzhen.wstx.services.HelloServiceImpl" address="/helloService" />
 	<jaxws:endpoint id="helloProcess"
 		implementor="info.fzhen.wstx.simpleProcess.HelloProcess" address="/helloProcess" />
 </beans>
