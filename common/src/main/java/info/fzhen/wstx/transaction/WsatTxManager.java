@@ -11,6 +11,7 @@ import org.apache.cxf.frontend.ClientProxyFactoryBean;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.ws.addressing.WSAddressingFeature;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
@@ -76,6 +77,7 @@ public class WsatTxManager {
 		ClientProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 		factory.setServiceClass(RegistrationPortType.class);
 		factory.setAddress(regSerCXF.getAddress().getValue());
+		factory.getFeatures().add(new WSAddressingFeature());
 		RegistrationPortType client = (RegistrationPortType) factory.create();
 		
 		client.registerOperation(reg);

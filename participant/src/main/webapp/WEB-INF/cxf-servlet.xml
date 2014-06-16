@@ -25,4 +25,6 @@ http://cxf.apache.org/schemas/jaxws.xsd">
             <wsa:addressing/>
         </cxf:features>
     </cxf:bus>
+    <jaxws:endpoint id="completionInitiator"
+		implementor="info.fzhen.wstx.wsat.CompletionInitiatorPort" address="/completionInitiator" />
 </beans>
