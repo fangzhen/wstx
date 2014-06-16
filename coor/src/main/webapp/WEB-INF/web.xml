@@ -16,7 +16,7 @@
 	<display-name>cxf</display-name>
 	
 	<listener>
-		<listener-class>info.fzhen.wstx.web.WstxContexLoaderListerner</listener-class>
+		<listener-class>info.fzhen.wstx.web.WstxContextLoaderListerner</listener-class>
 	</listener>
 	
 	<servlet>

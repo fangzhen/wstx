@@ -48,7 +48,7 @@
 				<artifactId>cxf-api</artifactId>
 				<version>${apache.cxf.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
@@ -77,46 +77,42 @@
 						<target>1.7</target>
 					</configuration>
 				</plugin>
-				
+
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>1.9</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					</configuration>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.17</version>
-					<configuration>
-						<skip>true</skip>
-					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.1</version>
 					<executions>
 						<execution>
-							<id>run-integration-test</id>
-							<phase>integration-test</phase>
+							<id>deploy-to-tomcat</id>
 							<goals>
-								<goal>test</goal>
+								<goal>redeploy</goal>
 							</goals>
-							<configuration>
-								<skip>false</skip>
-								<includes>
-									<include>**/integration/**/*.java</include>
-								</includes>
-							</configuration>
+							<phase>pre-integration-test</phase>
 						</execution>
 						<execution>
-							<id>run-test</id>
-							<phase>test</phase>
+							<id>undeploy-from-tomcat</id>
 							<goals>
-								<goal>test</goal>
+								<goal>undeploy</goal>
 							</goals>
-							<configuration>
-								<skip>false</skip>
-								<excludes>
-									<exclude>**/integration/**/*.java</exclude>
-								</excludes>
-							</configuration>
+							<phase>post-integration-test</phase>
 						</execution>
 					</executions>
 				</plugin>

@@ -19,7 +19,7 @@ http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
-
+	<import resource="classpath:wstx-parti.xml" />
 	<cxf:bus>
 		<cxf:features>
 			<wsa:addressing />
@@ -27,7 +27,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	</cxf:bus>
 	
 	<jaxws:endpoint id="helloService"
-		implementor="info.fzhen.wstx.services.HelloServiceImpl" address="/helloService" />
+		implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService" />
 	<jaxws:endpoint id="helloProcess"
-		implementor="info.fzhen.wstx.simpleProcess.HelloProcess" address="/helloProcess" />
+		implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess" />
 </beans>

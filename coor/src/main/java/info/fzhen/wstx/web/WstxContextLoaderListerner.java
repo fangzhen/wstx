@@ -5,12 +5,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class WstxContexLoaderListerner implements ServletContextListener{
+public class WstxContextLoaderListerner implements ServletContextListener{
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class HelloClient {
-	@Test
+//	@Test
 	public void testSayHello(){
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[]{"client-beans.xml"});
