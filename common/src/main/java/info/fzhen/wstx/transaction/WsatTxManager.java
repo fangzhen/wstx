@@ -5,13 +5,16 @@ import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.util.W3CEndpointReferenceUtils;
 
 import javax.xml.transform.Source;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.apache.cxf.frontend.ClientProxyFactoryBean;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.WSAddressingFeature;
+import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
@@ -79,6 +82,11 @@ public class WsatTxManager {
 		factory.setAddress(regSerCXF.getAddress().getValue());
 		factory.getFeatures().add(new WSAddressingFeature());
 		RegistrationPortType client = (RegistrationPortType) factory.create();
+		AddressingProperties maps = new AddressingPropertiesImpl();
+		maps.setTo(regSerCXF);
+		 
+		((BindingProvider)client).getRequestContext()
+		    .put("javax.xml.ws.addressing.context", maps);
 		
 		client.registerOperation(reg);
 	}
