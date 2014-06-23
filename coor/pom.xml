@@ -92,14 +92,12 @@
 						<goals>
 							<goal>redeploy</goal>
 						</goals>
-						<phase>pre-integration-test</phase>
 					</execution>
 					<execution>
 						<id>undeploy-from-tomcat</id>
 						<goals>
 							<goal>undeploy</goal>
 						</goals>
-						<phase>post-integration-test</phase>
 					</execution>
 				</executions>
 			</plugin>

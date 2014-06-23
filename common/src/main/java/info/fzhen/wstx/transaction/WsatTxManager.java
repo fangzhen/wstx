@@ -13,6 +13,7 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.WSAddressingFeature;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
@@ -86,7 +87,7 @@ public class WsatTxManager {
 		maps.setTo(regSerCXF);
 		 
 		((BindingProvider)client).getRequestContext()
-		    .put("javax.xml.ws.addressing.context", maps);
+		    .put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
 		
 		client.registerOperation(reg);
 	}

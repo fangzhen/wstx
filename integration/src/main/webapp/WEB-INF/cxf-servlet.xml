@@ -25,7 +25,29 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<wsa:addressing />
 		</cxf:features>
 	</cxf:bus>
-	
+	<bean id="abstractLoggingInterceptor" abstract="true">
+		<property name="prettyLogging" value="true" />
+	</bean>
+	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"
+		parent="abstractLoggingInterceptor" />
+	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
+		parent="abstractLoggingInterceptor" />
+
+	<cxf:bus>
+		<cxf:inInterceptors>
+			<ref bean="loggingInInterceptor" />
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<ref bean="loggingOutInterceptor" />
+		</cxf:outInterceptors>
+		<cxf:outFaultInterceptors>
+			<ref bean="loggingOutInterceptor" />
+		</cxf:outFaultInterceptors>
+		<cxf:inFaultInterceptors>
+			<ref bean="loggingInInterceptor" />
+		</cxf:inFaultInterceptors>
+	</cxf:bus>
+
 	<jaxws:endpoint id="helloService"
 		implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService" />
 	<jaxws:endpoint id="helloProcess"
