@@ -2,6 +2,11 @@ package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.util.EPRConfiguration;
 
+/**
+ * @deprecated
+ * @author fangzhen
+ *
+ */
 public class CoordinatorContext {
 	private EPRConfiguration eprConfiguration;
 

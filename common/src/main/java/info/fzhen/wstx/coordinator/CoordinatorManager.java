@@ -1,19 +1,26 @@
 package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.Constants;
-import info.fzhen.wstx.at.ATActivityCoordinatorContext;
+import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
+import info.fzhen.wstx.util.EPRConfiguration;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
+
 /**
- * Generalized coordinator, provide activation service and registration service.
+ * Coordinator Manager that manages activities of this site.
  * @author fangzhen
  *
  */
 public class CoordinatorManager {
 	private static CoordinatorManager instance;
-	
+	private Map<String, ActivityCoordinatorContext> activities = new HashMap<>();
+	private EPRConfiguration eprConfiguration;
+
 	public static CoordinatorManager getInstance() {
 		return instance;
 	}
@@ -22,21 +29,18 @@ public class CoordinatorManager {
 		CoordinatorManager.instance = instance;
 	}
 
-	private CoordinatorContext coordinatorContext;
-
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
 		switch (ccc.getCoordinationType()) {
 		case Constants.WSAT:
-			ATActivityCoordinatorContext activityCoordinatorContext;
-			activityCoordinatorContext = new ATActivityCoordinatorContext();
+			AtomicTxCoordinator activityCoordinatorContext;
+			activityCoordinatorContext = new AtomicTxCoordinator();
 			activityCoordinatorContext.setCoordinationType(ccc.getCoordinationType());
 			if (ccc.getExpires() != null){
 				activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
 			}
-			String shortId = getUniqueNum();
-			activityCoordinatorContext.setIdentifier(shortId);
-			activityCoordinatorContext.setCoordinatorContext(coordinatorContext);
-
+			String shortId = genPrivateId();
+			activityCoordinatorContext.setPrivateId(shortId);
+			activities.put(shortId, activityCoordinatorContext);
 			return activityCoordinatorContext;
 		case Constants.WSBA:
 			break;
@@ -46,17 +50,21 @@ public class CoordinatorManager {
 		return null;
 	}
 
-	private String getUniqueNum() {
+	private String genPrivateId() {
 		// TODO should ensure it to be unique. simply random
 		return ""+new Random().nextInt();
 	}
 
-	public CoordinatorContext getCoordinatorContext() {
-		return coordinatorContext;
+	public EPRConfiguration getEprConfiguration() {
+		return eprConfiguration;
 	}
 
-	public void setCoordinatorContext(CoordinatorContext coordinatorContext) {
-		this.coordinatorContext = coordinatorContext;
+	public void setEprConfiguration(EPRConfiguration eprConfiguration) {
+		this.eprConfiguration = eprConfiguration;
+	}
+	
+	public ActivityCoordinatorContext getActivity(String id){
+		return activities.get(id);
 	}
 
 }

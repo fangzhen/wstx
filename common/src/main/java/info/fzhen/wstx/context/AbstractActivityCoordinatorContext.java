@@ -1,11 +1,11 @@
 package info.fzhen.wstx.context;
 
-import java.util.List;
-
-import info.fzhen.wstx.coordinator.CoordinatorContext;
-import info.fzhen.wstx.coordinator.PrivateInstanceType;
+import info.fzhen.wstx.coordinator.CoordinatorManager;
+import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.EPRConfiguration;
 import info.fzhen.wstx.util.JAXBUtils;
+
+import java.util.List;
 
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
@@ -17,15 +17,18 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContextType.Identifier;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.Expires;
 
-public class AbstractActivityCoordinatorContext implements
+public abstract class AbstractActivityCoordinatorContext implements
 		ActivityCoordinatorContext {
-//	protected EndpointReferenceType registrationEPR;
-	protected CoordinatorContext coordinatorContext;
+	protected CoordinatorManager coordinatorManager;
 
-	protected String identifier; //identifier without host
+	protected String privateId; //privateId without host
 	protected long expires;
 	protected String coordinationType;
 
+	public AbstractActivityCoordinatorContext(){
+		this.coordinatorManager = CoordinatorManager.getInstance();
+	}
+	
 	@Override
 	public CoordinationContext buildCoordinationContext() {
 		CoordinationContext coordinationContext = new CoordinationContext();
@@ -34,18 +37,18 @@ public class AbstractActivityCoordinatorContext implements
 		e.setValue(expires);
 		coordinationContext.setExpires(e);
 
-		EPRConfiguration eprConf = coordinatorContext.getEprConfiguration();
+		EPRConfiguration eprConf = coordinatorManager.getEprConfiguration();
 
 		Identifier id = new Identifier();
-		id.setValue(eprConf.getHost() + identifier);
+		id.setValue(eprConf.getHost() + privateId);
 		coordinationContext.setIdentifier(id);
 
 		//TODO delete the output
-//		DOMSource doms = (DOMSource) EndpointReferenceUtils
-//				.convertToXML(registrationEPR);
-//		System.out.println("*********AbstractActivityCoordinatorContext"
-//				+ JAXBUtils.getStringFromDomSource(doms));
-		
+		//		DOMSource doms = (DOMSource) EndpointReferenceUtils
+		//				.convertToXML(registrationEPR);
+		//		System.out.println("*********AbstractActivityCoordinatorContext"
+		//				+ JAXBUtils.getStringFromDomSource(doms));
+
 		//TODO re-implement EndpointReferenceType to avoid cxf dependency 
 		EndpointReferenceType registrationEPR = new EndpointReferenceType();
 		String regAddr = eprConf.getHost() + eprConf.getRegistrationService();
@@ -55,9 +58,9 @@ public class AbstractActivityCoordinatorContext implements
 
 		ReferenceParametersType ref = new ReferenceParametersType();
 		List<Object> paras = ref.getAny();
-		PrivateInstanceType pi = new PrivateInstanceType();
-		pi.setValue(identifier);
-		JAXBUtils.addAsW3cElement(paras, PrivateInstanceType.class, pi);
+		PrivateIdType pi = new PrivateIdType();
+		pi.setPrivateId(privateId);
+		JAXBUtils.addAsW3cElement(paras, PrivateIdType.class, pi);
 		registrationEPR.setReferenceParameters(ref);
 
 		W3CEndpointReference w3cRegistratoiERP = new W3CEndpointReference(
@@ -66,21 +69,12 @@ public class AbstractActivityCoordinatorContext implements
 		return coordinationContext;
 	}
 
-
-	public CoordinatorContext getCoordinatorContext() {
-		return coordinatorContext;
-	}
-	
-	public void setCoordinatorContext(CoordinatorContext coordinatorContext) {
-		this.coordinatorContext = coordinatorContext;
-	}
-	
-	public String getIdentifier() {
-		return identifier;
+	public String getPrivateId() {
+		return privateId;
 	}
 
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+	public void setPrivateId(String pid) {
+		this.privateId = pid;
 	}
 
 	public long getExpires() {
@@ -98,5 +92,4 @@ public class AbstractActivityCoordinatorContext implements
 	public void setCoordinationType(String coordinationType) {
 		this.coordinationType = coordinationType;
 	}
-
 }

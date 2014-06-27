@@ -4,6 +4,7 @@ import java.io.StringWriter;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.transform.Transformer;
@@ -27,10 +28,10 @@ public class JAXBUtils {
         public String getPreferredPrefix(String namespaceUri,  
                 String suggestion, boolean requirePrefix) {  
             return "wstx";  
-        }  
-  
-          
+        }
     }
+	
+//	public static <T> T JAXBEle2RepCls(JAXBElement<T>)
 	public static <T> void addAsW3cElement(List<Object> any, Class<T> cls, T obj) {
 		try {
 			JAXBContext ctx = JAXBContext.newInstance(new Class[] { cls });

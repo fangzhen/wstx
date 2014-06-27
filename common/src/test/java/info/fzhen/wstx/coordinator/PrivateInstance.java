@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-//@XmlSeeAlso({PrivateInstanceType.class})
+//@XmlSeeAlso({PrivateIdType.class})
 public class PrivateInstance {
 	
 	@XmlAnyElement(lax = true)
