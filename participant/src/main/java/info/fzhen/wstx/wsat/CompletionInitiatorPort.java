@@ -14,7 +14,9 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	private ATInitiator initiator;
 //	@Resource
 //	WebServiceContext wsContext;
-
+	public CompletionInitiatorPort(){
+		
+	}
 	//	private WsatTransaction transaction;
 	@Override
 	public void committedOperation(Notification parameters) {

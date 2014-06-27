@@ -57,4 +57,14 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	</jaxws:endpoint>
 	<jaxws:endpoint id="registration"
 		implementor="info.fzhen.wstx.wscoor.RegistrationPort" address="/registration" />
+	
+	<bean id="EprConfig" class="info.fzhen.wstx.coor.config.JaxWsCoorEprConfig">
+		<property name="activationEp" ref="activation"/>
+		<property name="registrationEp" ref="registration"/>
+		<property name="prefix"><value>http://localhost:28080</value></property>
+	</bean> 
+	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
+		<property name="eprConfiguration"><ref bean="EprConfig"/></property>
+		<property name="instance"><ref bean="coordinator"/></property>
+	</bean>
 </beans>

@@ -3,7 +3,7 @@ package info.fzhen.wstx.coordinator;
 import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
-import info.fzhen.wstx.util.EPRConfiguration;
+import info.fzhen.wstx.coor.config.JaxWsCoorEprConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 public class CoordinatorManager {
 	private static CoordinatorManager instance;
 	private Map<String, ActivityCoordinatorContext> activities = new HashMap<>();
-	private EPRConfiguration eprConfiguration;
+	private JaxWsCoorEprConfig eprConfiguration;
 
 	public static CoordinatorManager getInstance() {
 		return instance;
@@ -55,11 +55,11 @@ public class CoordinatorManager {
 		return ""+new Random().nextInt();
 	}
 
-	public EPRConfiguration getEprConfiguration() {
+	public JaxWsCoorEprConfig getEprConfiguration() {
 		return eprConfiguration;
 	}
 
-	public void setEprConfiguration(EPRConfiguration eprConfiguration) {
+	public void setEprConfiguration(JaxWsCoorEprConfig eprConfiguration) {
 		this.eprConfiguration = eprConfiguration;
 	}
 	

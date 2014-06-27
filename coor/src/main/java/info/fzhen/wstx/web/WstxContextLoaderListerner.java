@@ -14,8 +14,8 @@ public class WstxContextLoaderListerner implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{"wstx.xml"});
-		CoordinatorManager coordinator = (CoordinatorManager)ctx.getBean("coordinator");
-		CoordinatorManager.setInstance(coordinator);
+//		CoordinatorManager coordinator = (CoordinatorManager)ctx.getBean("coordinator");
+//		CoordinatorManager.setInstance(coordinator);
 		
 		ctx.close();
 	}

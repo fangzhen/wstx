@@ -14,7 +14,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
 @WebService(endpointInterface="org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType")
 public class RegistrationPort implements RegistrationPortType{
 	@Resource
-	WebServiceContext wsContext;
+	private WebServiceContext wsContext;
 	
 	@Override
 	public RegisterResponseType registerOperation(RegisterType parameters) {

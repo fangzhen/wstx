@@ -1,8 +1,8 @@
 package info.fzhen.wstx.context;
 
+import info.fzhen.wstx.coor.config.JaxWsCoorEprConfig;
 import info.fzhen.wstx.coordinator.CoordinatorManager;
 import info.fzhen.wstx.coordinator.PrivateIdType;
-import info.fzhen.wstx.util.EPRConfiguration;
 import info.fzhen.wstx.util.JAXBUtils;
 
 import java.util.List;
@@ -37,10 +37,10 @@ public abstract class AbstractActivityCoordinatorContext implements
 		e.setValue(expires);
 		coordinationContext.setExpires(e);
 
-		EPRConfiguration eprConf = coordinatorManager.getEprConfiguration();
+		JaxWsCoorEprConfig eprConf = coordinatorManager.getEprConfiguration();
 
 		Identifier id = new Identifier();
-		id.setValue(eprConf.getHost() + privateId);
+		id.setValue(eprConf.getPrefix() + "/" + privateId);
 		coordinationContext.setIdentifier(id);
 
 		//TODO delete the output
@@ -51,7 +51,7 @@ public abstract class AbstractActivityCoordinatorContext implements
 
 		//TODO re-implement EndpointReferenceType to avoid cxf dependency 
 		EndpointReferenceType registrationEPR = new EndpointReferenceType();
-		String regAddr = eprConf.getHost() + eprConf.getRegistrationService();
+		String regAddr = eprConf.getRegistrationService();
 		AttributedURIType addr = new AttributedURIType();
 		addr.setValue(regAddr);
 		registrationEPR.setAddress(addr);

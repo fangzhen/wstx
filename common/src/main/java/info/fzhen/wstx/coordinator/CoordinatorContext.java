@@ -1,6 +1,6 @@
 package info.fzhen.wstx.coordinator;
 
-import info.fzhen.wstx.util.EPRConfiguration;
+import info.fzhen.wstx.coor.config.JaxWsCoorEprConfig;
 
 /**
  * @deprecated
@@ -8,13 +8,13 @@ import info.fzhen.wstx.util.EPRConfiguration;
  *
  */
 public class CoordinatorContext {
-	private EPRConfiguration eprConfiguration;
+	private JaxWsCoorEprConfig eprConfiguration;
 
-	public EPRConfiguration getEprConfiguration() {
+	public JaxWsCoorEprConfig getEprConfiguration() {
 		return eprConfiguration;
 	}
 
-	public void setEprConfiguration(EPRConfiguration eprConfiguration) {
+	public void setEprConfiguration(JaxWsCoorEprConfig eprConfiguration) {
 		this.eprConfiguration = eprConfiguration;
 	}
 }
