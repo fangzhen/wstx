@@ -1,6 +1,6 @@
-package info.fzhen.wstx.coor.config;
+package info.fzhen.wstx.config;
 
-public interface CoorEprConfig {
+public interface CoorEprConfig extends EprConfig{
 
 	/**
 	 * Returns registration service address

@@ -1,6 +1,6 @@
 package info.fzhen.wstx.context;
 
-import info.fzhen.wstx.coor.config.JaxWsCoorEprConfig;
+import info.fzhen.wstx.config.CoorEprConfig;
 import info.fzhen.wstx.coordinator.CoordinatorManager;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.JAXBUtils;
@@ -37,7 +37,7 @@ public abstract class AbstractActivityCoordinatorContext implements
 		e.setValue(expires);
 		coordinationContext.setExpires(e);
 
-		JaxWsCoorEprConfig eprConf = coordinatorManager.getEprConfiguration();
+		CoorEprConfig eprConf = coordinatorManager.getEprConfiguration();
 
 		Identifier id = new Identifier();
 		id.setValue(eprConf.getPrefix() + "/" + privateId);

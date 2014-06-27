@@ -1,6 +1,7 @@
 package info.fzhen.wstx.transaction;
 
 import info.fzhen.wstx.Constants;
+import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.util.W3CEndpointReferenceUtils;
 
@@ -21,29 +22,21 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
 
 /**
- * Global transaction manager of the site.
+ * Global transaction manager of the site. It also holds global context.
  * 
  * @author fangzhen
  * 
  */
 public class WsatTxManager {
-	private static WsatTxManager instance = new WsatTxManager();
-	private TxMgrContext context;
-
+	private static WsatTxManager instance;
+	private ATPartEprConfig eprConfiguration;
+	
 	public static WsatTxManager getInstance() {
 		return instance;
 	}
 
 	public static void setInstance(WsatTxManager instance) {
 		WsatTxManager.instance = instance;
-	}
-
-	public TxMgrContext getContext() {
-		return context;
-	}
-
-	public void setContext(TxMgrContext context) {
-		this.context = context;
 	}
 
 	public void registerInitiator(ATInitiator initiator,
@@ -62,10 +55,9 @@ public class WsatTxManager {
 //		sf.setBus(BusFactory.getDefaultBus());
 //		Service service = sf.create();
 
-		//TODO:
 		EndpointReferenceType initiatorEprCXF = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();
-		addr.setValue("http://localhost:28082/services/CompletionInitiator");
+		addr.setValue(eprConfiguration.getInitiatorAddress());
 		initiatorEprCXF.setAddress(addr);
 		Source src = EndpointReferenceUtils.convertToXML(initiatorEprCXF);
 		W3CEndpointReference initiatorEpr = new W3CEndpointReference(src);
@@ -90,5 +82,9 @@ public class WsatTxManager {
 		    .put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
 		
 		client.registerOperation(reg);
+	}
+
+	public void setEprConfiguration(ATPartEprConfig eprConfig) {
+		this.eprConfiguration = eprConfig;
 	}
 }

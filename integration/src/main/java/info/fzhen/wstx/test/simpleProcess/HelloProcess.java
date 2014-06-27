@@ -33,7 +33,6 @@ public class HelloProcess implements Process{
 		
 		transaction.begin();
 		//register WSAT completion protocol
-//		ATInitiator atInitiator = new ATInitiator();
 		
 		ATInitiator initiator = new ATInitiator();
 		WsatTxManager manager = WsatTxManager.getInstance();
