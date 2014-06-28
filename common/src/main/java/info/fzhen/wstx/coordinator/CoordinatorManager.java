@@ -3,6 +3,7 @@ package info.fzhen.wstx.coordinator;
 import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.config.CoorEprConfig;
+import info.fzhen.wstx.config.EprConfig;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
 
 import java.util.HashMap;
@@ -18,8 +19,15 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  */
 public class CoordinatorManager {
 	private static CoordinatorManager instance;
+	/**
+	 * Activities managered by this coordinator, private id as key.
+	 */
 	private Map<String, ActivityCoordinatorContext> activities = new HashMap<>();
-	private CoorEprConfig eprConfiguration;
+	private CoorEprConfig coorEprConfiguration;
+	/**
+	 * Coordinator Eprs of different coordinator type.
+	 */
+	private Map<String, EprConfig> typeCoorEprConfigs = new HashMap<>();
 
 	public static CoordinatorManager getInstance() {
 		return instance;
@@ -40,6 +48,7 @@ public class CoordinatorManager {
 			}
 			String shortId = genPrivateId();
 			activityCoordinatorContext.setPrivateId(shortId);
+			//TODO initiate activityCoordinatorContext
 			activities.put(shortId, activityCoordinatorContext);
 			return activityCoordinatorContext;
 		case Constants.WSBA:
@@ -55,16 +64,23 @@ public class CoordinatorManager {
 		return ""+new Random().nextInt();
 	}
 
-	public CoorEprConfig getEprConfiguration() {
-		return eprConfiguration;
+	public CoorEprConfig getCoorEprConfiguration() {
+		return coorEprConfiguration;
 	}
 
-	public void setEprConfiguration(CoorEprConfig eprConfiguration) {
-		this.eprConfiguration = eprConfiguration;
+	public void setCoorEprConfiguration(CoorEprConfig eprConfiguration) {
+		this.coorEprConfiguration = eprConfiguration;
 	}
 	
 	public ActivityCoordinatorContext getActivity(String id){
 		return activities.get(id);
+	}
+	
+	public EprConfig getTypeCoorEprConfig(String type){
+		return typeCoorEprConfigs.get(type);
+	}
+	public void setTypeCoorEprConfigs(Map<String, EprConfig> typeCoorEprConfigs) {
+		this.typeCoorEprConfigs = typeCoorEprConfigs;
 	}
 
 }

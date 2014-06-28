@@ -37,7 +37,7 @@ public abstract class AbstractActivityCoordinatorContext implements
 		e.setValue(expires);
 		coordinationContext.setExpires(e);
 
-		CoorEprConfig eprConf = coordinatorManager.getEprConfiguration();
+		CoorEprConfig eprConf = coordinatorManager.getCoorEprConfiguration();
 
 		Identifier id = new Identifier();
 		id.setValue(eprConf.getPrefix() + "/" + privateId);

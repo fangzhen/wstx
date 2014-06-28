@@ -55,6 +55,8 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		
 	<bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
 		<property name="initiatorEp" ref="completionInitiator"/>
+		<property name="durable2PcParticipantEp" ref="durable2PcParticipant" />
+		<property name="volatile2PcParticipantEp" ref="volatile2PcParticipant" />
 		<property name="prefix"><value>http://localhost:28082</value></property>
 	</bean> 
 	<bean id="atManager" class="info.fzhen.wstx.transaction.WsatTxManager" scope="singleton">

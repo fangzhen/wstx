@@ -57,14 +57,29 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	</jaxws:endpoint>
 	<jaxws:endpoint id="registration"
 		implementor="info.fzhen.wstx.wscoor.RegistrationPort" address="/registration" />
+
+	<jaxws:endpoint id="atCoordinator"
+		implementor="info.fzhen.wstx.wsat.AtCoordinatorPort" address="/atCoordinator" />
+	<jaxws:endpoint id="atCompCoordinator"
+		implementor="info.fzhen.wstx.wsat.CompletionCoordinatorPort" address="/atCompCoordinator" />
 	
-	<bean id="EprConfig" class="info.fzhen.wstx.config.JaxWsCoorEprConfig">
+	<bean id="coorEprConfig" class="info.fzhen.wstx.config.JaxWsCoorEprConfig">
 		<property name="activationEp" ref="activation"/>
 		<property name="registrationEp" ref="registration"/>
 		<property name="prefix"><value>http://localhost:28080</value></property>
 	</bean> 
+	<bean id="atCoorEprConfig" class="info.fzhen.wstx.config.JaxWsAtCoorEprConfig">
+		<property name="atCompletionCoorEp" ref="atCompCoordinator"/>
+		<property name="at2PcCoorEp" ref="atCoordinator"/>
+		<property name="prefix"><value>http://localhost:28080</value></property>
+	</bean>
 	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
-		<property name="eprConfiguration"><ref bean="EprConfig"/></property>
+		<property name="coorEprConfiguration"><ref bean="coorEprConfig"/></property>
 		<property name="instance"><ref bean="coordinator"/></property>
+		<property name="typeCoorEprConfigs">
+		<map>
+			<entry key="http://docs.oasis-open.org/ws-tx/wsat/2006/06"><ref bean="atCoorEprConfig"/> </entry>
+		</map>
+		</property>
 	</bean>
 </beans>

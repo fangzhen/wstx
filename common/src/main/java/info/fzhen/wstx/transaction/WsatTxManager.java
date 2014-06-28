@@ -42,18 +42,6 @@ public class WsatTxManager {
 	public void registerInitiator(ATInitiator initiator,
 			WsatTransaction transaction) {
 		transaction.setInitiator(initiator);
-//		initiator.setTransaction(transaction);
-
-//		ServerFactoryBean sf = new ServerFactoryBean();
-//		sf.setServiceClass(initiator.getClass());
-//		sf.setAddress("http://localhost:28082/CompletionInitiator");
-//		sf.setServiceBean(initiator);
-//		Server server = sf.create();
-		
-//		ReflectionServiceFactoryBean sf = new ReflectionServiceFactoryBean();
-//		sf.setServiceClass(initiator.getClass());
-//		sf.setBus(BusFactory.getDefaultBus());
-//		Service service = sf.create();
 
 		EndpointReferenceType initiatorEprCXF = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();

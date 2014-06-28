@@ -7,7 +7,11 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
-
+/**
+ * Atomic transaction coordinator instance. 
+ * @author fangzhen
+ *
+ */
 public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 	private W3CEndpointReference initiatorEpr;
 	private W3CEndpointReference coorInitiatorEpr;
