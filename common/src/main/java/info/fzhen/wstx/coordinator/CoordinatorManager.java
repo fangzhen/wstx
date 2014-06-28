@@ -38,25 +38,18 @@ public class CoordinatorManager {
 	}
 
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
+		String pirvateId = genPrivateId();
+		ActivityCoordinatorContext cctx = null;
 		switch (ccc.getCoordinationType()) {
 		case Constants.WSAT:
-			AtomicTxCoordinator activityCoordinatorContext;
-			activityCoordinatorContext = new AtomicTxCoordinator();
-			activityCoordinatorContext.setCoordinationType(ccc.getCoordinationType());
-			if (ccc.getExpires() != null){
-				activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
-			}
-			String shortId = genPrivateId();
-			activityCoordinatorContext.setPrivateId(shortId);
-			//TODO initiate activityCoordinatorContext
-			activities.put(shortId, activityCoordinatorContext);
-			return activityCoordinatorContext;
+			cctx = AtomicTxCoordinator.createInstance(ccc, pirvateId);
 		case Constants.WSBA:
 			break;
 		default:
 			break;
 		}
-		return null;
+		activities.put(pirvateId, cctx);
+		return cctx;
 	}
 
 	private String genPrivateId() {
@@ -76,8 +69,9 @@ public class CoordinatorManager {
 		return activities.get(id);
 	}
 	
-	public EprConfig getTypeCoorEprConfig(String type){
-		return typeCoorEprConfigs.get(type);
+	@SuppressWarnings("unchecked")
+	public <T extends EprConfig> T getTypeCoorEprConfig(String type){
+		return (T)typeCoorEprConfigs.get(type);
 	}
 	public void setTypeCoorEprConfigs(Map<String, EprConfig> typeCoorEprConfigs) {
 		this.typeCoorEprConfigs = typeCoorEprConfigs;

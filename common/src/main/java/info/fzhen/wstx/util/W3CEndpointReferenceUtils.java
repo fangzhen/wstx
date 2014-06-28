@@ -4,11 +4,12 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
+import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.w3c.dom.Node;
 
 public class W3CEndpointReferenceUtils {
@@ -36,9 +37,21 @@ public class W3CEndpointReferenceUtils {
 		}
 		return cxfEpr;
 	}
-}
-
-@XmlRootElement(name="EndpointReference")
-class EndpointReferenceTypeWrapper extends EndpointReferenceType{
-	
+	/**
+	 * 
+	 * @param address
+	 * @param paras referenced parameters
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static W3CEndpointReference createInstance(String address, Object paras){
+		EndpointReferenceType cxfEpr = new EndpointReferenceType();
+		AttributedURIType addr = new AttributedURIType();
+		cxfEpr.setAddress(addr);
+		addr.setValue(address);
+		JAXBUtils.addAsW3cElement(cxfEpr.getAny(), (Class<Object>)paras.getClass(), paras);
+		W3CEndpointReference w3cEpr = new W3CEndpointReference(
+				EndpointReferenceUtils.convertToXML(cxfEpr));
+		return w3cEpr;
+	}
 }
