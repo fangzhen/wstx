@@ -5,10 +5,18 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
+import org.apache.cxf.frontend.ClientProxyFactoryBean;
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import org.apache.cxf.ws.addressing.ReferenceParametersType;
+import org.apache.cxf.ws.addressing.WSAddressingFeature;
+import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.w3c.dom.Node;
 
@@ -37,6 +45,26 @@ public class EprUtils {
 		}
 		return cxfEpr;
 	}
+	/**
+	 * Create client proxy with ws-addressing feature.
+	 * @param clazz
+	 * @param epr
+	 * @return
+	 */
+	public static <T> T createWsaddrClientProxy(Class<T> clazz, EndpointReferenceType epr){
+		ClientProxyFactoryBean factory = new JaxWsProxyFactoryBean();
+		factory.setServiceClass(clazz);
+		factory.setAddress(epr.getAddress().getValue());
+		factory.getFeatures().add(new WSAddressingFeature());
+		@SuppressWarnings("unchecked")
+		T client = (T) factory.create();
+		AddressingProperties maps = new AddressingPropertiesImpl();
+		maps.setTo(epr);
+
+		((BindingProvider)client).getRequestContext()
+		    .put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
+		return client;
+	}
 	
 	/**
 	 * Create Instance of {@link EndpointReferenceType}
@@ -49,8 +77,10 @@ public class EprUtils {
 		EndpointReferenceType cxfEpr = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();
 		cxfEpr.setAddress(addr);
+		ReferenceParametersType refParas = new ReferenceParametersType();
+		cxfEpr.setReferenceParameters(refParas);
 		addr.setValue(address);
-		JAXBUtils.addAsW3cElement(cxfEpr.getAny(), (Class<Object>)paras.getClass(), paras);
+		JAXBUtils.addAsW3cElement(cxfEpr.getReferenceParameters().getAny(), (Class<Object>)paras.getClass(), paras);
 		return cxfEpr;
 	}
 	

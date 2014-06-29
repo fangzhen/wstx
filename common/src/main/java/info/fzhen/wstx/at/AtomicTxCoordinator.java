@@ -27,7 +27,8 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 	private List<EndpointReferenceType> volatile2PcPrtcpEprs;
 	
 	/**
-	 * EPRs of protocol coordinators
+	 * EPRs of protocol coordinators 
+	 * TODO: are these necessary?
 	 */
 	private EndpointReferenceType coorInitiatorEpr;
 	private EndpointReferenceType coor2PcEpr;

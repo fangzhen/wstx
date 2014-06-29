@@ -3,17 +3,10 @@ package info.fzhen.wstx.transaction;
 import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.participant.at.ATInitiator;
+import info.fzhen.wstx.util.EprUtils;
 
-import javax.xml.ws.BindingProvider;
-
-import org.apache.cxf.frontend.ClientProxyFactoryBean;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.ws.addressing.JAXWSAConstants;
-import org.apache.cxf.ws.addressing.WSAddressingFeature;
-import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
@@ -47,22 +40,11 @@ public class WsatTxManager {
 		RegisterType reg = new RegisterType();
 		reg.setParticipantProtocolService(initiatorEprCXF);
 		reg.setProtocolIdentifier(Constants.WSATType.COMPLETION_PROTOCOL);
-
 		EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
 				.getRegistrationService();
-		
-		ClientProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-		factory.setServiceClass(RegistrationPortType.class);
-		factory.setAddress(regSerCXF.getAddress().getValue());
-		factory.getFeatures().add(new WSAddressingFeature());
-		RegistrationPortType client = (RegistrationPortType) factory.create();
-		AddressingProperties maps = new AddressingPropertiesImpl();
-		maps.setTo(regSerCXF);
-		 
-		((BindingProvider)client).getRequestContext()
-		    .put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
-		
+		RegistrationPortType client = EprUtils.createWsaddrClientProxy(RegistrationPortType.class, regSerCXF);
 		RegisterResponseType response = client.registerOperation(reg);
+		
 		EndpointReferenceType coorInitiatorEpr = response.getCoordinatorProtocolService();
 		transaction.setCoorInitiatorEpr(coorInitiatorEpr);
 	}

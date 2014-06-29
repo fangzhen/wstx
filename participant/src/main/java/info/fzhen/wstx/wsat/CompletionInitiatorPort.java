@@ -12,14 +12,16 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 @WebService
 public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	private ATInitiator initiator;
-//	@Resource
-//	WebServiceContext wsContext;
+	@Resource
+	WebServiceContext wsContext;
 	public CompletionInitiatorPort(){
 		
 	}
 	//	private WsatTransaction transaction;
 	@Override
 	public void committedOperation(Notification parameters) {
+		//TODO:
+		System.out.println("successfully committed");
 	}
 
 	@Override
