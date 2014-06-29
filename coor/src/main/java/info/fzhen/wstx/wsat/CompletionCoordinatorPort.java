@@ -2,20 +2,19 @@ package info.fzhen.wstx.wsat;
 
 import javax.jws.WebService;
 
-import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionInitiatorPortType;
+import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
 @WebService
-public class CompletionCoordinatorPort implements CompletionInitiatorPortType{
+public class CompletionCoordinatorPort implements CompletionCoordinatorPortType{
 
 	@Override
-	public void committedOperation(Notification parameters) {
-		
+	public void commitOperation(Notification parameters) {
+	
 	}
 
 	@Override
-	public void abortedOperation(Notification parameters) {
-		
+	public void rollbackOperation(Notification parameters) {
+				
 	}
-
 }

@@ -1,5 +1,7 @@
 package info.fzhen.wstx.transaction;
 
+import javax.xml.ws.wsaddressing.W3CEndpointReference;
+
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.participant.at.ATInitiator;
 
@@ -16,7 +18,10 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 public class WsatTransaction extends WsTransaction {
 	private CoordinationContext coordinationContext;
 	
-	//participants
+	/** Protocol coordinator service */
+	private W3CEndpointReference coorInitiatorEpr;
+	
+	/**participants TODO: are they necessary?*/
 	private ATInitiator initiator;
 	
 	public WsatTransaction(){
@@ -41,5 +46,11 @@ public class WsatTransaction extends WsTransaction {
 			throw new WstxRtException("Too many initiators. One is enough");
 		}
 		this.initiator = initiator;		
+	}
+	public void setCoorInitiatorEpr(W3CEndpointReference coorInitiatorEpr) {
+		this.coorInitiatorEpr = coorInitiatorEpr;
+	}
+	public void commit() {
+		
 	}
 }

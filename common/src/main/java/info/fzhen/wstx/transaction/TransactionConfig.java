@@ -5,6 +5,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 public class TransactionConfig {
 	private ActivationPortType activationSer;
 	private String coordinationType;
+	
 	public ActivationPortType getActivationSer() {
 		return activationSer;
 	}

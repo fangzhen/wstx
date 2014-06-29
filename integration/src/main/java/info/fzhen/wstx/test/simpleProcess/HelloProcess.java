@@ -41,6 +41,8 @@ public class HelloProcess implements Process{
 		//then send application messages with CC
 		helloSer = (HelloService)context.getBean("hello");
 		helloSer.sayHello();
+		
+		transaction.commit();
 		context.close();
 	}
 	

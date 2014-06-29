@@ -18,6 +18,7 @@ import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.WSAddressingFeature;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
 
@@ -69,7 +70,9 @@ public class WsatTxManager {
 		((BindingProvider)client).getRequestContext()
 		    .put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
 		
-		client.registerOperation(reg);
+		RegisterResponseType response = client.registerOperation(reg);
+		W3CEndpointReference coorInitiatorEpr = response.getCoordinatorProtocolService();
+		transaction.setCoorInitiatorEpr(coorInitiatorEpr);
 	}
 
 	public void setEprConfiguration(ATPartEprConfig eprConfig) {
