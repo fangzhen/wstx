@@ -3,11 +3,8 @@ package info.fzhen.wstx.transaction;
 import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.participant.at.ATInitiator;
-import info.fzhen.wstx.util.W3CEndpointReferenceUtils;
 
-import javax.xml.transform.Source;
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.apache.cxf.frontend.ClientProxyFactoryBean;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
@@ -17,7 +14,6 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.WSAddressingFeature;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
-import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
@@ -48,16 +44,12 @@ public class WsatTxManager {
 		AttributedURIType addr = new AttributedURIType();
 		addr.setValue(eprConfiguration.getInitiatorAddress());
 		initiatorEprCXF.setAddress(addr);
-		Source src = EndpointReferenceUtils.convertToXML(initiatorEprCXF);
-		W3CEndpointReference initiatorEpr = new W3CEndpointReference(src);
-
 		RegisterType reg = new RegisterType();
-		reg.setParticipantProtocolService(initiatorEpr);
+		reg.setParticipantProtocolService(initiatorEprCXF);
 		reg.setProtocolIdentifier(Constants.WSATType.COMPLETION_PROTOCOL);
 
-		W3CEndpointReference regSer = transaction.getCoordinationContext()
+		EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
 				.getRegistrationService();
-		EndpointReferenceType regSerCXF = W3CEndpointReferenceUtils.convertToCXFEpr(regSer);
 		
 		ClientProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 		factory.setServiceClass(RegistrationPortType.class);
@@ -71,7 +63,7 @@ public class WsatTxManager {
 		    .put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
 		
 		RegisterResponseType response = client.registerOperation(reg);
-		W3CEndpointReference coorInitiatorEpr = response.getCoordinatorProtocolService();
+		EndpointReferenceType coorInitiatorEpr = response.getCoordinatorProtocolService();
 		transaction.setCoorInitiatorEpr(coorInitiatorEpr);
 	}
 

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.namespace.QName;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 
 /**
@@ -67,7 +67,7 @@ public class CoordinationContextType {
     @XmlSchemaType(name = "anyURI")
     protected String coordinationType;
     @XmlElement(name = "RegistrationService", required = true)
-    protected W3CEndpointReference registrationService;
+    protected EndpointReferenceType registrationService;
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
@@ -148,10 +148,10 @@ public class CoordinationContextType {
      * 
      * @return
      *     possible object is
-     *     {@link W3CEndpointReference }
+     *     {@link EndpointReferenceType }
      *     
      */
-    public W3CEndpointReference getRegistrationService() {
+    public EndpointReferenceType getRegistrationService() {
         return registrationService;
     }
 
@@ -160,10 +160,10 @@ public class CoordinationContextType {
      * 
      * @param value
      *     allowed object is
-     *     {@link W3CEndpointReference }
+     *     {@link EndpointReferenceType }
      *     
      */
-    public void setRegistrationService(W3CEndpointReference value) {
+    public void setRegistrationService(EndpointReferenceType value) {
         this.registrationService = value;
     }
 

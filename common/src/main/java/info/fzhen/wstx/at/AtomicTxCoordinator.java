@@ -4,12 +4,12 @@ import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.config.AtCoorEprConfig;
 import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
 import info.fzhen.wstx.coordinator.PrivateIdType;
-import info.fzhen.wstx.util.W3CEndpointReferenceUtils;
+import info.fzhen.wstx.util.EprUtils;
 
 import java.util.List;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
@@ -22,15 +22,15 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 	/**
 	 * EPRs of protocol participants
 	 */
-	private W3CEndpointReference initiatorEpr;
-	private List<W3CEndpointReference> durable2PcPrtcpEprs;
-	private List<W3CEndpointReference> volatile2PcPrtcpEprs;
+	private EndpointReferenceType initiatorEpr;
+	private List<EndpointReferenceType> durable2PcPrtcpEprs;
+	private List<EndpointReferenceType> volatile2PcPrtcpEprs;
 	
 	/**
 	 * EPRs of protocol coordinators
 	 */
-	private W3CEndpointReference coorInitiatorEpr;
-	private W3CEndpointReference coor2PcEpr;
+	private EndpointReferenceType coorInitiatorEpr;
+	private EndpointReferenceType coor2PcEpr;
 	
 	/**
 	 * Factory method that create new instance of Atomic Tx.
@@ -52,15 +52,15 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 	private void initiateCoorEprs() {
 		PrivateIdType pit = new PrivateIdType(privateId);
 		String addr = coordinatorManager.<AtCoorEprConfig>getTypeCoorEprConfig(coordinationType).getAtCompletionCoorAddress();
-		coorInitiatorEpr = W3CEndpointReferenceUtils.createInstance(addr, pit);
+		coorInitiatorEpr = EprUtils.createCxfEprInstance(addr, pit);
 		addr =  coordinatorManager.<AtCoorEprConfig>getTypeCoorEprConfig(coordinationType).getAt2PcCoorAddress();
-		coor2PcEpr = W3CEndpointReferenceUtils.createInstance(addr, pit);
+		coor2PcEpr = EprUtils.createCxfEprInstance(addr, pit);
 	}
 
 	@Override
 	public RegisterResponseType register(RegisterType registerPara) {
 		String protocolId = registerPara.getProtocolIdentifier();
-		W3CEndpointReference pEpr = registerPara.getParticipantProtocolService();
+		EndpointReferenceType pEpr = registerPara.getParticipantProtocolService();
 		RegisterResponseType response = new RegisterResponseType();
 		switch (protocolId) {
 		case Constants.WSATType.COMPLETION_PROTOCOL:
@@ -81,19 +81,19 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 		return response;
 	}
 
-	public W3CEndpointReference getInitiatorEpr() {
+	public EndpointReferenceType getInitiatorEpr() {
 		return initiatorEpr;
 	}
 
-	public void setInitiatorEpr(W3CEndpointReference initiatorEpr) {
+	public void setInitiatorEpr(EndpointReferenceType initiatorEpr) {
 		this.initiatorEpr = initiatorEpr;
 	}
 
-	public W3CEndpointReference getCoorInitiatorEpr() {
+	public EndpointReferenceType getCoorInitiatorEpr() {
 		return coorInitiatorEpr;
 	}
 
-	public void setCoorInitiatorEpr(W3CEndpointReference coorInitiatorEpr) {
+	public void setCoorInitiatorEpr(EndpointReferenceType coorInitiatorEpr) {
 		this.coorInitiatorEpr = coorInitiatorEpr;
 	}
 

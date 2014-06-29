@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
     org.oasis_open.docs.ws_tx.wscoor._2006._06.ObjectFactory.class,
-    org.w3._2005._08.addressing.ObjectFactory.class
+    org.apache.cxf.ws.addressing.ObjectFactory.class
 })
 public interface RegistrationPortType {
 

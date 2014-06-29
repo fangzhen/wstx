@@ -12,7 +12,7 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.w3c.dom.Node;
 
-public class W3CEndpointReferenceUtils {
+public class EprUtils {
 	/**
 	 * Convert a {@link W3cEndpointReference} to {@link EndpointReferenceType}
 	 * @param w3cEpr
@@ -37,19 +37,31 @@ public class W3CEndpointReferenceUtils {
 		}
 		return cxfEpr;
 	}
+	
 	/**
-	 * 
+	 * Create Instance of {@link EndpointReferenceType}
 	 * @param address
 	 * @param paras referenced parameters
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static W3CEndpointReference createInstance(String address, Object paras){
+	public static EndpointReferenceType createCxfEprInstance(String address, Object paras){
 		EndpointReferenceType cxfEpr = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();
 		cxfEpr.setAddress(addr);
 		addr.setValue(address);
 		JAXBUtils.addAsW3cElement(cxfEpr.getAny(), (Class<Object>)paras.getClass(), paras);
+		return cxfEpr;
+	}
+	
+	/**
+	 * Create Instance of {@link W3CEndpointReference}
+	 * @param address
+	 * @param paras referenced parameters
+	 * @return
+	 */
+	public static W3CEndpointReference createW3CEprInstance(String address, Object paras){
+		EndpointReferenceType cxfEpr = createCxfEprInstance(address, paras);
 		W3CEndpointReference w3cEpr = new W3CEndpointReference(
 				EndpointReferenceUtils.convertToXML(cxfEpr));
 		return w3cEpr;

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
 
@@ -45,7 +45,7 @@ import org.w3c.dom.Element;
 public class RegisterResponseType {
 
     @XmlElement(name = "CoordinatorProtocolService", required = true)
-    protected W3CEndpointReference coordinatorProtocolService;
+    protected EndpointReferenceType coordinatorProtocolService;
     @XmlAnyElement(lax = true)
     protected List<Object> any;
     @XmlAnyAttribute
@@ -56,10 +56,10 @@ public class RegisterResponseType {
      * 
      * @return
      *     possible object is
-     *     {@link W3CEndpointReference }
+     *     {@link EndpointReferenceType }
      *     
      */
-    public W3CEndpointReference getCoordinatorProtocolService() {
+    public EndpointReferenceType getCoordinatorProtocolService() {
         return coordinatorProtocolService;
     }
 
@@ -68,10 +68,10 @@ public class RegisterResponseType {
      * 
      * @param value
      *     allowed object is
-     *     {@link W3CEndpointReference }
+     *     {@link EndpointReferenceType }
      *     
      */
-    public void setCoordinatorProtocolService(W3CEndpointReference value) {
+    public void setCoordinatorProtocolService(EndpointReferenceType value) {
         this.coordinatorProtocolService = value;
     }
 

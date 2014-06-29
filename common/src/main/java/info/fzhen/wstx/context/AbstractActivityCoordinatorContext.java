@@ -7,12 +7,9 @@ import info.fzhen.wstx.util.JAXBUtils;
 
 import java.util.List;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.ReferenceParametersType;
-import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContextType.Identifier;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.Expires;
@@ -63,9 +60,9 @@ public abstract class AbstractActivityCoordinatorContext implements
 		JAXBUtils.addAsW3cElement(paras, PrivateIdType.class, pi);
 		registrationEPR.setReferenceParameters(ref);
 
-		W3CEndpointReference w3cRegistratoiERP = new W3CEndpointReference(
-				EndpointReferenceUtils.convertToXML(registrationEPR));
-		coordinationContext.setRegistrationService(w3cRegistratoiERP);
+//		EndpointReferenceType w3cRegistratoiERP = new EndpointReferenceType(
+//				EndpointReferenceUtils.convertToXML(registrationEPR));
+		coordinationContext.setRegistrationService(registrationEPR);
 		return coordinationContext;
 	}
 

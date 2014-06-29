@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
 
@@ -51,7 +51,7 @@ public class RegisterType {
     @XmlSchemaType(name = "anyURI")
     protected String protocolIdentifier;
     @XmlElement(name = "ParticipantProtocolService", required = true)
-    protected W3CEndpointReference participantProtocolService;
+    protected EndpointReferenceType participantProtocolService;
     @XmlAnyElement(lax = true)
     protected List<Object> any;
     @XmlAnyAttribute
@@ -86,10 +86,10 @@ public class RegisterType {
      * 
      * @return
      *     possible object is
-     *     {@link W3CEndpointReference }
+     *     {@link EndpointReferenceType }
      *     
      */
-    public W3CEndpointReference getParticipantProtocolService() {
+    public EndpointReferenceType getParticipantProtocolService() {
         return participantProtocolService;
     }
 
@@ -98,10 +98,10 @@ public class RegisterType {
      * 
      * @param value
      *     allowed object is
-     *     {@link W3CEndpointReference }
+     *     {@link EndpointReferenceType }
      *     
      */
-    public void setParticipantProtocolService(W3CEndpointReference value) {
+    public void setParticipantProtocolService(EndpointReferenceType value) {
         this.participantProtocolService = value;
     }
 

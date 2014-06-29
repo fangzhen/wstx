@@ -1,6 +1,6 @@
 package info.fzhen.wstx.transaction;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.participant.at.ATInitiator;
@@ -19,7 +19,7 @@ public class WsatTransaction extends WsTransaction {
 	private CoordinationContext coordinationContext;
 	
 	/** Protocol coordinator service */
-	private W3CEndpointReference coorInitiatorEpr;
+	private EndpointReferenceType coorInitiatorEpr;
 	
 	/**participants TODO: are they necessary?*/
 	private ATInitiator initiator;
@@ -47,7 +47,7 @@ public class WsatTransaction extends WsTransaction {
 		}
 		this.initiator = initiator;		
 	}
-	public void setCoorInitiatorEpr(W3CEndpointReference coorInitiatorEpr) {
+	public void setCoorInitiatorEpr(EndpointReferenceType coorInitiatorEpr) {
 		this.coorInitiatorEpr = coorInitiatorEpr;
 	}
 	public void commit() {
