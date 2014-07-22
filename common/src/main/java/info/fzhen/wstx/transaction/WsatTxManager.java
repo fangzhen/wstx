@@ -1,6 +1,6 @@
 package info.fzhen.wstx.transaction;
 
-import info.fzhen.wstx.Constants;
+import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.util.EprUtils;
@@ -39,7 +39,7 @@ public class WsatTxManager {
 		initiatorEprCXF.setAddress(addr);
 		RegisterType reg = new RegisterType();
 		reg.setParticipantProtocolService(initiatorEprCXF);
-		reg.setProtocolIdentifier(Constants.WSATType.COMPLETION_PROTOCOL);
+		reg.setProtocolIdentifier(AtProtocol.COMPLETION.getText());
 		EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
 				.getRegistrationService();
 		RegistrationPortType client = EprUtils.createWsaddrClientProxy(RegistrationPortType.class, regSerCXF);

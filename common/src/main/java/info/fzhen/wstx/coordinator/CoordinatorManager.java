@@ -1,6 +1,6 @@
 package info.fzhen.wstx.coordinator;
 
-import info.fzhen.wstx.Constants;
+import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.config.CoorEprConfig;
 import info.fzhen.wstx.config.EprConfig;
@@ -40,10 +40,11 @@ public class CoordinatorManager {
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
 		String pirvateId = genPrivateId();
 		ActivityCoordinatorContext cctx = null;
-		switch (ccc.getCoordinationType()) {
-		case Constants.WSAT:
+		CoordinationType type = CoordinationType.fromString(ccc.getCoordinationType());
+		switch (type) {
+		case WSAT:
 			cctx = AtomicTxCoordinator.createInstance(ccc, pirvateId);
-		case Constants.WSBA:
+		case WSBA:
 			break;
 		default:
 			break;

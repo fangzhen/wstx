@@ -1,6 +1,5 @@
 package info.fzhen.wstx.at;
 
-import info.fzhen.wstx.Constants;
 import info.fzhen.wstx.config.AtCoorEprConfig;
 import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
 import info.fzhen.wstx.coordinator.PrivateIdType;
@@ -63,21 +62,18 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 		String protocolId = registerPara.getProtocolIdentifier();
 		EndpointReferenceType pEpr = registerPara.getParticipantProtocolService();
 		RegisterResponseType response = new RegisterResponseType();
-		switch (protocolId) {
-		case Constants.WSATType.COMPLETION_PROTOCOL:
+		AtProtocol protocol = AtProtocol.fromString(protocolId);
+		switch (protocol) {
+		case COMPLETION:
 			setInitiatorEpr(pEpr);
 			response.setCoordinatorProtocolService(coorInitiatorEpr);
 			break;
 	//TODO s	
-		case Constants.WSATType.DURABLE2PC_PROTOCOL:
+		case DURABLE2PC:
 			break;
 
-		case Constants.WSATType.VOLATILE2PC_PROTOCOL:
-			break;
-			
-		default:
-			//TODO: illegal protocol
-			break;
+		case VOLATILE2PC:
+			break;			
 		}
 		return response;
 	}

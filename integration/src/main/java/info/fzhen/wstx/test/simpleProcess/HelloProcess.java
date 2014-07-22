@@ -1,6 +1,6 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import info.fzhen.wstx.Constants;
+import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.test.services.HelloService;
 import info.fzhen.wstx.transaction.TransactionConfig;
@@ -28,7 +28,7 @@ public class HelloProcess implements Process{
 		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
 		TransactionConfig tc = new TransactionConfig();
 		tc.setActivationSer(activationSer);
-		tc.setCoordinationType(Constants.WSAT);
+		tc.setCoordinationType(CoordinationType.WSAT.getText());
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(tc);
 		
 		transaction.begin();
