@@ -1,7 +1,11 @@
 package info.fzhen.wstx.participant.at;
 
-public class Durable2PCParticipant implements Participant2PC{
+import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.transaction.WsTransaction;
+import info.fzhen.wstx.transaction.WsatTransaction;
 
+public class Durable2PCParticipant implements Participant2PC{
+	private WsatTransaction transaction;
 	@Override
 	public Vote prepare() {
 		// TODO Auto-generated method stub

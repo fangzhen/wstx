@@ -18,10 +18,10 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  *
  */
 public class WsatTransaction extends WsTransaction {
-	/** Protocol coordinator service */
+	/** Completion protocol coordinator service */
 	private EndpointReferenceType coorInitiatorEpr;
 
-	/**participants TODO: are they necessary?*/
+	/**completion participant */
 	private ATInitiator initiator;
 
 	public WsatTransaction() {

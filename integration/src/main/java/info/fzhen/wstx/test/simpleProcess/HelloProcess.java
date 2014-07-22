@@ -1,6 +1,5 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.test.services.HelloService;
 import info.fzhen.wstx.transaction.TransactionFactory;
 import info.fzhen.wstx.transaction.WsatTransaction;
@@ -28,9 +27,8 @@ public class HelloProcess implements Process{
 		transaction.begin();
 		//register WSAT completion protocol
 		
-		ATInitiator initiator = new ATInitiator();
 		WsatTxManager manager = WsatTxManager.getInstance();
-		manager.registerInitiator(initiator, transaction);
+		manager.registerInitiator(transaction);
 
 		//then send application messages with CC
 		helloSer = (HelloService)context.getBean("hello");

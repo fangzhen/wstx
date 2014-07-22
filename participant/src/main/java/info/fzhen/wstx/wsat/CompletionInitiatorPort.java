@@ -1,6 +1,8 @@
 package info.fzhen.wstx.wsat;
 
 import info.fzhen.wstx.participant.at.ATInitiator;
+import info.fzhen.wstx.transaction.WsatTxManager;
+import info.fzhen.wstx.util.MsgContextUtil;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -17,11 +19,12 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	public CompletionInitiatorPort(){
 		
 	}
-	//	private WsatTransaction transaction;
+
 	@Override
 	public void committedOperation(Notification parameters) {
-		//TODO:
-		System.out.println("successfully committed");
+		String txId = MsgContextUtil.retrievePrivateId(wsContext);
+		System.out.println("transaction " + txId + "successfully committed");
+		WsatTxManager.getInstance().forgetInitiator(txId);
 	}
 
 	@Override
@@ -36,13 +39,4 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	public void setInitiator(ATInitiator initiator) {
 		this.initiator = initiator;
 	}
-
-	//	public WsatTransaction getTransaction() {
-	//		return transaction;
-	//	}
-	//
-	//	public void setTransaction(WsatTransaction transaction) {
-	//		this.transaction = transaction;
-	//	}
-
 }

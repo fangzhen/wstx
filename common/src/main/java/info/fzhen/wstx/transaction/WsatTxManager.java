@@ -2,8 +2,16 @@ package info.fzhen.wstx.transaction;
 
 import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
+import info.fzhen.wstx.config.AtCoorEprConfig;
+import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.participant.at.ATInitiator;
+import info.fzhen.wstx.participant.at.Durable2PCParticipant;
+import info.fzhen.wstx.participant.at.Volatile2PCParticipant;
 import info.fzhen.wstx.util.EprUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
@@ -21,6 +29,11 @@ public class WsatTxManager {
 	private static WsatTxManager instance;
 	private ATPartEprConfig eprConfiguration;
 	
+	/**Participants magagered by this manager (on this site) */
+	Map<String, ATInitiator> initiators = new HashMap<String, ATInitiator>();
+	Map<String, Durable2PCParticipant> durable2PcParticipants = new HashMap<>();
+	Map<String, Volatile2PCParticipant> volatile2PcParticipants = new HashMap<>();
+	
 	public static WsatTxManager getInstance() {
 		return instance;
 	}
@@ -29,15 +42,19 @@ public class WsatTxManager {
 		WsatTxManager.instance = instance;
 	}
 
-	public void registerInitiator(ATInitiator initiator,
-			WsatTransaction transaction) {
+	public void registerInitiator(WsatTransaction transaction) {
+		ATInitiator initiator = new ATInitiator();
+		initiator.setTransaction(transaction);
 		transaction.setInitiator(initiator);
 
-		//TODO initiator EPR should add instance id. may not here.
-		EndpointReferenceType initiatorEprCXF = new EndpointReferenceType();
-		AttributedURIType addr = new AttributedURIType();
-		addr.setValue(eprConfiguration.getInitiatorAddress());
-		initiatorEprCXF.setAddress(addr);
+		String id = genPrivateId();
+		initiators.put(id, initiator);
+
+		//completion protocol participant
+		PrivateIdType pit = new PrivateIdType(id);
+		String addr = eprConfiguration.getInitiatorAddress();
+		EndpointReferenceType initiatorEprCXF = EprUtils.createCxfEprInstance(addr, pit);
+		
 		RegisterType reg = new RegisterType();
 		reg.setParticipantProtocolService(initiatorEprCXF);
 		reg.setProtocolIdentifier(AtProtocol.COMPLETION.getText());
@@ -52,5 +69,18 @@ public class WsatTxManager {
 
 	public void setEprConfiguration(ATPartEprConfig eprConfig) {
 		this.eprConfiguration = eprConfig;
+	}
+	
+	private String genPrivateId() {
+		// TODO should ensure it to be unique. simply random
+		return ""+new Random().nextInt();
+	}
+	
+	public ATInitiator getInitiator(String id){
+		return initiators.get(id);
+	}
+
+	public void forgetInitiator(String txId) {
+		initiators.remove(txId);
 	}
 }

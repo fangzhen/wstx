@@ -7,7 +7,4 @@ package info.fzhen.wstx.participant;
  *
  */
 public interface Participant {
-
-//	public void setTransaction(WsTransaction transaction);
-	
 }
