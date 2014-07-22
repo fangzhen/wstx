@@ -1,15 +1,14 @@
 package info.fzhen.wstx.transaction;
 
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
-
+import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.util.EprUtils;
 
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
@@ -19,8 +18,6 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  *
  */
 public class WsatTransaction extends WsTransaction {
-	private CoordinationContext coordinationContext;
-
 	/** Protocol coordinator service */
 	private EndpointReferenceType coorInitiatorEpr;
 
@@ -33,19 +30,11 @@ public class WsatTransaction extends WsTransaction {
 	@Override
 	public void begin() {
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
-		ActivationPortType activationSer = config.getActivationSer();
-		ccc.setCoordinationType(config.getCoordinationType());
+		ActivationPortType activationSer = getActivationSer();
+		ccc.setCoordinationType(CoordinationType.WSAT.getText());
 		CreateCoordinationContextResponseType res = activationSer
 				.createCoordinationContextOperation(ccc);
 		setCoordinationContext(res.getCoordinationContext());
-	}
-
-	public CoordinationContext getCoordinationContext() {
-		return coordinationContext;
-	}
-
-	public void setCoordinationContext(CoordinationContext coordinationContext) {
-		this.coordinationContext = coordinationContext;
 	}
 
 	public void setInitiator(ATInitiator initiator) {

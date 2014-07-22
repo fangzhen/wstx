@@ -1,9 +1,7 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.test.services.HelloService;
-import info.fzhen.wstx.transaction.TransactionConfig;
 import info.fzhen.wstx.transaction.TransactionFactory;
 import info.fzhen.wstx.transaction.WsatTransaction;
 import info.fzhen.wstx.transaction.WsatTxManager;
@@ -26,11 +24,7 @@ public class HelloProcess implements Process{
 				new String[]{"client-beans.xml"});
 
 		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
-		TransactionConfig tc = new TransactionConfig();
-		tc.setActivationSer(activationSer);
-		tc.setCoordinationType(CoordinationType.WSAT.getText());
-		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(tc);
-		
+		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
 		transaction.begin();
 		//register WSAT completion protocol
 		

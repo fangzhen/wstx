@@ -20,7 +20,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 public class CoordinatorManager {
 	private static CoordinatorManager instance;
 	/**
-	 * Activities managered by this coordinator, private id as key.
+	 * Activities managed by this coordinator, private id as key.
 	 */
 	private Map<String, ActivityCoordinatorContext> activities = new HashMap<>();
 	private CoorEprConfig coorEprConfiguration;

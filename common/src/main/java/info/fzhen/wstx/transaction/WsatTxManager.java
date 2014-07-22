@@ -33,6 +33,7 @@ public class WsatTxManager {
 			WsatTransaction transaction) {
 		transaction.setInitiator(initiator);
 
+		//TODO initiator EPR should add instance id. may not here.
 		EndpointReferenceType initiatorEprCXF = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();
 		addr.setValue(eprConfiguration.getInitiatorAddress());

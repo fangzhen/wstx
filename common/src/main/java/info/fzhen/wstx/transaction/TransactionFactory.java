@@ -1,5 +1,7 @@
 package info.fzhen.wstx.transaction;
 
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
+
 /**
  * stateless
  * 
@@ -13,10 +15,10 @@ public class TransactionFactory {
 
 	private static TransactionFactory instance;
 
-	public WsatTransaction createWsatTransaction(TransactionConfig config) {
+	public WsatTransaction createWsatTransaction(ActivationPortType activationSer) {
 		WsatTransaction transaction;
 		transaction = new WsatTransaction();
-		transaction.setConfig(config);
+		transaction.setActivationSer(activationSer);
 		return transaction;
 	}
 
