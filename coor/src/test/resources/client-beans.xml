@@ -11,7 +11,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
  
     <jaxws:client id="activation"
                   serviceClass="org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType"
-                  address="http://localhost:28080/wstx/services/activation" />
+                  address="http://localhost:8080/coor/services/activation" />
     <cxf:bus>
         <cxf:features>
             <wsa:addressing/>

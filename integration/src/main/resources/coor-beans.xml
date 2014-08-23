@@ -7,15 +7,13 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
-	<jaxws:client id="hello" serviceClass="info.fzhen.wstx.HelloService"
-		address="http://localhost:28081/helloworld/services/hello"></jaxws:client>
-
 	<jaxws:client id="activationService"
 		serviceClass="org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType"
-		address="http://localhost:28080/wstx-coor/services/activation"></jaxws:client>
+		address="http://localhost:8080/coor/services/activation" />
 	<jaxws:client id="registrationService"
 		serviceClass="org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType"
-		address="http://localhost:28080/wstx-coor/services/activation"></jaxws:client>
+		address="http://localhost:8080/coor/services/registration" />
+
 	<cxf:bus>
 		<cxf:features>
 			<wsa:addressing />

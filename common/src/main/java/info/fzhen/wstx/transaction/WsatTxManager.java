@@ -60,6 +60,7 @@ public class WsatTxManager {
 		reg.setProtocolIdentifier(AtProtocol.COMPLETION.getText());
 		EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
 				.getRegistrationService();
+		System.out.println("=====" + regSerCXF.getAddress().getValue());
 		RegistrationPortType client = EprUtils.createWsaddrClientProxy(RegistrationPortType.class, regSerCXF);
 		RegisterResponseType response = client.registerOperation(reg);
 		

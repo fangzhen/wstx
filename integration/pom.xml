@@ -18,10 +18,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>wstx-common</artifactId>
 			<version>${project.version}</version>
@@ -52,50 +48,40 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 			</plugin>
+
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
-					<skip>true</skip>
+					<webApp>
+						<contextPath>/integration</contextPath>
+					</webApp>
+					<contextHandlers>
+						<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
+							<war>${project.basedir}/../coor/target/wstx-coor-${project.version}.war</war>
+							<contextPath>/coor</contextPath>
+						</contextHandler>
+					</contextHandlers>
 				</configuration>
 				<executions>
 					<execution>
-						<id>run-integration-test</id>
-						<goals>
-							<goal>test</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<configuration>
-					<server>myTomcat</server>
-					<url>http://localhost:28082/manager/text</url>
-				</configuration>
-				<executions>
-					<execution>
-						<id>deploy-to-tomcat</id>
-						<goals>
-							<goal>redeploy</goal>
-						</goals>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
 					</execution>
 					<execution>
-						<id>undeploy-from-tomcat</id>
-						<goals>
-							<goal>undeploy</goal>
-						</goals>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
 					</execution>
 				</executions>
 			</plugin>

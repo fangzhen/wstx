@@ -13,15 +13,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @WebService
 public class HelloProcess implements Process{
 	private HelloService helloSer;
-	ClassPathXmlApplicationContext context;
+	private ClassPathXmlApplicationContext context;
+	private ClassPathXmlApplicationContext services;
+	
 	public HelloProcess() {
 	}
 
 	@Override
 	public void execute() {
 		context = new ClassPathXmlApplicationContext(
-				new String[]{"client-beans.xml"});
-
+				new String[]{"coor-beans.xml"});
+		services = new ClassPathXmlApplicationContext(
+				new String[]{"service-beans.xml"});
+		
 		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
 		transaction.begin();
@@ -31,11 +35,12 @@ public class HelloProcess implements Process{
 		manager.registerInitiator(transaction);
 
 		//then send application messages with CC
-		helloSer = (HelloService)context.getBean("hello");
+		helloSer = (HelloService)services.getBean("helloService");
 		helloSer.sayHello();
 		
 		transaction.commit();
 		context.close();
+		services.close();
 	}
 	
 }

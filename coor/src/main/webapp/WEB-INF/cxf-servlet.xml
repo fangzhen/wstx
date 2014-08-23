@@ -66,12 +66,12 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	<bean id="coorEprConfig" class="info.fzhen.wstx.config.JaxWsCoorEprConfig">
 		<property name="activationEp" ref="activation"/>
 		<property name="registrationEp" ref="registration"/>
-		<property name="prefix"><value>http://localhost:28080</value></property>
+		<property name="prefix"><value>http://localhost:8080</value></property>
 	</bean> 
 	<bean id="atCoorEprConfig" class="info.fzhen.wstx.config.JaxWsAtCoorEprConfig">
 		<property name="atCompletionCoorEp" ref="atCompCoordinator"/>
 		<property name="at2PcCoorEp" ref="atCoordinator"/>
-		<property name="prefix"><value>http://localhost:28080</value></property>
+		<property name="prefix"><value>http://localhost:8080</value></property>
 	</bean>
 	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
 		<property name="coorEprConfiguration"><ref bean="coorEprConfig"/></property>

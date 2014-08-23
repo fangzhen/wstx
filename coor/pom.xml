@@ -44,46 +44,37 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
-			<version>1.2.17</version> </dependency> -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
-					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<configuration>
-					<server>myTomcat</server>
-					<url>http://localhost:28080/manager/text</url>
+					<webApp>
+						<contextPath>/coor</contextPath>
+					</webApp>
 				</configuration>
 				<executions>
 					<execution>
-						<id>deploy-to-tomcat</id>
-						<goals>
-							<goal>redeploy</goal>
-						</goals>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
 					</execution>
 					<execution>
-						<id>undeploy-from-tomcat</id>
-						<goals>
-							<goal>undeploy</goal>
-						</goals>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
 					</execution>
 				</executions>
 			</plugin>
-
 
 		</plugins>
 	</build>
