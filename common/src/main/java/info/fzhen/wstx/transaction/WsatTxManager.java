@@ -2,7 +2,6 @@ package info.fzhen.wstx.transaction;
 
 import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
-import info.fzhen.wstx.config.AtCoorEprConfig;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.participant.at.ATInitiator;
 import info.fzhen.wstx.participant.at.Durable2PCParticipant;
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;

@@ -1,9 +1,7 @@
 package info.fzhen.wstx.web;
 
-import info.fzhen.wstx.coordinator.CoordinatorManager;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class WstxContextLoaderListerner implements ServletContextListener{
 

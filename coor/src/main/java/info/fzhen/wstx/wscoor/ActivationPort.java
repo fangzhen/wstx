@@ -2,10 +2,7 @@ package info.fzhen.wstx.wscoor;
 
 import info.fzhen.wstx.service.ActivationService;
 
-import javax.annotation.Resource;
 import javax.jws.WebService;
-import javax.xml.ws.WebServiceContext;
-
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;

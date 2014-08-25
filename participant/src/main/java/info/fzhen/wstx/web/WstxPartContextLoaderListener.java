@@ -3,8 +3,6 @@ package info.fzhen.wstx.web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 public class WstxPartContextLoaderListener implements ServletContextListener{
 
 	@Override

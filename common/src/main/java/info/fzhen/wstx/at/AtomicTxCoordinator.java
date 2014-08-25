@@ -8,7 +8,6 @@ import info.fzhen.wstx.util.EprUtils;
 import java.util.List;
 
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.wsdl.EndpointReferenceUtils;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
