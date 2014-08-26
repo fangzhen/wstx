@@ -13,9 +13,10 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextRespo
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 /**
- * WSAT transaction instance.
+ * WSAT transaction instance. It is used in initiator side of
+ * CompletionProtocol.
+ * 
  * @author fangzhen
- *
  */
 public class WsatTransaction extends WsTransaction {
 	/** Completion protocol coordinator service */
@@ -27,6 +28,10 @@ public class WsatTransaction extends WsTransaction {
 	public WsatTransaction() {
 	}
 
+	/**
+	 * Begin a atomic transaction, that is, call activation service of
+	 * coordinator and receive the returned {@link CreateCoordinationContextResponseType}
+	 */
 	@Override
 	public void begin() {
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();

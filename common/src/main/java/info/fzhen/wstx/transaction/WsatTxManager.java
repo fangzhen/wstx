@@ -1,5 +1,6 @@
 package info.fzhen.wstx.transaction;
 
+import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.coordinator.PrivateIdType;
@@ -12,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
@@ -19,11 +22,14 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
 
 /**
  * Global transaction manager of the site. It also holds global context.
+ * Used by initiator of Completion protocol participant side.
  * 
  * @author fangzhen
  * 
  */
 public class WsatTxManager {
+	private static final Log __log = LogFactory.getLog(Process.class);
+	
 	private static WsatTxManager instance;
 	private ATPartEprConfig eprConfiguration;
 	
@@ -31,8 +37,12 @@ public class WsatTxManager {
 	Map<String, ATInitiator> initiators = new HashMap<String, ATInitiator>();
 	Map<String, Durable2PCParticipant> durable2PcParticipants = new HashMap<>();
 	Map<String, Volatile2PCParticipant> volatile2PcParticipants = new HashMap<>();
-	
+
 	public static WsatTxManager getInstance() {
+		if (instance == null){
+			__log.error("Atomatic Transaction Manager(WsatTxManager) hasn't been initiated");
+			throw new WstxRtException("Atomatic Transaction Manager(WsatTxManager) hasn't been initiated");
+		}
 		return instance;
 	}
 
@@ -58,7 +68,6 @@ public class WsatTxManager {
 		reg.setProtocolIdentifier(AtProtocol.COMPLETION.getText());
 		EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
 				.getRegistrationService();
-		System.out.println("=====" + regSerCXF.getAddress().getValue());
 		RegistrationPortType client = EprUtils.createWsaddrClientProxy(RegistrationPortType.class, regSerCXF);
 		RegisterResponseType response = client.registerOperation(reg);
 		
