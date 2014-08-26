@@ -40,8 +40,10 @@ public class WsatTxManager {
 
 	public static WsatTxManager getInstance() {
 		if (instance == null){
-			__log.error("Atomatic Transaction Manager(WsatTxManager) hasn't been initiated");
-			throw new WstxRtException("Atomatic Transaction Manager(WsatTxManager) hasn't been initiated");
+			if (__log.isErrorEnabled()){
+				__log.error("Atomatic Transaction Manager(WsatTxManager) hasn't been initialized");
+			}
+			throw new WstxRtException("Atomatic Transaction Manager(WsatTxManager) hasn't been initialized");
 		}
 		return instance;
 	}

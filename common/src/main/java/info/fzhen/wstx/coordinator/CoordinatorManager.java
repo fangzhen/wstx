@@ -1,6 +1,7 @@
 package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.CoordinationType;
+import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.config.CoorEprConfig;
 import info.fzhen.wstx.config.EprConfig;
@@ -10,14 +11,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 /**
  * Coordinator Manager that manages activities of this site.
+ * This is used in coordinator side.
  * @author fangzhen
  *
  */
 public class CoordinatorManager {
+	private static final Log __log = LogFactory.getLog(CoordinatorManager.class);
+
 	private static CoordinatorManager instance;
 	/**
 	 * Activities managed by this coordinator, private id as key.
@@ -30,6 +36,12 @@ public class CoordinatorManager {
 	private Map<String, EprConfig> typeCoorEprConfigs = new HashMap<>();
 
 	public static CoordinatorManager getInstance() {
+		if (instance == null){
+			if (__log.isErrorEnabled()){
+				__log.error("Coordinator Manager hasn't been initialized");
+			}
+			throw new WstxRtException("Coordinator Manager hasn't been initialized");
+		}
 		return instance;
 	}
 
