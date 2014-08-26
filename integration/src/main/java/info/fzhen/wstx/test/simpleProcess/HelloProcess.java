@@ -7,11 +7,15 @@ import info.fzhen.wstx.transaction.WsatTxManager;
 
 import javax.jws.WebService;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @WebService
 public class HelloProcess implements Process{
+	private static final Log __log = LogFactory.getLog(Process.class);
+	
 	private HelloService helloSer;
 	private ClassPathXmlApplicationContext context;
 	private ClassPathXmlApplicationContext services;
@@ -25,7 +29,9 @@ public class HelloProcess implements Process{
 				new String[]{"coor-beans.xml"});
 		services = new ClassPathXmlApplicationContext(
 				new String[]{"service-beans.xml"});
-		
+		if (__log.isDebugEnabled()){
+			__log.debug("Service bean configurations read.");
+		}
 		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
 		transaction.begin();
