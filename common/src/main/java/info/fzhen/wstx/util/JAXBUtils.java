@@ -30,7 +30,6 @@ public class JAXBUtils {
         }
     }
 	
-//	public static <T> T JAXBEle2RepCls(JAXBElement<T>)
 	public static <T> void addAsW3cElement(List<Object> any, Class<T> cls, T obj) {
 		try {
 			JAXBContext ctx = JAXBContext.newInstance(new Class[] { cls });

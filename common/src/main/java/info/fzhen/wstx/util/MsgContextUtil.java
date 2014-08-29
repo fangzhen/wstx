@@ -1,13 +1,17 @@
 package info.fzhen.wstx.util;
 
 import info.fzhen.wstx.coordinator.PrivateIdType;
+import info.fzhen.wstx.cxf.interceptor.WstxTransform;
 
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
@@ -15,6 +19,8 @@ import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 
 public class MsgContextUtil {
+	private static final Log __LOG = LogFactory.getLog(MsgContextUtil.class);
+	
 	/**
 	 * Retrieve private Id that identifies target activity.
 	 * @param webServiceContext
@@ -37,6 +43,7 @@ public class MsgContextUtil {
 		}
 		return null;
 	}
+
 	/**
 	 * Retrieve participant protocol service EPR from inbound registration message.
 	 * @param webServiceContext
@@ -54,6 +61,20 @@ public class MsgContextUtil {
 	 * @return
 	 */
 	public static CoordinationContext retrieveCoorCtx(WebServiceContext webServiceContext){
-		return null;
+		List<Header> headers = (List<Header>) webServiceContext.getMessageContext().get(Header.HEADER_LIST);
+		QName tname = new QName(WstxTransform.Wstx200606.WSCOOR_NAMESPACE_URI, CoordinationContext.class.getSimpleName());
+		CoordinationContext ctx = null;
+		for (Header header : headers){
+			if (header.getName().equals(tname)){
+				ctx = (CoordinationContext)header.getObject();
+				break;
+			}
+		}
+		if (ctx == null){
+			if (__LOG.isWarnEnabled()){
+				__LOG.warn("Cannot retrieve coordination context from incoming message");
+			};
+		}
+		return ctx;
 	}
 }

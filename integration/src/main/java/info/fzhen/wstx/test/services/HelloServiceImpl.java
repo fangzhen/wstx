@@ -1,6 +1,7 @@
 package info.fzhen.wstx.test.services;
 
 import info.fzhen.wstx.cxf.interceptor.WstxTransform;
+import info.fzhen.wstx.util.MsgContextUtil;
 
 import java.util.List;
 
@@ -23,21 +24,11 @@ public class HelloServiceImpl implements HelloService{
 
 	public String sayHello() {
 		String helloStr = "Hello";
-		List<Header> headers = (List<Header>) wsContext.getMessageContext().get(Header.HEADER_LIST);
-		CoordinationContext ctx = null;
-		QName tname = new QName(WstxTransform.Wstx200606.WSCOOR_NAMESPACE_URI, CoordinationContext.class.getSimpleName());
-		for (Header header : headers){
-			if (header.getName().equals(tname)){
-				ctx = (CoordinationContext)header.getObject();
-				break;
-			}
-		}		
-		if (ctx == null){
-			if (__LOG.isWarnEnabled()){
-				__LOG.warn("Cannot retrieve coordination context from incoming message");
-			};
+		CoordinationContext ctx = MsgContextUtil.retrieveCoorCtx(wsContext);
+		if (ctx != null){ //coordination context are found, do registration now
+			//TODO
+
 		}
 		return helloStr;
 	}
-
 }
