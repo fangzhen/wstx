@@ -59,4 +59,8 @@ public class WsatTransaction extends WsTransaction {
 						coorInitiatorEpr);
 		completionCoordinator.commitOperation(new Notification());
 	}
+	
+	public void rollback() {
+		//TODO
+	}
 }

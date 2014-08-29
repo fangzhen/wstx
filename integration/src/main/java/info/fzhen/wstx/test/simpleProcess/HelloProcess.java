@@ -6,6 +6,7 @@ import info.fzhen.wstx.transaction.WsatTransaction;
 import info.fzhen.wstx.transaction.WsatTxManager;
 
 import javax.jws.WebService;
+import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,8 +14,8 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @WebService
-public class HelloProcess implements Process{
-	private static final Log __log = LogFactory.getLog(Process.class);
+public class HelloProcess extends TransactionalProcess{
+	private static final Log __log = LogFactory.getLog(TransactionalProcess.class);
 	
 	private HelloService helloSer;
 	private ClassPathXmlApplicationContext context;
@@ -42,11 +43,12 @@ public class HelloProcess implements Process{
 
 		//then send application messages with CC
 		helloSer = (HelloService)services.getBean("helloService");
+		addTransactionInfo2Client((BindingProvider) helloSer, transaction);
 		helloSer.sayHello();
-		
+
 		transaction.commit();
 		context.close();
 		services.close();
 	}
-	
+
 }

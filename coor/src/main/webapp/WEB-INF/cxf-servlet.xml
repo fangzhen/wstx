@@ -20,14 +20,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
 
-	<bean id="coorInInterceptor" class="info.fzhen.wstx.cxf.interceptor.SoapTxCoorInInterceptor" />
 	<cxf:bus>
 		<cxf:features>
 			<wsa:addressing />
 		</cxf:features>
-		<cxf:inInterceptors>
-			<ref bean="coorInInterceptor" />
-		</cxf:inInterceptors>
 	</cxf:bus>
 	
 	<bean id="abstractLoggingInterceptor" abstract="true">
