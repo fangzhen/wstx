@@ -25,11 +25,14 @@ public class WsatTransaction extends WsTransaction {
 	/**completion participant */
 	private ATInitiator initiator;
 
+    /**client proxy of coordinator activation service */
+    private ActivationPortType activationSer;
+
 	public WsatTransaction() {
 	}
 
 	/**
-	 * Begin a atomic transaction, that is, call activation service of
+	 * Begin an atomic transaction, that is, call activation service of
 	 * coordinator and receive the returned {@link CreateCoordinationContextResponseType}
 	 */
 	@Override
@@ -63,4 +66,11 @@ public class WsatTransaction extends WsTransaction {
 	public void rollback() {
 		//TODO
 	}
+    public ActivationPortType getActivationSer() {
+        return activationSer;
+    }
+
+    public void setActivationSer(ActivationPortType activationSer) {
+        this.activationSer = activationSer;
+    }
 }

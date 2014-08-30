@@ -5,20 +5,18 @@ import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.participant.at.ATInitiator;
-import info.fzhen.wstx.participant.at.Durable2PCParticipant;
 import info.fzhen.wstx.participant.at.Volatile2PCParticipant;
+import info.fzhen.wstx.util.CommonUtils;
 import info.fzhen.wstx.util.EprUtils;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegistrationPortType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Global transaction manager of the site. It also holds global context.
@@ -35,7 +33,6 @@ public class WsatTxManager {
 	
 	/**Participants magagered by this manager (on this site) */
 	Map<String, ATInitiator> initiators = new HashMap<String, ATInitiator>();
-	Map<String, Durable2PCParticipant> durable2PcParticipants = new HashMap<>();
 	Map<String, Volatile2PCParticipant> volatile2PcParticipants = new HashMap<>();
 
 	public static WsatTxManager getInstance() {
@@ -57,7 +54,7 @@ public class WsatTxManager {
 		initiator.setTransaction(transaction);
 		transaction.setInitiator(initiator);
 
-		String id = genPrivateId();
+		String id = CommonUtils.genPrivateId();
 		initiators.put(id, initiator);
 
 		//completion protocol participant
@@ -80,13 +77,8 @@ public class WsatTxManager {
 	public void setEprConfiguration(ATPartEprConfig eprConfig) {
 		this.eprConfiguration = eprConfig;
 	}
-	
-	private String genPrivateId() {
-		// TODO should ensure it to be unique. simply random
-		return ""+new Random().nextInt();
-	}
-	
-	public ATInitiator getInitiator(String id){
+
+    public ATInitiator getInitiator(String id){
 		return initiators.get(id);
 	}
 
