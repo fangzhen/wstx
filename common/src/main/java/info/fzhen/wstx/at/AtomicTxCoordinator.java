@@ -4,13 +4,13 @@ import info.fzhen.wstx.config.AtCoorEprConfig;
 import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.EprUtils;
-
-import java.util.List;
-
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Atomic transaction coordinator context instance. 
  * @author fangzhen
@@ -21,12 +21,11 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 	 * EPRs of protocol participants
 	 */
 	private EndpointReferenceType initiatorEpr;
-	private List<EndpointReferenceType> durable2PcPrtcpEprs;
-	private List<EndpointReferenceType> volatile2PcPrtcpEprs;
+	private List<EndpointReferenceType> durable2PcPrtcpEprs = new ArrayList<>();
+	private List<EndpointReferenceType> volatile2PcPrtcpEprs = new ArrayList<>();
 	
 	/**
 	 * EPRs of protocol coordinators 
-	 * TODO: are these necessary?
 	 */
 	private EndpointReferenceType coorInitiatorEpr;
 	private EndpointReferenceType coor2PcEpr;
@@ -47,7 +46,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 		activityCoordinatorContext.initiateCoorEprs();
 		return activityCoordinatorContext;
 	}
-	
+
+    /**
+     * initiate protocol service coordinator side eprs
+     */
 	private void initiateCoorEprs() {
 		PrivateIdType pit = new PrivateIdType(privateId);
 		String addr = coordinatorManager.<AtCoorEprConfig>getTypeCoorEprConfig(coordinationType).getAtCompletionCoorAddress();
@@ -67,10 +69,12 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 			setInitiatorEpr(pEpr);
 			response.setCoordinatorProtocolService(coorInitiatorEpr);
 			break;
-	//TODO s	
 		case DURABLE2PC:
+            durable2PcPrtcpEprs.add(pEpr);
+            response.setCoordinatorProtocolService(coor2PcEpr);
 			break;
 
+            //TODO s
 		case VOLATILE2PC:
 			break;			
 		}
@@ -85,6 +89,12 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 		this.initiatorEpr = initiatorEpr;
 	}
 
+    /**
+     *
+     */
+    public void commit() {
+
+    }
 	public EndpointReferenceType getCoorInitiatorEpr() {
 		return coorInitiatorEpr;
 	}
@@ -92,5 +102,6 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext{
 	public void setCoorInitiatorEpr(EndpointReferenceType coorInitiatorEpr) {
 		this.coorInitiatorEpr = coorInitiatorEpr;
 	}
+
 
 }

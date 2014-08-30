@@ -61,11 +61,11 @@ public class WsatTxManager {
 		PrivateIdType pit = new PrivateIdType(id);
 		String addr = eprConfiguration.getInitiatorAddress();
 		EndpointReferenceType initiatorEprCXF = EprUtils.createCxfEprInstance(addr, pit);
-		
 		RegisterType reg = new RegisterType();
 		reg.setParticipantProtocolService(initiatorEprCXF);
 		reg.setProtocolIdentifier(AtProtocol.COMPLETION.getText());
-		EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
+
+        EndpointReferenceType regSerCXF = transaction.getCoordinationContext()
 				.getRegistrationService();
 		RegistrationPortType client = EprUtils.createWsaddrClientProxy(RegistrationPortType.class, regSerCXF);
 		RegisterResponseType response = client.registerOperation(reg);

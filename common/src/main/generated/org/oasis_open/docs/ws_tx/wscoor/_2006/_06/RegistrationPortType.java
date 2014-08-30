@@ -1,6 +1,8 @@
 
 package org.oasis_open.docs.ws_tx.wscoor._2006._06;
 
+import info.fzhen.wstx.coordinator.PrivateIdType;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -19,7 +21,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
     org.oasis_open.docs.ws_tx.wscoor._2006._06.ObjectFactory.class,
-    org.apache.cxf.ws.addressing.ObjectFactory.class
+    org.apache.cxf.ws.addressing.ObjectFactory.class,
+        PrivateIdType.class
 })
 public interface RegistrationPortType {
 

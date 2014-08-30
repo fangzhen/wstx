@@ -69,18 +69,20 @@ public class EprUtils {
 	/**
 	 * Create Instance of {@link EndpointReferenceType}
 	 * @param address
-	 * @param paras referenced parameters
+	 * @param refPara referenced parameters
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static EndpointReferenceType createCxfEprInstance(String address, Object paras){
+	public static EndpointReferenceType createCxfEprInstance(String address, Object refPara){
 		EndpointReferenceType cxfEpr = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();
 		cxfEpr.setAddress(addr);
+        addr.setValue(address);
+
 		ReferenceParametersType refParas = new ReferenceParametersType();
 		cxfEpr.setReferenceParameters(refParas);
-		addr.setValue(address);
-		JAXBUtils.addAsW3cElement(cxfEpr.getReferenceParameters().getAny(), (Class<Object>)paras.getClass(), paras);
+        refParas.getAny().add(refPara);
+		//JAXBUtils.addAsW3cElement(cxfEpr.getReferenceParameters().getAny(), (Class<Object>)refPara.getClass(), refPara);
 		return cxfEpr;
 	}
 	

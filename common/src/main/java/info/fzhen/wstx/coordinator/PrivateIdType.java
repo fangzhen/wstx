@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
- * jaxb wrapper for private Id of String
+ * private id that helps to fully qualify the protocol service endpoint.
  * @author fangzhen
  *
  */
