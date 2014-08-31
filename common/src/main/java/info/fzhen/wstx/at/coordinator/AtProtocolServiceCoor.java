@@ -1,10 +1,12 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx.at.coordinator;
 
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 public abstract class AtProtocolServiceCoor {
     /**The activity it belongs to*/
     protected AtomicTxCoordinator activity;
+
+    /**participant protocol service EPR*/
     protected EndpointReferenceType participantEpr;
 
     public AtomicTxCoordinator getActivity() {

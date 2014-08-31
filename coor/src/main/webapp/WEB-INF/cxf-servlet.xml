@@ -55,9 +55,9 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		implementor="info.fzhen.wstx.wscoor.RegistrationPort" address="/registration" />
 
 	<jaxws:endpoint id="atCoordinator"
-		implementor="info.fzhen.wstx.wsat.AtCoordinatorPort" address="/atCoordinator" />
+		implementor="info.fzhen.wstx.wsat.coordinator.AtCoordinatorPort" address="/atCoordinator" />
 	<jaxws:endpoint id="atCompCoordinator"
-		implementor="info.fzhen.wstx.wsat.CompletionCoordinatorPort" address="/atCompCoordinator" />
+		implementor="info.fzhen.wstx.wsat.coordinator.CompletionCoordinatorPort" address="/atCompCoordinator" />
 	
 	<bean id="coorEprConfig" class="info.fzhen.wstx.config.JaxWsCoorEprConfig">
 		<property name="activationEp" ref="activation"/>

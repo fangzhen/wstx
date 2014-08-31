@@ -1,4 +1,4 @@
-package info.fzhen.wstx.service;
+package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
 import info.fzhen.wstx.coordinator.CoordinatorManager;

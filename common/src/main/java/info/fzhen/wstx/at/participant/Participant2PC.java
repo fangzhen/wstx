@@ -1,4 +1,4 @@
-package info.fzhen.wstx.participant.at;
+package info.fzhen.wstx.at.participant;
 
 import info.fzhen.wstx.participant.Participant;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;

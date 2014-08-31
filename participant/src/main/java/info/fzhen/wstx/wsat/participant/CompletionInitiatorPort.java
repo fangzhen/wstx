@@ -1,6 +1,6 @@
-package info.fzhen.wstx.wsat;
+package info.fzhen.wstx.wsat.participant;
 
-import info.fzhen.wstx.participant.at.ATInitiator;
+import info.fzhen.wstx.at.participant.ATInitiator;
 import info.fzhen.wstx.transaction.WsatInitiatorManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 

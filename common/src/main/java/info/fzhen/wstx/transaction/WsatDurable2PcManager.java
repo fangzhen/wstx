@@ -1,8 +1,8 @@
 package info.fzhen.wstx.transaction;
 
-import info.fzhen.wstx.at.AtProtocol;
+import info.fzhen.wstx.at.coordinator.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
-import info.fzhen.wstx.participant.at.Durable2PCParticipant;
+import info.fzhen.wstx.at.participant.Durable2PCParticipant;
 import info.fzhen.wstx.util.CommonUtils;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;

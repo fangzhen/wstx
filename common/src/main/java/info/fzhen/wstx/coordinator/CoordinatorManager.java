@@ -2,9 +2,8 @@ package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.AtomicTxCoordinator;
+import info.fzhen.wstx.at.coordinator.AtomicTxCoordinator;
 import info.fzhen.wstx.config.CoorEprConfig;
-import info.fzhen.wstx.config.EprConfig;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
 import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;
@@ -29,10 +28,6 @@ public class CoordinatorManager {
 	 */
 	private Map<String, ActivityCoordinatorContext> activities = new HashMap<>();
 	private CoorEprConfig coorEprConfiguration;
-	/**
-	 * Coordinator Eprs of different coordinator type.
-	 */
-	private Map<String, EprConfig> typeCoorEprConfigs = new HashMap<>();
 
 	public static CoordinatorManager getInstance() {
 		if (instance == null){
@@ -75,13 +70,4 @@ public class CoordinatorManager {
 	public ActivityCoordinatorContext getActivity(String id){
 		return activities.get(id);
 	}
-	
-	@SuppressWarnings("unchecked")
-	public <T extends EprConfig> T getTypeCoorEprConfig(String type){
-		return (T)typeCoorEprConfigs.get(type);
-	}
-	public void setTypeCoorEprConfigs(Map<String, EprConfig> typeCoorEprConfigs) {
-		this.typeCoorEprConfigs = typeCoorEprConfigs;
-	}
-
 }

@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx.at.coordinator;
 
 import info.fzhen.wstx.config.AtCoorEprConfig;
 import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
@@ -37,7 +37,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
      * Protocol services of this activity
      */
     private AtInitiatorCoor initiatorCoor;
-    private List<AtDurable2pcCoor> d2pcCoors = new ArrayList<>();
+    private List<At2pcCoor> d2pcCoors = new ArrayList<>();
 
     /**
      * Factory method that create new instance of Atomic Tx.
@@ -78,7 +78,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
                 response = AtInitiatorCoorManager.getInstance().registerInitiator(this, registerPara);
                 break;
             case DURABLE2PC:
-                response = AtDurable2pcCoorManager.getInstance().registerD2pcParticipant(this, registerPara);
+                response = At2pcCoorManager.getInstance().register2pcParticipant(this, registerPara);
                 break;
 
             //TODO s
@@ -119,7 +119,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
         this.initiatorCoor = initiatorCoor;
     }
 
-    public void addD2pdCoor(AtDurable2pcCoor d2pcCoor) {
+    public void addD2pdCoor(At2pcCoor d2pcCoor) {
         d2pcCoors.add(d2pcCoor);
     }
 

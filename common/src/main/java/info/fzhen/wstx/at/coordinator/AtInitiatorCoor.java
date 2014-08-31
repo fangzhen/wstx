@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx.at.coordinator;
 
 
 public class AtInitiatorCoor extends AtProtocolServiceCoor {

@@ -2,7 +2,7 @@ package info.fzhen.wstx.transaction;
 
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.participant.at.ATInitiator;
+import info.fzhen.wstx.at.participant.ATInitiator;
 import info.fzhen.wstx.util.EprUtils;
 
 import org.apache.cxf.ws.addressing.EndpointReferenceType;

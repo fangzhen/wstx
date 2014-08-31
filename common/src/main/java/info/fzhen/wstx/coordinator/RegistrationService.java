@@ -1,8 +1,6 @@
-package info.fzhen.wstx.service;
+package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
-import info.fzhen.wstx.coordinator.CoordinatorManager;
-
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 

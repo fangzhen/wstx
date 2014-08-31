@@ -1,4 +1,4 @@
-package info.fzhen.wstx.wsat;
+package info.fzhen.wstx.wsat.participant;
 
 import javax.jws.WebService;
 

@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx.at.coordinator;
 
 public enum AtProtocol {
 	COMPLETION("http://docs.oasis-open.org/ws-tx/wsat/2006/06/Completion"),

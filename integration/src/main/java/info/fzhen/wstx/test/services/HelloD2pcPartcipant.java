@@ -1,6 +1,6 @@
 package info.fzhen.wstx.test.services;
 
-import info.fzhen.wstx.participant.at.Durable2PCParticipant;
+import info.fzhen.wstx.at.participant.Durable2PCParticipant;
 
 import java.text.DateFormat;
 import java.util.Date;

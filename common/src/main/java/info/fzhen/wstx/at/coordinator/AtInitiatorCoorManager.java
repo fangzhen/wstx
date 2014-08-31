@@ -1,13 +1,9 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx.at.coordinator;
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.config.AtCoorEprConfig;
-import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.CommonUtils;
-import info.fzhen.wstx.util.EprUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
@@ -17,11 +13,10 @@ import java.util.Map;
 /**
  * Coordiantor side initiator manager.
  */
-public class AtInitiatorCoorManager {
+public class AtInitiatorCoorManager extends AtAbstractCoorManager{
     private static final Log __LOG = LogFactory.getLog(AtInitiatorCoorManager.class);
 
     private static AtInitiatorCoorManager instance;
-    private AtCoorEprConfig eprConfig;
 
     Map<String, AtInitiatorCoor> initiatorCoors = new HashMap<>();
 
@@ -49,12 +44,7 @@ public class AtInitiatorCoorManager {
         initiatorCoors.put(privateId, initiatorCoor);
 
         //construct the response
-        String addr =  eprConfig.getAtCompletionCoorAddress();
-        EndpointReferenceType initiatorCoorEpr = EprUtils.createCxfEprInstance(
-                addr, new PrivateIdType(privateId));
-        RegisterResponseType response = new RegisterResponseType();
-        response.setCoordinatorProtocolService(initiatorCoorEpr);
-
+        RegisterResponseType response = constructRegisterResponse(privateId);
         return response;
     }
 

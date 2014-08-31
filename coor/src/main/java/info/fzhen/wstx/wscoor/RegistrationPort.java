@@ -1,6 +1,6 @@
 package info.fzhen.wstx.wscoor;
 
-import info.fzhen.wstx.service.RegistrationService;
+import info.fzhen.wstx.coordinator.RegistrationService;
 import info.fzhen.wstx.util.MsgContextUtil;
 
 import javax.annotation.Resource;
