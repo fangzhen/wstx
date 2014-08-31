@@ -1,8 +1,8 @@
 package info.fzhen.wstx.wsat;
 
+import info.fzhen.wstx.at.AtInitiatorCoor;
+import info.fzhen.wstx.at.AtInitiatorCoorManager;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
-import info.fzhen.wstx.context.ActivityCoordinatorContext;
-import info.fzhen.wstx.coordinator.CoordinatorManager;
 import info.fzhen.wstx.util.EprUtils;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.apache.commons.logging.Log;
@@ -25,25 +25,19 @@ public class CompletionCoordinatorPort implements CompletionCoordinatorPortType{
 	
 	@Override
 	public void commitOperation(Notification parameters) {
-		String txId = MsgContextUtil.retrievePrivateId(wsContext);
-		ActivityCoordinatorContext activity = CoordinatorManager.getInstance().getActivity(txId);
-		AtomicTxCoordinator at = null;
-		try{
-			at = (AtomicTxCoordinator)activity;
-		}catch(ClassCastException e){
+		String id = MsgContextUtil.retrievePrivateId(wsContext);
+        AtInitiatorCoor initiatorCoor = AtInitiatorCoorManager.getInstance().getInitiatorCoor(id);
+        if (initiatorCoor == null){
             if (__LOG.isErrorEnabled()){
-                __LOG.error("found target activity is not a atomic transaction, " +
-                        "but it should have been");
+                __LOG.error("Failed to get initiator protocol service with id: " + id);
             }
-			//TODO illegal transaction, should return Fault
-			e.printStackTrace();
-			return;
-		}
-
-        at.commit();
+            return;
+        }
+		AtomicTxCoordinator activity = initiatorCoor.getActivity();
+		activity.commit();
 
         //committed
-		EndpointReferenceType epr = at.getInitiatorEpr();
+		EndpointReferenceType epr = activity.getInitiatorEpr();
 		CompletionInitiatorPortType initiator = EprUtils.createWsaddrClientProxy(CompletionInitiatorPortType.class, epr);
 		initiator.committedOperation(new Notification());
 	}

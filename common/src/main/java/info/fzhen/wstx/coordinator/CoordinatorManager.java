@@ -6,14 +6,13 @@ import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.config.CoorEprConfig;
 import info.fzhen.wstx.config.EprConfig;
 import info.fzhen.wstx.context.ActivityCoordinatorContext;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
+import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Coordinator Manager that manages activities of this site.
@@ -22,7 +21,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  *
  */
 public class CoordinatorManager {
-	private static final Log __log = LogFactory.getLog(CoordinatorManager.class);
+	private static final Log __LOG = LogFactory.getLog(CoordinatorManager.class);
 
 	private static CoordinatorManager instance;
 	/**
@@ -37,8 +36,8 @@ public class CoordinatorManager {
 
 	public static CoordinatorManager getInstance() {
 		if (instance == null){
-			if (__log.isErrorEnabled()){
-				__log.error("Coordinator Manager hasn't been initialized");
+			if (__LOG.isErrorEnabled()){
+				__LOG.error("Coordinator Manager hasn't been initialized");
 			}
 			throw new WstxRtException("Coordinator Manager hasn't been initialized");
 		}
@@ -50,7 +49,7 @@ public class CoordinatorManager {
 	}
 
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
-		String pirvateId = genPrivateId();
+		String pirvateId = CommonUtils.genPrivateId();
 		ActivityCoordinatorContext cctx = null;
 		CoordinationType type = CoordinationType.fromString(ccc.getCoordinationType());
 		switch (type) {
@@ -63,11 +62,6 @@ public class CoordinatorManager {
 		}
 		activities.put(pirvateId, cctx);
 		return cctx;
-	}
-
-	private String genPrivateId() {
-		// TODO should ensure it to be unique. simply random
-		return ""+new Random().nextInt();
 	}
 
 	public CoorEprConfig getCoorEprConfiguration() {

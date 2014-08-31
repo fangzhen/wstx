@@ -70,7 +70,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<value>http://localhost:8080</value>
 		</property>
 	</bean>
-	<bean id="atManager" class="info.fzhen.wstx.transaction.WsatTxManager"
+	<bean id="atManager" class="info.fzhen.wstx.transaction.WsatInitiatorManager"
 		scope="singleton">
 		<property name="eprConfiguration">
 			<ref bean="eprConfig" />

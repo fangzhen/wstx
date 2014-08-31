@@ -14,7 +14,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 /**
  * WSAT transaction instance. It is used in initiator side of
- * CompletionProtocol.
+ * CompletionProtocol. It provides a useful interface to applications.
  * 
  * @author fangzhen
  */

@@ -2,7 +2,7 @@ package info.fzhen.wstx.participant.at;
 
 import info.fzhen.wstx.transaction.WsatTransaction;
 
-public class Volatile2PCParticipant implements Participant2PC{
+public class Volatile2PCParticipant extends Participant2PC{
 	private WsatTransaction transaction;
 	@Override
 	public Vote prepare() {

@@ -2,16 +2,15 @@ package info.fzhen.wstx.test.simpleProcess;
 
 import info.fzhen.wstx.test.services.HelloService;
 import info.fzhen.wstx.transaction.TransactionFactory;
+import info.fzhen.wstx.transaction.WsatInitiatorManager;
 import info.fzhen.wstx.transaction.WsatTransaction;
-import info.fzhen.wstx.transaction.WsatTxManager;
-
-import javax.jws.WebService;
-import javax.xml.ws.BindingProvider;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.jws.WebService;
+import javax.xml.ws.BindingProvider;
 
 @WebService
 public class HelloProcess extends TransactionalProcess{
@@ -38,7 +37,7 @@ public class HelloProcess extends TransactionalProcess{
 		transaction.begin();
 		//register WSAT completion protocol
 		
-		WsatTxManager manager = WsatTxManager.getInstance();
+		WsatInitiatorManager manager = WsatInitiatorManager.getInstance();
 		manager.registerInitiator(transaction);
 
 		//then send application messages with CC

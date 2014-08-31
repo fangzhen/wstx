@@ -5,7 +5,6 @@ import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.config.ATPartEprConfig;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.participant.at.ATInitiator;
-import info.fzhen.wstx.participant.at.Volatile2PCParticipant;
 import info.fzhen.wstx.util.CommonUtils;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.commons.logging.Log;
@@ -19,34 +18,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Global transaction manager of the site. It also holds global context.
+ * Global protocol service manager of the site. It also holds global context.
  * Used by initiator of Completion protocol participant side.
  * 
  * @author fangzhen
  * 
  */
-public class WsatTxManager {
-	private static final Log __log = LogFactory.getLog(Process.class);
+public class WsatInitiatorManager {
+	private static final Log __LOG = LogFactory.getLog(Process.class);
 	
-	private static WsatTxManager instance;
+	private static WsatInitiatorManager instance;
 	private ATPartEprConfig eprConfiguration;
 	
 	/**Participants magagered by this manager (on this site) */
 	Map<String, ATInitiator> initiators = new HashMap<String, ATInitiator>();
-	Map<String, Volatile2PCParticipant> volatile2PcParticipants = new HashMap<>();
 
-	public static WsatTxManager getInstance() {
+	public static WsatInitiatorManager getInstance() {
 		if (instance == null){
-			if (__log.isErrorEnabled()){
-				__log.error("Atomatic Transaction Manager(WsatTxManager) hasn't been initialized");
+			if (__LOG.isErrorEnabled()){
+				__LOG.error("Atomatic Transaction Manager(WsatTxManager) hasn't been initialized");
 			}
 			throw new WstxRtException("Atomatic Transaction Manager(WsatTxManager) hasn't been initialized");
 		}
 		return instance;
 	}
 
-	public static void setInstance(WsatTxManager instance) {
-		WsatTxManager.instance = instance;
+	public static void setInstance(WsatInitiatorManager instance) {
+		WsatInitiatorManager.instance = instance;
 	}
 
 	public void registerInitiator(WsatTransaction transaction) {
