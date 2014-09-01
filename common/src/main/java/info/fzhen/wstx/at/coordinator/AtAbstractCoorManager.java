@@ -11,7 +11,9 @@ public abstract class AtAbstractCoorManager {
     public void setCoorServiceAddr(String addr){
         this.coorServiceAddr = addr;
     }
-
+    public String getCoorServiceAddr(){
+        return coorServiceAddr;
+    }
     protected RegisterResponseType constructRegisterResponse(String privateId){
         EndpointReferenceType d2pcCoorEpr = EprUtils.createCxfEprInstance(
                 coorServiceAddr, new PrivateIdType(privateId));

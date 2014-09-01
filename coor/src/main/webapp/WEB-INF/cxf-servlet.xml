@@ -69,11 +69,13 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		<property name="at2PcCoorEp" ref="at2PcCoordinator"/>
 		<property name="prefix"><value>http://localhost:8080</value></property>
 	</bean>
-    <bean class="info.fzhen.wstx.at.coordinator.AtInitiatorCoorManager" scope="singleton">
+    <bean id="atInitiatorCoorManager" class="info.fzhen.wstx.at.coordinator.AtInitiatorCoorManager" scope="singleton">
         <property name="coorServiceAddr" value="#{atCoorEprConfig.AtCompletionCoorAddress}"/>
-    </bean>
-    <bean class="info.fzhen.wstx.at.coordinator.At2pcCoorManager" scope="singleton">
+ 		<property name="instance"><ref bean="atInitiatorCoorManager"/></property>
+   </bean>
+    <bean id="at2pcCoorManager" class="info.fzhen.wstx.at.coordinator.At2pcCoorManager" scope="singleton">
         <property name="coorServiceAddr" value="#{atCoorEprConfig.At2PcCoorAddress}"/>
+		<property name="instance"><ref bean="at2pcCoorManager"/></property>
     </bean>
 	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
 		<property name="coorEprConfiguration"><ref bean="coorEprConfig"/></property>
