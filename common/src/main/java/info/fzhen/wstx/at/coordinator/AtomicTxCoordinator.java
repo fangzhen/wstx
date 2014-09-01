@@ -1,9 +1,6 @@
 package info.fzhen.wstx.at.coordinator;
 
-import info.fzhen.wstx.config.AtCoorEprConfig;
 import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
-import info.fzhen.wstx.coordinator.PrivateIdType;
-import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
@@ -53,19 +50,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
             activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
         }
         activityCoordinatorContext.setPrivateId(pirvateId);
-        activityCoordinatorContext.initiateCoorEprs();
         return activityCoordinatorContext;
-    }
-
-    /**
-     * initiate protocol service coordinator side eprs
-     */
-    private void initiateCoorEprs() {
-        PrivateIdType pit = new PrivateIdType(privateId);
-        String addr = coordinatorManager.<AtCoorEprConfig>getTypeCoorEprConfig(coordinationType).getAtCompletionCoorAddress();
-        coorInitiatorEpr = EprUtils.createCxfEprInstance(addr, pit);
-        addr = coordinatorManager.<AtCoorEprConfig>getTypeCoorEprConfig(coordinationType).getAt2PcCoorAddress();
-        coor2PcEpr = EprUtils.createCxfEprInstance(addr, pit);
     }
 
     @Override

@@ -20,12 +20,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
 
-	<cxf:bus>
-		<cxf:features>
-			<wsa:addressing />
-		</cxf:features>
-	</cxf:bus>
-	
 	<bean id="abstractLoggingInterceptor" abstract="true">
 		<property name="prettyLogging" value="true" />
 	</bean>
@@ -48,13 +42,19 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		</cxf:inFaultInterceptors>
 	</cxf:bus>
 
+    <cxf:bus>
+        <cxf:features>
+            <wsa:addressing />
+        </cxf:features>
+    </cxf:bus>
+
 	<jaxws:endpoint id="activation"
 		implementor="info.fzhen.wstx.wscoor.ActivationPort" address="/activation">
 	</jaxws:endpoint>
 	<jaxws:endpoint id="registration"
 		implementor="info.fzhen.wstx.wscoor.RegistrationPort" address="/registration" />
 
-	<jaxws:endpoint id="atCoordinator"
+	<jaxws:endpoint id="at2PcCoordinator"
 		implementor="info.fzhen.wstx.wsat.coordinator.AtCoordinatorPort" address="/atCoordinator" />
 	<jaxws:endpoint id="atCompCoordinator"
 		implementor="info.fzhen.wstx.wsat.coordinator.CompletionCoordinatorPort" address="/atCompCoordinator" />
@@ -66,16 +66,17 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	</bean> 
 	<bean id="atCoorEprConfig" class="info.fzhen.wstx.config.JaxWsAtCoorEprConfig">
 		<property name="atCompletionCoorEp" ref="atCompCoordinator"/>
-		<property name="at2PcCoorEp" ref="atCoordinator"/>
+		<property name="at2PcCoorEp" ref="at2PcCoordinator"/>
 		<property name="prefix"><value>http://localhost:8080</value></property>
 	</bean>
+    <bean class="info.fzhen.wstx.at.coordinator.AtInitiatorCoorManager" scope="singleton">
+        <property name="coorServiceAddr" value="#{atCoorEprConfig.AtCompletionCoorAddress}"/>
+    </bean>
+    <bean class="info.fzhen.wstx.at.coordinator.At2pcCoorManager" scope="singleton">
+        <property name="coorServiceAddr" value="#{atCoorEprConfig.At2PcCoorAddress}"/>
+    </bean>
 	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
 		<property name="coorEprConfiguration"><ref bean="coorEprConfig"/></property>
 		<property name="instance"><ref bean="coordinator"/></property>
-		<property name="typeCoorEprConfigs">
-		<map>
-			<entry key="http://docs.oasis-open.org/ws-tx/wsat/2006/06"><ref bean="atCoorEprConfig"/> </entry>
-		</map>
-		</property>
 	</bean>
 </beans>
