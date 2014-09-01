@@ -34,14 +34,19 @@ http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- custom interceptors of wstx -->
     <bean id="wstxAppOutInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxAppOutInterceptor"/>
     <bean id="wstxAppInInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxAppInInterceptor"/>
+    <bean id="wstxOutInterceptor" class = "info.fzhen.wstx.cxf.interceptor.WstxEprOutInterceptor"/>
+    <bean id="wstxInInterceptor" class = "info.fzhen.wstx.cxf.interceptor.WstxEprInInterceptor"/>
 
     <cxf:bus>
         <cxf:inInterceptors>
             <ref bean="loggingInInterceptor"/>
+            <ref bean="wstxInInterceptor"/>
+            <ref bean="wstxAppInInterceptor"/>
         </cxf:inInterceptors>
         <cxf:outInterceptors>
             <ref bean="loggingOutInterceptor"/>
-        </cxf:outInterceptors>
+            <ref bean="wstxOutInterceptor"/>
+       </cxf:outInterceptors>
         <cxf:outFaultInterceptors>
             <ref bean="loggingOutInterceptor"/>
         </cxf:outFaultInterceptors>
@@ -52,9 +57,6 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint id="helloService"
                     implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
-        <jaxws:inInterceptors>
-            <ref bean="wstxAppInInterceptor"/>
-        </jaxws:inInterceptors>
     </jaxws:endpoint>
     <jaxws:endpoint id="helloProcess"
                     implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess">

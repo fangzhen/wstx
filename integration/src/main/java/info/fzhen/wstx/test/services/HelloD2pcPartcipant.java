@@ -3,6 +3,7 @@ package info.fzhen.wstx.test.services;
 import info.fzhen.wstx.at.participant.At2pcPart;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Durable 2PC participant of hello service.
  */
 public class HelloD2pcPartcipant extends At2pcPart {
-    private static List<String> callLog;
+    private static List<String> callLog = new ArrayList<>();
 
     @Override
     public Vote prepare() {

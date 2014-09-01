@@ -1,13 +1,5 @@
 package info.fzhen.wstx.cxf.interceptor;
 
-import java.util.List;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.namespace.QName;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapMessage;
@@ -15,8 +7,14 @@ import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.phase.Phase;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
+import org.apache.cxf.ws.addressing.soap.MAPCodec;
 import org.w3c.dom.Element;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.util.List;
 
 /**
  * WS-C/Tx in interceptor to decode WS-Coordination and Ws-Tx soap header
@@ -28,6 +26,7 @@ public class WstxAppInInterceptor extends AbstractSoapInterceptor{
 
 	public WstxAppInInterceptor(){
 		super(Phase.PRE_PROTOCOL);
+        addAfter(MAPCodec.class.getSimpleName());
 	}
 	public WstxAppInInterceptor(String phase){
 		super(phase);

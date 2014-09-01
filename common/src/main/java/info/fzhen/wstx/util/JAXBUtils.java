@@ -1,7 +1,10 @@
 package info.fzhen.wstx.util;
 
-import java.io.StringWriter;
-import java.util.List;
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -12,13 +15,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSSerializer;
-
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import java.io.StringWriter;
 
 public class JAXBUtils {
 	
@@ -30,7 +27,7 @@ public class JAXBUtils {
         }
     }
 	
-	public static <T> void addAsW3cElement(List<Object> any, Class<T> cls, T obj) {
+	public static <T> Element marshal2Element(Class<T> cls, Object obj) {
 		try {
 			JAXBContext ctx = JAXBContext.newInstance(new Class[] { cls });
 			Marshaller marshaller = ctx.createMarshaller();
@@ -39,10 +36,11 @@ public class JAXBUtils {
 			DOMResult res = new DOMResult();
 			marshaller.marshal(obj, res);
 			Element elt = ((Document) res.getNode()).getDocumentElement();
-			any.add(elt);
+            return elt;
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
+        return null;
 	}
 
 	public static String getStringFromDoc(Document doc) {

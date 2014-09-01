@@ -27,12 +27,18 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 		parent="abstractLoggingInterceptor" />
 	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
 		parent="abstractLoggingInterceptor" />
-	<cxf:bus>
+
+    <bean id="wstxOutInterceptor" class = "info.fzhen.wstx.cxf.interceptor.WstxEprOutInterceptor"/>
+    <bean id="wstxInInterceptor" class = "info.fzhen.wstx.cxf.interceptor.WstxEprInInterceptor"/>
+
+    <cxf:bus>
 		<cxf:inInterceptors>
 			<ref bean="loggingInInterceptor" />
+            <ref bean="wstxInInterceptor"/>
 		</cxf:inInterceptors>
 		<cxf:outInterceptors>
 			<ref bean="loggingOutInterceptor" />
+            <ref bean="wstxOutInterceptor"/>
 		</cxf:outInterceptors>
 		<cxf:outFaultInterceptors>
 			<ref bean="loggingOutInterceptor" />
