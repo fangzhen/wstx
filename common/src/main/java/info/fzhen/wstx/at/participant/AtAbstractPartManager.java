@@ -1,5 +1,6 @@
 package info.fzhen.wstx.at.participant;
 
+import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.CommonUtils;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
@@ -33,7 +34,7 @@ public class AtAbstractPartManager {
         managedParticipants.put(id, participant);
 
         //registration information
-        EndpointReferenceType PartEpr = EprUtils.createCxfEprInstance(partServiceAddr, id);
+        EndpointReferenceType PartEpr = EprUtils.createCxfEprInstance(partServiceAddr, new PrivateIdType(id));
         RegisterType registerInfo = new RegisterType();
         registerInfo.setParticipantProtocolService(PartEpr);
         registerInfo.setProtocolIdentifier(protocolId);

@@ -1,14 +1,12 @@
 
 package org.oasis_open.docs.ws_tx.wscoor._2006._06;
 
+import info.fzhen.wstx.coordinator.PrivateIdType;
+import org.w3c.dom.Element;
+
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import org.w3c.dom.Element;
 
 
 /**
@@ -36,6 +34,7 @@ import org.w3c.dom.Element;
     "any"
 })
 @XmlRootElement(name = "CoordinationContext")
+@XmlSeeAlso({PrivateIdType.class})
 public class CoordinationContext
     extends CoordinationContextType
 {

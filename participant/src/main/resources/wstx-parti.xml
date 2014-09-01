@@ -22,8 +22,6 @@ http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint id="completionInitiator"
 		implementor="info.fzhen.wstx.wsat.participant.CompletionInitiatorPort" address="/completionInitiator" />
-    <jaxws:endpoint id="durable2PcParticipant"
-		implementor="info.fzhen.wstx.wsat.participant.Durable2PcParticipantPort" address="/durable2PcParticipant" />
-    <jaxws:endpoint id="volatile2PcParticipant"
-		implementor="info.fzhen.wstx.wsat.participant.Volatile2PcParticipantPort" address="/volatile2PcParticipant" />
+    <jaxws:endpoint id="twoPcParticipant"
+		implementor="info.fzhen.wstx.wsat.participant.twoPcParticipantPort" address="/twoPcParticipant" />
 </beans>

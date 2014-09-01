@@ -3,13 +3,8 @@ package info.fzhen.wstx.context;
 import info.fzhen.wstx.config.CoorEprConfig;
 import info.fzhen.wstx.coordinator.CoordinatorManager;
 import info.fzhen.wstx.coordinator.PrivateIdType;
-import info.fzhen.wstx.util.JAXBUtils;
-
-import java.util.List;
-
-import org.apache.cxf.ws.addressing.AttributedURIType;
+import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.ws.addressing.ReferenceParametersType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContextType.Identifier;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.Expires;
@@ -25,7 +20,11 @@ public abstract class AbstractActivityCoordinatorContext implements
 	public AbstractActivityCoordinatorContext(){
 		this.coordinatorManager = CoordinatorManager.getInstance();
 	}
-	
+
+    /**
+     * Build coordination context for the activity.
+     * @return coordination context
+     */
 	@Override
 	public CoordinationContext buildCoordinationContext() {
 		CoordinationContext coordinationContext = new CoordinationContext();
@@ -35,33 +34,13 @@ public abstract class AbstractActivityCoordinatorContext implements
 		coordinationContext.setExpires(e);
 
 		CoorEprConfig eprConf = coordinatorManager.getCoorEprConfiguration();
-
 		Identifier id = new Identifier();
 		id.setValue(eprConf.getPrefix() + "/" + privateId);
 		coordinationContext.setIdentifier(id);
 
-		//TODO delete the output
-		//		DOMSource doms = (DOMSource) EndpointReferenceUtils
-		//				.convertToXML(registrationEPR);
-		//		System.out.println("*********AbstractActivityCoordinatorContext"
-		//				+ JAXBUtils.getStringFromDomSource(doms));
-
-		//TODO re-implement EndpointReferenceType to avoid cxf dependency 
-		EndpointReferenceType registrationEPR = new EndpointReferenceType();
 		String regAddr = eprConf.getRegistrationService();
-		AttributedURIType addr = new AttributedURIType();
-		addr.setValue(regAddr);
-		registrationEPR.setAddress(addr);
+        EndpointReferenceType registrationEPR = EprUtils.createCxfEprInstance(regAddr, new PrivateIdType(privateId));
 
-		ReferenceParametersType ref = new ReferenceParametersType();
-		List<Object> paras = ref.getAny();
-		PrivateIdType pi = new PrivateIdType();
-		pi.setPrivateId(privateId);
-		JAXBUtils.addAsW3cElement(paras, PrivateIdType.class, pi);
-		registrationEPR.setReferenceParameters(ref);
-
-//		EndpointReferenceType w3cRegistratoiERP = new EndpointReferenceType(
-//				EndpointReferenceUtils.convertToXML(registrationEPR));
 		coordinationContext.setRegistrationService(registrationEPR);
 		return coordinationContext;
 	}

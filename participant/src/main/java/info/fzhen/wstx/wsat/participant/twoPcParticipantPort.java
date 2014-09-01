@@ -1,12 +1,12 @@
 package info.fzhen.wstx.wsat.participant;
 
-import javax.jws.WebService;
-
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.ParticipantPortType;
 
+import javax.jws.WebService;
+
 @WebService
-public class Volatile2PcParticipantPort implements ParticipantPortType{
+public class twoPcParticipantPort implements ParticipantPortType{
 
 	@Override
 	public void prepareOperation(Notification parameters) {

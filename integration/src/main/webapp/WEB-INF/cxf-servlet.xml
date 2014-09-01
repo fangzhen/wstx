@@ -62,8 +62,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 
     <bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
         <property name="initiatorEp" ref="completionInitiator"/>
-        <property name="twoPcParticipantEp" ref="durable2PcParticipant"/>
-        <property name="volatile2PcParticipantEp" ref="volatile2PcParticipant"/>
+        <property name="twoPcParticipantEp" ref="twoPcParticipant"/>
         <property name="prefix">
             <value>http://localhost:8080</value>
         </property>

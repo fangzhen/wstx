@@ -8,6 +8,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
+import info.fzhen.wstx.coordinator.PrivateIdType;
 import org.apache.cxf.frontend.ClientProxyFactoryBean;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.addressing.AddressingProperties;
@@ -69,11 +70,11 @@ public class EprUtils {
 	/**
 	 * Create Instance of {@link EndpointReferenceType}
 	 * @param address
-	 * @param refPara referenced parameters
+	 * @param pid referenced privateid
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static EndpointReferenceType createCxfEprInstance(String address, Object refPara){
+	public static EndpointReferenceType createCxfEprInstance(String address, PrivateIdType pid){
 		EndpointReferenceType cxfEpr = new EndpointReferenceType();
 		AttributedURIType addr = new AttributedURIType();
 		cxfEpr.setAddress(addr);
@@ -81,7 +82,7 @@ public class EprUtils {
 
 		ReferenceParametersType refParas = new ReferenceParametersType();
 		cxfEpr.setReferenceParameters(refParas);
-        refParas.getAny().add(refPara);
+        refParas.getAny().add(pid);
 		//JAXBUtils.addAsW3cElement(cxfEpr.getReferenceParameters().getAny(), (Class<Object>)refPara.getClass(), refPara);
 		return cxfEpr;
 	}
@@ -92,7 +93,7 @@ public class EprUtils {
 	 * @param paras referenced parameters
 	 * @return
 	 */
-	public static W3CEndpointReference createW3CEprInstance(String address, Object paras){
+	public static W3CEndpointReference createW3CEprInstance(String address, PrivateIdType paras){
 		EndpointReferenceType cxfEpr = createCxfEprInstance(address, paras);
 		W3CEndpointReference w3cEpr = new W3CEndpointReference(
 				EndpointReferenceUtils.convertToXML(cxfEpr));

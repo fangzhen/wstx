@@ -2,10 +2,15 @@ package info.fzhen.wstx.at.participant;
 
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.EprUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
@@ -16,6 +21,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  * @author fangzhen
  */
 public class WsatTransaction extends WsTransaction {
+    private static final Log __LOG = LogFactory.getLog(WsatTransaction.class);
 	/**completion participant */
 	private AtInitiatorPart initiator;
 
@@ -31,12 +37,28 @@ public class WsatTransaction extends WsTransaction {
 	 */
 	@Override
 	public void begin() {
+        if (__LOG.isDebugEnabled()){
+            __LOG.debug("start an atomic transaction now.");
+        }
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ActivationPortType activationSer = getActivationSer();
 		ccc.setCoordinationType(CoordinationType.WSAT.getText());
 		CreateCoordinationContextResponseType res = activationSer
 				.createCoordinationContextOperation(ccc);
 		setCoordinationContext(res.getCoordinationContext());
+        if (__LOG.isDebugEnabled()){
+            CoordinationContext ctx = res.getCoordinationContext();
+            EndpointReferenceType regEpr = ctx.getRegistrationService();
+            String id = null;
+            try{
+                id = ((PrivateIdType)regEpr.getReferenceParameters().getAny().get(0)).getPrivateId();
+            }catch (Exception e){
+                id = "Unable to retrieve private id";
+            }
+            __LOG.debug("started atomic transaction. " +
+                    "Registration Service address: " + regEpr.getAddress().getValue() +
+                            " activity id: " + id);
+        }
 	}
 
 	public void setInitiator(AtInitiatorPart initiator) {
