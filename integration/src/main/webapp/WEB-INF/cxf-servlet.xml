@@ -10,73 +10,75 @@
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:wsa="http://cxf.apache.org/ws/addressing" xmlns:cxf="http://cxf.apache.org/core"
-	xmlns:soap="http://cxf.apache.org/bindings/soap"
-	xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing" xmlns:cxf="http://cxf.apache.org/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
-	<import resource="classpath:wstx-parti.xml" />
-	<cxf:bus>
-		<cxf:features>
-			<wsa:addressing />
-		</cxf:features>
-	</cxf:bus>
-	<bean id="abstractLoggingInterceptor" abstract="true">
-		<property name="prettyLogging" value="true" />
-	</bean>
-	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"
-		parent="abstractLoggingInterceptor" />
-	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
-		parent="abstractLoggingInterceptor" />
+    <import resource="classpath:wstx-parti.xml"/>
+    <cxf:bus>
+        <cxf:features>
+            <wsa:addressing/>
+        </cxf:features>
+    </cxf:bus>
+    <bean id="abstractLoggingInterceptor" abstract="true">
+        <property name="prettyLogging" value="true"/>
+    </bean>
+    <bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"
+          parent="abstractLoggingInterceptor"/>
+    <bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
+          parent="abstractLoggingInterceptor"/>
 
-	<!-- custom interceptors of wstx -->
-	<bean id="wstxAppOutInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxAppOutInterceptor" />
-	<bean id="wstxAppInInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxAppInInterceptor" />
+    <!-- custom interceptors of wstx -->
+    <bean id="wstxAppOutInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxAppOutInterceptor"/>
+    <bean id="wstxAppInInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxAppInInterceptor"/>
 
-	<cxf:bus>
-		<cxf:inInterceptors>
-			<ref bean="loggingInInterceptor" />
-		</cxf:inInterceptors>
-		<cxf:outInterceptors>
-			<ref bean="loggingOutInterceptor" />
-		</cxf:outInterceptors>
-		<cxf:outFaultInterceptors>
-			<ref bean="loggingOutInterceptor" />
-		</cxf:outFaultInterceptors>
-		<cxf:inFaultInterceptors>
-			<ref bean="loggingInInterceptor" />
-		</cxf:inFaultInterceptors>
-	</cxf:bus>
+    <cxf:bus>
+        <cxf:inInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </cxf:inInterceptors>
+        <cxf:outInterceptors>
+            <ref bean="loggingOutInterceptor"/>
+        </cxf:outInterceptors>
+        <cxf:outFaultInterceptors>
+            <ref bean="loggingOutInterceptor"/>
+        </cxf:outFaultInterceptors>
+        <cxf:inFaultInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </cxf:inFaultInterceptors>
+    </cxf:bus>
 
-	<jaxws:endpoint id="helloService"
-		implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
-		<jaxws:inInterceptors>
-			<ref bean="wstxAppInInterceptor" />
-		</jaxws:inInterceptors>
-	</jaxws:endpoint>
-	<jaxws:endpoint id="helloProcess"
-		implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess">
-	</jaxws:endpoint>
+    <jaxws:endpoint id="helloService"
+                    implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
+        <jaxws:inInterceptors>
+            <ref bean="wstxAppInInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+    <jaxws:endpoint id="helloProcess"
+                    implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess">
+    </jaxws:endpoint>
 
-	<bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
-		<property name="initiatorEp" ref="completionInitiator" />
-		<property name="durable2PcParticipantEp" ref="durable2PcParticipant" />
-		<property name="volatile2PcParticipantEp" ref="volatile2PcParticipant" />
-		<property name="prefix">
-			<value>http://localhost:8080</value>
-		</property>
-	</bean>
-	<bean id="atManager" class="info.fzhen.wstx.transaction.WsatInitiatorManager"
-		scope="singleton">
-		<property name="eprConfiguration">
-			<ref bean="eprConfig" />
-		</property>
-		<property name="instance">
-			<ref bean="atManager" />
-		</property>
-	</bean>
+    <bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
+        <property name="initiatorEp" ref="completionInitiator"/>
+        <property name="twoPcParticipantEp" ref="durable2PcParticipant"/>
+        <property name="volatile2PcParticipantEp" ref="volatile2PcParticipant"/>
+        <property name="prefix">
+            <value>http://localhost:8080</value>
+        </property>
+    </bean>
+    <bean id="at2pcPartManager" class="info.fzhen.wstx.at.participant.At2pcPartManager" scope="singleton">
+        <property name="partServiceAddr" value="#{eprConfig.twoPcPtcpAddress}"/>
+        <property name="instance">
+            <ref bean="at2pcPartManager"/>
+        </property>
+    </bean>
+    <bean id="atInitiatorPartManager" class="info.fzhen.wstx.at.participant.AtInitiatorPartManager"
+          scope="singleton">
+        <property name="partServiceAddr" value="#{eprConfig.initiatorAddress}"/>
+        <property name="instance">
+            <ref bean="atInitiatorPartManager"/>
+        </property>
+    </bean>
 </beans>

@@ -1,7 +1,7 @@
 package info.fzhen.wstx.wsat.participant;
 
-import info.fzhen.wstx.at.participant.ATInitiator;
-import info.fzhen.wstx.transaction.WsatInitiatorManager;
+import info.fzhen.wstx.at.participant.AtInitiatorPart;
+import info.fzhen.wstx.at.participant.AtInitiatorPartManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 
 import javax.annotation.Resource;
@@ -13,7 +13,7 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
 @WebService
 public class CompletionInitiatorPort implements CompletionInitiatorPortType {
-	private ATInitiator initiator;
+	private AtInitiatorPart initiator;
 	@Resource
 	WebServiceContext wsContext;
 	public CompletionInitiatorPort(){
@@ -24,7 +24,7 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	public void committedOperation(Notification parameters) {
 		String txId = MsgContextUtil.retrievePrivateId(wsContext);
 		System.out.println("transaction " + txId + "successfully committed");
-		WsatInitiatorManager.getInstance().forgetInitiator(txId);
+		AtInitiatorPartManager.getInstance().forgetInitiator(txId);
 	}
 
 	@Override
@@ -32,11 +32,11 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 
 	}
 
-	public ATInitiator getInitiator() {
+	public AtInitiatorPart getInitiator() {
 		return initiator;
 	}
 
-	public void setInitiator(ATInitiator initiator) {
+	public void setInitiator(AtInitiatorPart initiator) {
 		this.initiator = initiator;
 	}
 }

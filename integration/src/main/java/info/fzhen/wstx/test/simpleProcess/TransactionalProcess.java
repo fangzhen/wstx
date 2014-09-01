@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.fzhen.wstx.cxf.interceptor.WstxTransform;
-import info.fzhen.wstx.transaction.WsTransaction;
+import info.fzhen.wstx.at.participant.WsTransaction;
 
 import javax.jws.WebService;
 import javax.xml.bind.JAXBException;

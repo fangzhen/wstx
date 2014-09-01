@@ -1,6 +1,6 @@
 package info.fzhen.wstx.test.services;
 
-import info.fzhen.wstx.transaction.WsatDurable2PcManager;
+import info.fzhen.wstx.at.participant.At2pcPartManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,7 +22,7 @@ public class HelloServiceImpl implements HelloService{
 		CoordinationContext ctx = MsgContextUtil.retrieveCoorCtx(wsContext);
 		if (ctx != null){ //coordination context are found, do registration now
             HelloD2pcPartcipant part = new HelloD2pcPartcipant();
-            WsatDurable2PcManager d2pdManager = WsatDurable2PcManager.getInstance();
+            At2pcPartManager d2pdManager = At2pcPartManager.getInstance();
             d2pdManager.registerDurable2Pc(ctx, part);
             part.log();
 		}

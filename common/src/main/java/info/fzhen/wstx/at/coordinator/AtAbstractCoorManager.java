@@ -5,6 +5,9 @@ import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 
+/**
+ * Base class of coordinator side protocol service managers
+ */
 public abstract class AtAbstractCoorManager {
     protected String coorServiceAddr;
 

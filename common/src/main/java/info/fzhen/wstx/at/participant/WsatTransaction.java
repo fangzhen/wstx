@@ -1,11 +1,8 @@
-package info.fzhen.wstx.transaction;
+package info.fzhen.wstx.at.participant;
 
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.participant.ATInitiator;
 import info.fzhen.wstx.util.EprUtils;
-
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
@@ -19,11 +16,8 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
  * @author fangzhen
  */
 public class WsatTransaction extends WsTransaction {
-	/** Completion protocol coordinator service */
-	private EndpointReferenceType coorInitiatorEpr;
-
 	/**completion participant */
-	private ATInitiator initiator;
+	private AtInitiatorPart initiator;
 
     /**client proxy of coordinator activation service */
     private ActivationPortType activationSer;
@@ -45,21 +39,17 @@ public class WsatTransaction extends WsTransaction {
 		setCoordinationContext(res.getCoordinationContext());
 	}
 
-	public void setInitiator(ATInitiator initiator) {
+	public void setInitiator(AtInitiatorPart initiator) {
 		if (this.initiator != null) {
 			throw new WstxRtException("Too many initiators. One is enough");
 		}
 		this.initiator = initiator;
 	}
 
-	public void setCoorInitiatorEpr(EndpointReferenceType coorInitiatorEpr) {
-		this.coorInitiatorEpr = coorInitiatorEpr;
-	}
-
 	public void commit() {
 		CompletionCoordinatorPortType completionCoordinator = EprUtils
 				.createWsaddrClientProxy(CompletionCoordinatorPortType.class,
-						coorInitiatorEpr);
+						initiator.getCoordinatorEpr());
 		completionCoordinator.commitOperation(new Notification());
 	}
 	

@@ -8,14 +8,8 @@ public interface ATPartEprConfig extends EprConfig{
 	String getInitiatorAddress();
 
 	/**
-	 * Return Volatile 2PC participant address
+	 * Return 2PC participant address
 	 * @return
 	 */
-	String getVolatile2PcPtcpAddress();
-
-	/**
-	 * Return Durable 2PC participant address
-	 * @return
-	 */
-	String getDuarble2PcPtcpAddress();
+	String getTwoPcPtcpAddress();
 }
