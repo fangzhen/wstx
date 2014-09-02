@@ -8,15 +8,10 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class At2pcCoorManager extends AtAbstractCoorManager{
     private static final Log __LOG = LogFactory.getLog(At2pcCoorManager.class);
 
     private static At2pcCoorManager instance;
-
-    private Map<String, At2pcCoor> at2pcCoors = new HashMap<>();
 
     public static At2pcCoorManager getInstance(){
         if (instance == null){
@@ -32,20 +27,34 @@ public class At2pcCoorManager extends AtAbstractCoorManager{
         return instance;
     }
 
+    /**register durable 2PC protocol */
+    public RegisterResponseType registerD2pcParticipant(AtomicTxCoordinator activity, RegisterType regPara) {
+        return register2pcParticipant(activity, regPara, false);
+    }
+
+    /**register durable 2PC protocol */
+    public RegisterResponseType registerV2pcParticipant(AtomicTxCoordinator activity, RegisterType regPara) {
+        return register2pcParticipant(activity, regPara, true);
+    }
     /**
      * Register 2PC participant
      * @param activity the activity that involved
      * @param regPara register parameter
+     * @param v true if is volatile 2PC
      * @return
      */
-    public RegisterResponseType register2pcParticipant(AtomicTxCoordinator activity, RegisterType regPara){
+    public RegisterResponseType register2pcParticipant(AtomicTxCoordinator activity, RegisterType regPara, boolean v){
         At2pcCoor at2pcCoor = new At2pcCoor();
         at2pcCoor.setActivity(activity);
-        activity.addD2pdCoor(at2pcCoor);
+        if (v){
+            activity.addV2pcCoor(at2pcCoor);
+        }else {
+            activity.addD2pcCoor(at2pcCoor);
+        }
         at2pcCoor.setParticipantEpr(regPara.getParticipantProtocolService());
 
         String privateId = CommonUtils.genPrivateId();
-        at2pcCoors.put(privateId, at2pcCoor);
+        managedCoordinators.put(privateId, at2pcCoor);
 
         RegisterResponseType response = constructRegisterResponse(privateId);
         return  response;

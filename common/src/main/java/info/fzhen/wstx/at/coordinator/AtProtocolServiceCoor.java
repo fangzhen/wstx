@@ -1,6 +1,7 @@
 package info.fzhen.wstx.at.coordinator;
 
 import info.fzhen.wstx.participant.IState;
+import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 public abstract class AtProtocolServiceCoor {
@@ -11,6 +12,10 @@ public abstract class AtProtocolServiceCoor {
     protected EndpointReferenceType participantEpr;
     /** state of the coordiantor */
     protected IState state;
+
+    protected <T> T getPartProxy(Class<T> clazz){
+        return EprUtils.createWsaddrClientProxy(clazz, participantEpr);
+    }
 
     public AtomicTxCoordinator getActivity() {
         return activity;

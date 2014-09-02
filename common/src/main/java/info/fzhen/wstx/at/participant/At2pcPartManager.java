@@ -58,4 +58,10 @@ public class At2pcPartManager extends AtAbstractPartManager {
         }
         doRegister(coorContext, participant, protocolId);
     }
+
+    public At2pcPart get2PcParticipant(String id){
+        AtProtocolServicePart part = retrieveProtocolParticipant(id);
+        if (part == null) return null;
+        return (At2pcPart)part;
+    }
 }

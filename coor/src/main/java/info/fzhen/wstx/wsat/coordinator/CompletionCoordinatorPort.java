@@ -26,7 +26,7 @@ public class CompletionCoordinatorPort implements CompletionCoordinatorPortType{
 	@Override
 	public void commitOperation(Notification parameters) {
 		String id = MsgContextUtil.retrievePrivateId(wsContext);
-        AtInitiatorCoor initiatorCoor = AtInitiatorCoorManager.getInstance().getInitiatorCoor(id);
+        AtInitiatorCoor initiatorCoor = AtInitiatorCoorManager.getInstance().retrieveInitiatorCoor(id);
         if (initiatorCoor == null){
             if (__LOG.isErrorEnabled()){
                 __LOG.error("Failed to get initiator protocol service with id: " + id);

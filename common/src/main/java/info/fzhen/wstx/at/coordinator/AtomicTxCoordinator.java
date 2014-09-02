@@ -23,6 +23,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
      */
     private AtInitiatorCoor initiatorCoor;
     private List<At2pcCoor> d2pcCoors = new ArrayList<>();
+    private List<At2pcCoor> v2pcCoors = new ArrayList<>();
 
     /**
      * Factory method that create new instance of Atomic Tx.
@@ -51,11 +52,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
                 response = AtInitiatorCoorManager.getInstance().registerInitiator(this, registerPara);
                 break;
             case DURABLE2PC:
-                response = At2pcCoorManager.getInstance().register2pcParticipant(this, registerPara);
+                response = At2pcCoorManager.getInstance().registerD2pcParticipant(this, registerPara);
                 break;
-
-            //TODO s
             case VOLATILE2PC:
+                response = At2pcCoorManager.getInstance().registerV2pcParticipant(this, registerPara);
                 break;
         }
         return response;
@@ -65,7 +65,9 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
      * start 2PC.
      */
     public void commit() {
-
+        for (At2pcCoor coor2pc : v2pcCoors){
+            coor2pc.prepare();
+        }
     }
 
     public AtInitiatorCoor getInitiatorCoor() {
@@ -76,8 +78,12 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
         this.initiatorCoor = initiatorCoor;
     }
 
-    public void addD2pdCoor(At2pcCoor d2pcCoor) {
+    public void addD2pcCoor(At2pcCoor d2pcCoor) {
         d2pcCoors.add(d2pcCoor);
+    }
+
+    public void addV2pcCoor(At2pcCoor v2pcCoor) {
+        v2pcCoors.add(v2pcCoor);
     }
 
     public static enum States {

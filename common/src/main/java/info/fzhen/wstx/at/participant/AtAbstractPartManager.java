@@ -3,6 +3,8 @@ package info.fzhen.wstx.at.participant;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.CommonUtils;
 import info.fzhen.wstx.util.EprUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
@@ -16,20 +18,31 @@ import java.util.Map;
  * Base class of participant side protocol service managers
  */
 public class AtAbstractPartManager {
+    private static Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
+
     /** participant side protocol service address */
     protected String partServiceAddr;
     /** Map that holds all participants managed by this manager, id as key*/
     protected Map<String, AtProtocolServicePart> managedParticipants = new HashMap<>();
 
-    public String getPartServiceAddr() {
-        return partServiceAddr;
+    public AtProtocolServicePart retrieveProtocolParticipant(String id){
+        AtProtocolServicePart part = managedParticipants.get(id);
+        if (part == null) {
+            if (__LOG.isWarnEnabled()) {
+                __LOG.warn("failed to retrieve corresponding protocol service participant " +
+                        "coordinator with id" + id);
+            }
+        }
+        return part;
     }
 
-    public void setPartServiceAddr(String partServiceAddr) {
-        this.partServiceAddr = partServiceAddr;
-    }
-
-    public void doRegister(CoordinationContext coorContext, AtProtocolServicePart participant, String protocolId){
+    /**
+     * Register participant
+     * @param coorContext coordination context of the transaction that the participant take part in
+     * @param participant  the target participant
+     * @param protocolId protocol identifier
+     */
+    protected void doRegister(CoordinationContext coorContext, AtProtocolServicePart participant, String protocolId){
         String id = CommonUtils.genPrivateId();
         managedParticipants.put(id, participant);
 
@@ -47,5 +60,13 @@ public class AtAbstractPartManager {
 
         EndpointReferenceType coorEpr = response.getCoordinatorProtocolService();
         participant.setCoordinatorEpr(coorEpr);
+    }
+
+    public String getPartServiceAddr() {
+        return partServiceAddr;
+    }
+
+    public void setPartServiceAddr(String partServiceAddr) {
+        this.partServiceAddr = partServiceAddr;
     }
 }

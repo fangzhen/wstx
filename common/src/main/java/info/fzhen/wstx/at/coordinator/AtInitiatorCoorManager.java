@@ -7,9 +7,6 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Coordiantor side initiator manager.
  */
@@ -17,8 +14,6 @@ public class AtInitiatorCoorManager extends AtAbstractCoorManager{
     private static final Log __LOG = LogFactory.getLog(AtInitiatorCoorManager.class);
 
     private static AtInitiatorCoorManager instance;
-
-    Map<String, AtInitiatorCoor> initiatorCoors = new HashMap<>();
 
     public static AtInitiatorCoorManager getInstance(){
         if (instance == null){
@@ -41,15 +36,17 @@ public class AtInitiatorCoorManager extends AtAbstractCoorManager{
         initiatorCoor.setParticipantEpr(regPara.getParticipantProtocolService());
 
         String privateId = CommonUtils.genPrivateId();
-        initiatorCoors.put(privateId, initiatorCoor);
+        managedCoordinators.put(privateId, initiatorCoor);
 
         //construct the response
         RegisterResponseType response = constructRegisterResponse(privateId);
         return response;
     }
 
-    public AtInitiatorCoor getInitiatorCoor(String id){
-        return initiatorCoors.get(id);
+    public AtInitiatorCoor retrieveInitiatorCoor(String id){
+        AtProtocolServiceCoor coor = retrieveProtocolCoordinator(id);
+        if (coor == null) return null;
+        return (AtInitiatorCoor) coor;
     }
 
     public static void setInstance(AtInitiatorCoorManager instance) {
