@@ -1,16 +1,7 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import info.fzhen.wstx.cxf.interceptor.WstxTransform;
 import info.fzhen.wstx.at.participant.WsTransaction;
-
-import javax.jws.WebService;
-import javax.xml.bind.JAXBException;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-
+import info.fzhen.wstx.cxf.interceptor.WstxTransform;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
@@ -18,10 +9,16 @@ import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxb.JAXBDataBinding;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 
+import javax.jws.WebService;
+import javax.xml.bind.JAXBException;
+import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
+import java.util.ArrayList;
+import java.util.List;
+
 @WebService
 public abstract class TransactionalProcess implements Process{
 	private static final Log __LOG = LogFactory.getLog(TransactionalProcess.class);
-	public abstract void execute();
 
 	/**
 	 * Add coordination context as header when sending application messages.

@@ -1,7 +1,8 @@
 package info.fzhen.wstx.at.coordinator;
 
 import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
@@ -15,20 +16,7 @@ import java.util.List;
  * @author fangzhen
  */
 public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
-    /**
-     * TODO these fileds should be removed.
-     * EPRs of protocol participants
-     */
-    private EndpointReferenceType initiatorEpr;
-    private List<EndpointReferenceType> durable2PcPrtcpEprs = new ArrayList<>();
-    private List<EndpointReferenceType> volatile2PcPrtcpEprs = new ArrayList<>();
-
-    /**
-     * TODO these fields should be removed
-     * EPRs of protocol coordinators
-     */
-    private EndpointReferenceType coorInitiatorEpr;
-    private EndpointReferenceType coor2PcEpr;
+    private static final Log __LOG = LogFactory.getLog(AtomicTxCoordinator.class);
 
     /**
      * Protocol services of this activity
@@ -73,27 +61,11 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
         return response;
     }
 
-    public EndpointReferenceType getInitiatorEpr() {
-        return initiatorEpr;
-    }
-
-    public void setInitiatorEpr(EndpointReferenceType initiatorEpr) {
-        this.initiatorEpr = initiatorEpr;
-    }
-
     /**
      * start 2PC.
      */
     public void commit() {
         //TODO First Volatile
-    }
-
-    public EndpointReferenceType getCoorInitiatorEpr() {
-        return coorInitiatorEpr;
-    }
-
-    public void setCoorInitiatorEpr(EndpointReferenceType coorInitiatorEpr) {
-        this.coorInitiatorEpr = coorInitiatorEpr;
     }
 
     public AtInitiatorCoor getInitiatorCoor() {

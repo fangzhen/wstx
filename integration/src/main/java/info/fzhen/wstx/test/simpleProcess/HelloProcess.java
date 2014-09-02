@@ -24,7 +24,7 @@ public class HelloProcess extends TransactionalProcess{
 	}
 
 	@Override
-	public void execute() {
+	public void execute(){
 		context = new ClassPathXmlApplicationContext(
 				new String[]{"coor-beans.xml"});
 		services = new ClassPathXmlApplicationContext(
@@ -46,7 +46,8 @@ public class HelloProcess extends TransactionalProcess{
 		helloSer.sayHello();
 
 		transaction.commit();
-		context.close();
+
+        context.close();
 		services.close();
 	}
 

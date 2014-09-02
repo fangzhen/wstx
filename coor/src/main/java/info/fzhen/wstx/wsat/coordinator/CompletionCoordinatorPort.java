@@ -37,7 +37,7 @@ public class CompletionCoordinatorPort implements CompletionCoordinatorPortType{
 		activity.commit();
 
         //committed
-		EndpointReferenceType epr = activity.getInitiatorEpr();
+		EndpointReferenceType epr = activity.getInitiatorCoor().getParticipantEpr();
 		CompletionInitiatorPortType initiator = EprUtils.createWsaddrClientProxy(CompletionInitiatorPortType.class, epr);
 		initiator.committedOperation(new Notification());
 	}

@@ -25,7 +25,7 @@ public class WstxEprOutInterceptor extends AbstractSoapInterceptor{
 
     public WstxEprOutInterceptor(){
         super(Phase.PRE_PROTOCOL);
-        addAfter(MAPCodec.class.getSimpleName());
+        addBefore(MAPCodec.class.getName());
     }
     @Override
     public void handleMessage(SoapMessage message) throws Fault {

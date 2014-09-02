@@ -26,12 +26,18 @@ public class WstxEprInInterceptor  extends AbstractSoapInterceptor {
 
     public WstxEprInInterceptor(){
         super(Phase.PRE_PROTOCOL);
-        addBefore(MAPCodec.class.getSimpleName());
+        addAfter(MAPCodec.class.getName());
     }
 
 
     @Override
     public void handleMessage(SoapMessage message) throws Fault {
+        if (ContextUtils.isOutbound(message)){
+            if (__LOG.isErrorEnabled()){
+                __LOG.error("this interceptor should only be used as in interceptor");
+            }
+            return;
+        }
         if (!MessageUtils.getContextualBoolean(message, MAPAggregator.ADDRESSING_DISABLED, false)) {
             decodeRefParas(message);
         }
@@ -64,6 +70,9 @@ public class WstxEprInInterceptor  extends AbstractSoapInterceptor {
                                 }
                                 itor.remove();
                                 replacement.add(obj);
+                                if (__LOG.isDebugEnabled()){
+                                    __LOG.debug("unmarshalled referenced parameter of type " + obj.getClass());
+                                }
                             } catch (JAXBException e) {
                                 if(__LOG.isWarnEnabled()){
                                     __LOG.warn("Failed when decode Ws-coor or Ws-Tx soap header due"

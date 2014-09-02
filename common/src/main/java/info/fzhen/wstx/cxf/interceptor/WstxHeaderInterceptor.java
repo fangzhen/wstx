@@ -26,7 +26,7 @@ public class WstxHeaderInterceptor extends AbstractSoapInterceptor{
 
 	public WstxHeaderInterceptor(){
 		super(Phase.PRE_PROTOCOL);
-        addBefore(MAPCodec.class.getSimpleName());
+        addAfter(MAPCodec.class.getName());
 	}
 	public WstxHeaderInterceptor(String phase){
 		super(phase);
@@ -59,6 +59,9 @@ public class WstxHeaderInterceptor extends AbstractSoapInterceptor{
                             obj = element.getValue();
                         }
                         header.setObject(obj);
+                        if (__LOG.isDebugEnabled()){
+                            __LOG.debug("unmarshalled soap header of type " + obj.getClass());
+                        }
                     } catch (JAXBException e) {
                         if (__LOG.isWarnEnabled()) {
                             __LOG.warn("Failed when decode Ws-coor or Ws-Tx soap header due"
