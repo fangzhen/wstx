@@ -5,11 +5,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.interceptor.Fault;
+import org.apache.cxf.message.MessageUtils;
 import org.apache.cxf.phase.Phase;
-import org.apache.cxf.ws.addressing.AddressingProperties;
-import org.apache.cxf.ws.addressing.ContextUtils;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.apache.cxf.ws.addressing.ReferenceParametersType;
+import org.apache.cxf.ws.addressing.*;
 import org.apache.cxf.ws.addressing.soap.MAPCodec;
 import org.w3c.dom.Element;
 
@@ -34,7 +32,9 @@ public class WstxEprInInterceptor  extends AbstractSoapInterceptor {
 
     @Override
     public void handleMessage(SoapMessage message) throws Fault {
-        decodeRefParas(message);
+        if (!MessageUtils.getContextualBoolean(message, MAPAggregator.ADDRESSING_DISABLED, false)) {
+            decodeRefParas(message);
+        }
     }
     private void decodeRefParas(SoapMessage message) {
         AddressingProperties maps = ContextUtils.retrieveMAPs(message, false, false);
