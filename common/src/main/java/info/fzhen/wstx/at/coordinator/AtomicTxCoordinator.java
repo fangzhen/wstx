@@ -65,7 +65,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
      * start 2PC.
      */
     public void commit() {
-        //TODO First Volatile
+
     }
 
     public AtInitiatorCoor getInitiatorCoor() {

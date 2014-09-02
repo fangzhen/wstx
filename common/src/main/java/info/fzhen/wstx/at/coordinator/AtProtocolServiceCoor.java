@@ -1,5 +1,6 @@
 package info.fzhen.wstx.at.coordinator;
 
+import info.fzhen.wstx.participant.IState;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 public abstract class AtProtocolServiceCoor {
@@ -8,6 +9,8 @@ public abstract class AtProtocolServiceCoor {
 
     /**participant protocol service EPR*/
     protected EndpointReferenceType participantEpr;
+    /** state of the coordiantor */
+    protected IState state;
 
     public AtomicTxCoordinator getActivity() {
         return activity;
@@ -23,5 +26,13 @@ public abstract class AtProtocolServiceCoor {
 
     public void setParticipantEpr(EndpointReferenceType participantEpr) {
         this.participantEpr = participantEpr;
+    }
+
+    public IState getState() {
+        return state;
+    }
+
+    public void setState(IState state) {
+        this.state = state;
     }
 }

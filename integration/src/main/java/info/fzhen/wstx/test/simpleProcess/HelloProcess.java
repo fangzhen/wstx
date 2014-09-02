@@ -35,8 +35,8 @@ public class HelloProcess extends TransactionalProcess{
 		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
 		transaction.begin();
+
 		//register WSAT completion protocol
-		
 		AtInitiatorPartManager manager = AtInitiatorPartManager.getInstance();
 		manager.registerInitiator(transaction);
 

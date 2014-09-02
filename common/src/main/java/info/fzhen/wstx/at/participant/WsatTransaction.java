@@ -37,8 +37,8 @@ public class WsatTransaction extends WsTransaction {
 	 */
 	@Override
 	public void begin() {
-        if (__LOG.isDebugEnabled()){
-            __LOG.debug("start an atomic transaction now.");
+        if (__LOG.isInfoEnabled()){
+            __LOG.info("start an atomic transaction now.");
         }
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ActivationPortType activationSer = getActivationSer();
@@ -68,12 +68,18 @@ public class WsatTransaction extends WsTransaction {
 		this.initiator = initiator;
 	}
 
+    /**
+     * commit the atomic transaction
+     */
 	public void commit() {
+        if (__LOG.isInfoEnabled()){
+            __LOG.info("start to commit the transaction");
+        }
 		CompletionCoordinatorPortType completionCoordinator = EprUtils
 				.createWsaddrClientProxy(CompletionCoordinatorPortType.class,
 						initiator.getCoordinatorEpr());
 		completionCoordinator.commitOperation(new Notification());
-	}
+    }
 	
 	public void rollback() {
 		//TODO
