@@ -1,6 +1,6 @@
 package info.fzhen.wstx.wsat.participant;
 
-import info.fzhen.wstx.at.participant.AtInitiatorPart;
+import info.fzhen.wstx.at.participant.AtInitiatorPartService;
 import info.fzhen.wstx.at.participant.AtInitiatorPartManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 
@@ -13,7 +13,7 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
 @WebService
 public class CompletionInitiatorPort implements CompletionInitiatorPortType {
-	private AtInitiatorPart initiator;
+	private AtInitiatorPartService initiator;
 	@Resource
 	WebServiceContext wsContext;
 	public CompletionInitiatorPort(){
@@ -32,11 +32,11 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 
 	}
 
-	public AtInitiatorPart getInitiator() {
+	public AtInitiatorPartService getInitiator() {
 		return initiator;
 	}
 
-	public void setInitiator(AtInitiatorPart initiator) {
+	public void setInitiator(AtInitiatorPartService initiator) {
 		this.initiator = initiator;
 	}
 }

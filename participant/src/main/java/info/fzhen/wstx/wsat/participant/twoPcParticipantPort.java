@@ -1,6 +1,6 @@
 package info.fzhen.wstx.wsat.participant;
 
-import info.fzhen.wstx.at.participant.At2pcPart;
+import info.fzhen.wstx.at.participant.At2pcPartService;
 import info.fzhen.wstx.at.participant.At2pcPartManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
@@ -18,8 +18,7 @@ public class twoPcParticipantPort implements ParticipantPortType{
 	@Override
 	public void prepareOperation(Notification parameters) {
         String id = MsgContextUtil.retrievePrivateId(wsContext);
-        At2pcPart targetedPart = At2pcPartManager.getInstance().get2PcParticipant(id);
-        targetedPart.prepare();
+        At2pcPartService targetedPart = At2pcPartManager.getInstance().get2PcParticipant(id);
 	}
 
 	@Override

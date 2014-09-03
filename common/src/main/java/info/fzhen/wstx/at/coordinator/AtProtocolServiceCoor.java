@@ -1,6 +1,6 @@
 package info.fzhen.wstx.at.coordinator;
 
-import info.fzhen.wstx.participant.IState;
+import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
@@ -11,7 +11,7 @@ public abstract class AtProtocolServiceCoor {
     /**participant protocol service EPR*/
     protected EndpointReferenceType participantEpr;
     /** state of the coordiantor */
-    protected IState state;
+    protected StateEnum state;
 
     protected <T> T getPartProxy(Class<T> clazz){
         return EprUtils.createWsaddrClientProxy(clazz, participantEpr);
@@ -33,11 +33,11 @@ public abstract class AtProtocolServiceCoor {
         this.participantEpr = participantEpr;
     }
 
-    public IState getState() {
+    public StateEnum getState() {
         return state;
     }
 
-    public void setState(IState state) {
+    public void setState(StateEnum state) {
         this.state = state;
     }
 }

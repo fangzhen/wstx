@@ -7,7 +7,7 @@ import info.fzhen.wstx.WstxRtException;
  * @author fangzhen
  *
  */
-public class AtInitiatorPart extends AtProtocolServicePart{
+public class AtInitiatorPartService extends AtProtocolServicePart<AtInitiatorParticipant>{
 	WsatTransaction transaction;
 
 	public void committed(){

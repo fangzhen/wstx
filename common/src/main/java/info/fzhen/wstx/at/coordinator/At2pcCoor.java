@@ -1,6 +1,6 @@
 package info.fzhen.wstx.at.coordinator;
 
-import info.fzhen.wstx.participant.IState;
+import info.fzhen.wstx.StateEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
@@ -22,7 +22,7 @@ public class At2pcCoor extends AtProtocolServiceCoor {
         }
     }
 
-    public static enum State implements IState{
+    public static enum State implements StateEnum {
         None,
         Active,
         Preparing,

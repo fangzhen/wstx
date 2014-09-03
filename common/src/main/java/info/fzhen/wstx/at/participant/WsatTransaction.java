@@ -23,7 +23,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 public class WsatTransaction extends WsTransaction {
     private static final Log __LOG = LogFactory.getLog(WsatTransaction.class);
 	/**completion participant */
-	private AtInitiatorPart initiator;
+	private AtInitiatorPartService initiator;
 
     /**client proxy of coordinator activation service */
     private ActivationPortType activationSer;
@@ -61,7 +61,7 @@ public class WsatTransaction extends WsTransaction {
         }
 	}
 
-	public void setInitiator(AtInitiatorPart initiator) {
+	public void setInitiator(AtInitiatorPartService initiator) {
 		if (this.initiator != null) {
 			throw new WstxRtException("Too many initiators. One is enough");
 		}

@@ -39,12 +39,12 @@ public class AtAbstractPartManager <T extends AtProtocolServicePart>{
     /**
      * Register participant
      * @param coorContext coordination context of the transaction that the participant take part in
-     * @param participant  the target participant
+     * @param participantSer  the target participant
      * @param protocolId protocol identifier
      */
-    protected void doRegister(CoordinationContext coorContext, T participant, String protocolId){
+    protected void doRegister(CoordinationContext coorContext, T participantSer, String protocolId){
         String id = CommonUtils.genPrivateId();
-        managedParticipants.put(id, participant);
+        managedParticipants.put(id, participantSer);
 
         //registration information
         EndpointReferenceType PartEpr = EprUtils.createCxfEprInstance(partServiceAddr, new PrivateIdType(id));
@@ -59,7 +59,7 @@ public class AtAbstractPartManager <T extends AtProtocolServicePart>{
         RegisterResponseType response = regSerClient.registerOperation(registerInfo);
 
         EndpointReferenceType coorEpr = response.getCoordinatorProtocolService();
-        participant.setCoordinatorEpr(coorEpr);
+        participantSer.setCoordinatorEpr(coorEpr);
     }
 
     public String getPartServiceAddr() {

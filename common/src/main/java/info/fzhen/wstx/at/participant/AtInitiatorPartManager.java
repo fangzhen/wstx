@@ -15,13 +15,13 @@ import java.util.Map;
  * @author fangzhen
  * 
  */
-public class AtInitiatorPartManager extends  AtAbstractPartManager<AtInitiatorPart>{
+public class AtInitiatorPartManager extends  AtAbstractPartManager<AtInitiatorPartService>{
 	private static final Log __LOG = LogFactory.getLog(Process.class);
 	
 	private static AtInitiatorPartManager instance;
 
 	/**Participants managed by this manager (on this site) */
-	Map<String, AtInitiatorPart> initiators = new HashMap<String, AtInitiatorPart>();
+	Map<String, AtInitiatorPartService> initiators = new HashMap<String, AtInitiatorPartService>();
 
 	public static AtInitiatorPartManager getInstance() {
 		if (instance == null){
@@ -38,14 +38,14 @@ public class AtInitiatorPartManager extends  AtAbstractPartManager<AtInitiatorPa
 	}
 
 	public void registerInitiator(WsatTransaction transaction) {
-		AtInitiatorPart initiator = new AtInitiatorPart();
+		AtInitiatorPartService initiator = new AtInitiatorPartService();
 		initiator.setTransaction(transaction);
 		transaction.setInitiator(initiator);
 
         doRegister(transaction.getCoordinationContext(), initiator, AtProtocol.COMPLETION.getText());
 	}
 
-    public AtInitiatorPart getInitiator(String id){
+    public AtInitiatorPartService getInitiator(String id){
 		return initiators.get(id);
 	}
 
