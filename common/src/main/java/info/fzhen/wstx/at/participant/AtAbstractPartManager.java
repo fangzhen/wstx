@@ -17,16 +17,16 @@ import java.util.Map;
 /**
  * Base class of participant side protocol service managers
  */
-public class AtAbstractPartManager {
+public class AtAbstractPartManager <T extends AtProtocolServicePart>{
     private static Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
 
     /** participant side protocol service address */
     protected String partServiceAddr;
     /** Map that holds all participants managed by this manager, id as key*/
-    protected Map<String, AtProtocolServicePart> managedParticipants = new HashMap<>();
+    protected Map<String, T> managedParticipants = new HashMap<>();
 
-    public AtProtocolServicePart retrieveProtocolParticipant(String id){
-        AtProtocolServicePart part = managedParticipants.get(id);
+    public T retrieveProtocolParticipant(String id){
+        T part = managedParticipants.get(id);
         if (part == null) {
             if (__LOG.isWarnEnabled()) {
                 __LOG.warn("failed to retrieve corresponding protocol service participant " +
@@ -42,7 +42,7 @@ public class AtAbstractPartManager {
      * @param participant  the target participant
      * @param protocolId protocol identifier
      */
-    protected void doRegister(CoordinationContext coorContext, AtProtocolServicePart participant, String protocolId){
+    protected void doRegister(CoordinationContext coorContext, T participant, String protocolId){
         String id = CommonUtils.genPrivateId();
         managedParticipants.put(id, participant);
 

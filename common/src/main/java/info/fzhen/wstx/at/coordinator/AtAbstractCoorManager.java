@@ -13,17 +13,17 @@ import java.util.Map;
 /**
  * Base class of coordinator side protocol service managers
  */
-public abstract class AtAbstractCoorManager {
+public abstract class AtAbstractCoorManager <T extends AtProtocolServiceCoor>{
     private static Log __LOG = LogFactory.getLog(AtAbstractCoorManager.class);
 
     /** protocol service coordinator address */
     protected String coorServiceAddr;
 
     /** protocol service coordiantors that managed by the manager */
-    protected Map<String, AtProtocolServiceCoor> managedCoordinators = new HashMap<>();
+    protected Map<String, T> managedCoordinators = new HashMap<>();
 
-    public AtProtocolServiceCoor retrieveProtocolCoordinator(String id){
-        AtProtocolServiceCoor coor = managedCoordinators.get(id);
+    public T retrieveProtocolCoordinator(String id){
+        T coor = managedCoordinators.get(id);
         if (coor == null){
             if (__LOG.isWarnEnabled()){
                 __LOG.warn("failed to retrieve corresponding protocol service " +

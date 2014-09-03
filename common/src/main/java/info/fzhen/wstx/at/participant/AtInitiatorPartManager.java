@@ -15,7 +15,7 @@ import java.util.Map;
  * @author fangzhen
  * 
  */
-public class AtInitiatorPartManager extends  AtAbstractPartManager{
+public class AtInitiatorPartManager extends  AtAbstractPartManager<AtInitiatorPart>{
 	private static final Log __LOG = LogFactory.getLog(Process.class);
 	
 	private static AtInitiatorPartManager instance;

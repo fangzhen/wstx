@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
-public class At2pcCoorManager extends AtAbstractCoorManager{
+public class At2pcCoorManager extends AtAbstractCoorManager<At2pcCoor>{
     private static final Log __LOG = LogFactory.getLog(At2pcCoorManager.class);
 
     private static At2pcCoorManager instance;

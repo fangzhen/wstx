@@ -10,7 +10,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
  * Participant side 2PC participant manager. This manager is
  * singleton to the site which manages all the participants.
  */
-public class At2pcPartManager extends AtAbstractPartManager {
+public class At2pcPartManager extends AtAbstractPartManager<At2pcPart>{
     private static final Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
 
     private static At2pcPartManager instance;

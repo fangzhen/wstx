@@ -10,7 +10,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 /**
  * Coordiantor side initiator manager.
  */
-public class AtInitiatorCoorManager extends AtAbstractCoorManager{
+public class AtInitiatorCoorManager extends AtAbstractCoorManager<AtInitiatorCoor>{
     private static final Log __LOG = LogFactory.getLog(AtInitiatorCoorManager.class);
 
     private static AtInitiatorCoorManager instance;
@@ -41,12 +41,6 @@ public class AtInitiatorCoorManager extends AtAbstractCoorManager{
         //construct the response
         RegisterResponseType response = constructRegisterResponse(privateId);
         return response;
-    }
-
-    public AtInitiatorCoor retrieveInitiatorCoor(String id){
-        AtProtocolServiceCoor coor = retrieveProtocolCoordinator(id);
-        if (coor == null) return null;
-        return (AtInitiatorCoor) coor;
     }
 
     public static void setInstance(AtInitiatorCoorManager instance) {
