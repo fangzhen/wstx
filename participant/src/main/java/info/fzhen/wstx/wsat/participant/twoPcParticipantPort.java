@@ -17,14 +17,14 @@ public class twoPcParticipantPort implements ParticipantPortType{
 
 	@Override
 	public void prepareOperation(Notification parameters) {
-        String id = MsgContextUtil.retrievePrivateId(wsContext);
-        At2pcPartService targetedPart = At2pcPartManager.getInstance().get2PcParticipant(id);
+        At2pcPartService targetedPart = getTargetedParticipant();
+        targetedPart.prepare();
 	}
 
 	@Override
 	public void commitOperation(Notification parameters) {
-		// TODO Auto-generated method stub
-		
+        At2pcPartService targetedPart = getTargetedParticipant();
+        targetedPart.commit();
 	}
 
 	@Override
@@ -33,4 +33,9 @@ public class twoPcParticipantPort implements ParticipantPortType{
 		
 	}
 
+    private At2pcPartService getTargetedParticipant(){
+        String id = MsgContextUtil.retrievePrivateId(wsContext);
+        At2pcPartService targetedPart = At2pcPartManager.getInstance().get2PcParticipant(id);
+        return targetedPart;
+    }
 }

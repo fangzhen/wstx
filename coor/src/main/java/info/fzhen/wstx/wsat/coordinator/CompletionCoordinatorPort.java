@@ -34,7 +34,7 @@ public class CompletionCoordinatorPort implements CompletionCoordinatorPortType{
             return;
         }
 		AtomicTxCoordinator activity = initiatorCoor.getActivity();
-		activity.commit();
+		activity.commitActivity();
 
         //committed
 		EndpointReferenceType epr = activity.getInitiatorCoor().getParticipantEpr();

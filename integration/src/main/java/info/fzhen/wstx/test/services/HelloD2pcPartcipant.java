@@ -1,5 +1,6 @@
 package info.fzhen.wstx.test.services;
 
+import info.fzhen.wstx.at.participant.At2pcPartService;
 import info.fzhen.wstx.at.participant.At2pcParticipant;
 
 import java.text.DateFormat;
@@ -14,14 +15,14 @@ public class HelloD2pcPartcipant implements At2pcParticipant {
     private static List<String> callLog = new ArrayList<>();
 
     @Override
-    public Vote prepare() {
+    public At2pcPartService.Vote prepare() {
         System.out.println("Prepared");
-        return Vote.Prepared;
+        return At2pcPartService.Vote.Prepared;
     }
 
     @Override
     public void commit() {
-
+        System.out.println("committed");
     }
 
     @Override

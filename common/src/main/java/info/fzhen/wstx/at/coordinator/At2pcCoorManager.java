@@ -47,8 +47,10 @@ public class At2pcCoorManager extends AtAbstractCoorManager<At2pcCoor>{
         At2pcCoor at2pcCoor = new At2pcCoor();
         at2pcCoor.setActivity(activity);
         if (v){
+            at2pcCoor.setVolatile(true);
             activity.addV2pcCoor(at2pcCoor);
         }else {
+            at2pcCoor.setVolatile(false);
             activity.addD2pcCoor(at2pcCoor);
         }
         at2pcCoor.setParticipantEpr(regPara.getParticipantProtocolService());

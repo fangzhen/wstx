@@ -69,7 +69,7 @@ public class WsatTransaction extends WsTransaction {
 	}
 
     /**
-     * commit the atomic transaction
+     * prepareVolatile2PC the atomic transaction
      */
 	public void commit() {
         if (__LOG.isInfoEnabled()){
