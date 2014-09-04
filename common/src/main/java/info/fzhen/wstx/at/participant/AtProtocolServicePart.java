@@ -24,10 +24,7 @@ public abstract class AtProtocolServicePart <T extends Participant, E>{
         return coordinatorEpr;
     }
     public E getCoordinatorProxy(Class<E> clazz){
-        //if (coordinatorProxy == null){
-        if (true){ //TODO bug of CXF
-            coordinatorProxy = EprUtils.createWsaddrClientProxy(clazz, coordinatorEpr);
-        }
+        coordinatorProxy = EprUtils.createWsaddrClientProxy(clazz, coordinatorEpr);
         return coordinatorProxy;
     }
 

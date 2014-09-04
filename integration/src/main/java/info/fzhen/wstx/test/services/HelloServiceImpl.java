@@ -17,6 +17,7 @@ public class HelloServiceImpl implements HelloService{
 	@Resource
 	private WebServiceContext wsContext;
 
+    @Override
 	public String sayHello() {
 		String helloStr = "Hello";
 		CoordinationContext ctx = MsgContextUtil.retrieveCoorCtx(wsContext);

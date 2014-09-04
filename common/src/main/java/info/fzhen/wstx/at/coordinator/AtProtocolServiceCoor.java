@@ -19,10 +19,7 @@ public abstract class AtProtocolServiceCoor <T>{
     protected StateEnum state;
 
     protected T getParticipantProxy(Class<T> clazz){
-//        if (PartProxy == null){
-        if (true){ //TODO maybe a bug of CXF
-            PartProxy = EprUtils.createWsaddrClientProxy(clazz, participantEpr);
-        }
+        PartProxy = EprUtils.createWsaddrClientProxy(clazz, participantEpr);
         return PartProxy;
     }
 
