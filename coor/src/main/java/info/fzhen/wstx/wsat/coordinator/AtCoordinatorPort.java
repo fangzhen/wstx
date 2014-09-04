@@ -29,19 +29,19 @@ public class AtCoordinatorPort implements CoordinatorPortType {
 
 	@Override
 	public void preparedOperation(Notification parameters) {
-        At2pcCoor coorService = getTargetedCoordinator();
-        coorService.prepared();
-    }
+		At2pcCoor coorService = getTargetedCoordinator();
+		coorService.prepared();
+	}
 
 	@Override
 	public void committedOperation(Notification parameters) {
-        At2pcCoor coorService = getTargetedCoordinator();
-        coorService.committed();
+		At2pcCoor coorService = getTargetedCoordinator();
+		coorService.committed();
 	}
 
-    private At2pcCoor getTargetedCoordinator(){
-        String id = MsgContextUtil.retrievePrivateId(wsContext);
-        At2pcCoor coorService = At2pcCoorManager.getInstance().retrieveProtocolCoordinator(id);
-        return  coorService;
-    }
+	private At2pcCoor getTargetedCoordinator() {
+		String id = MsgContextUtil.retrievePrivateId(wsContext);
+		At2pcCoor coorService = At2pcCoorManager.getInstance().retrieveProtocolCoordinator(id);
+		return coorService;
+	}
 }

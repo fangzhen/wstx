@@ -20,47 +20,48 @@ import java.util.List;
 /**
  * Soap interceptor responsible for encoding referenced parameters
  */
-public class WstxEprOutInterceptor extends AbstractSoapInterceptor{
-    private static final Log __LOG = LogFactory.getLog(WstxEprOutInterceptor.class);
+public class WstxEprOutInterceptor extends AbstractSoapInterceptor {
+	private static final Log __LOG = LogFactory.getLog(WstxEprOutInterceptor.class);
 
-    public WstxEprOutInterceptor(){
-        super(Phase.PRE_PROTOCOL);
-        addBefore(MAPCodec.class.getName());
-    }
-    @Override
-    public void handleMessage(SoapMessage message) throws Fault {
-        if (!MessageUtils.getContextualBoolean(message, MAPAggregator.ADDRESSING_DISABLED, false)) {
-            if (ContextUtils.isOutbound(message)){
-                encodeRefParas(message, ContextUtils.retrieveMAPs(message, false, true));
-            }else{
-                if (__LOG.isErrorEnabled()){
-                    __LOG.error("the interceptor can only be used as out interceptor");
-                }
-            }
-        }
-    }
+	public WstxEprOutInterceptor() {
+		super(Phase.PRE_PROTOCOL);
+		addBefore(MAPCodec.class.getName());
+	}
 
-     private void encodeRefParas(SoapMessage message, AddressingProperties maps) {
-        EndpointReferenceType toEpr = maps.getToEndpointReference();
-        ReferenceParametersType refs = toEpr.getReferenceParameters();
-        if (refs == null) return;
+	@Override
+	public void handleMessage(SoapMessage message) throws Fault {
+		if (!MessageUtils.getContextualBoolean(message, MAPAggregator.ADDRESSING_DISABLED, false)) {
+			if (ContextUtils.isOutbound(message)) {
+				encodeRefParas(message, ContextUtils.retrieveMAPs(message, false, true));
+			} else {
+				if (__LOG.isErrorEnabled()) {
+					__LOG.error("the interceptor can only be used as out interceptor");
+				}
+			}
+		}
+	}
 
-        List<Element> replacement = new ArrayList<>(2);
-        Iterator<Object> itor = refs.getAny().iterator();
-        while (itor.hasNext()){
-            Object o = itor.next();
-            if (o instanceof PrivateIdType){
-                Element ele = JAXBUtils.marshal2Element(PrivateIdType.class, o);
-                if (ele != null) {
-                    replacement.add(ele);
-                    itor.remove();
-                }else{
-                    if (__LOG.isWarnEnabled()){
-                        __LOG.warn("faild to marshal object of type " + o.getClass() + "into w3c Element");
-                    }
-                }
-            }
-        }
-        refs.getAny().addAll(replacement);
-    }
+	private void encodeRefParas(SoapMessage message, AddressingProperties maps) {
+		EndpointReferenceType toEpr = maps.getToEndpointReference();
+		ReferenceParametersType refs = toEpr.getReferenceParameters();
+		if (refs == null) return;
+
+		List<Element> replacement = new ArrayList<>(2);
+		Iterator<Object> itor = refs.getAny().iterator();
+		while (itor.hasNext()) {
+			Object o = itor.next();
+			if (o instanceof PrivateIdType) {
+				Element ele = JAXBUtils.marshal2Element(PrivateIdType.class, o);
+				if (ele != null) {
+					replacement.add(ele);
+					itor.remove();
+				} else {
+					if (__LOG.isWarnEnabled()) {
+						__LOG.warn("faild to marshal object of type " + o.getClass() + "into w3c Element");
+					}
+				}
+			}
+		}
+		refs.getAny().addAll(replacement);
+	}
 }

@@ -17,56 +17,61 @@ import java.util.Map;
 /**
  * Base class of participant side protocol service managers
  */
-public class AtAbstractPartManager <T extends AtProtocolServicePart>{
-    private static Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
+public class AtAbstractPartManager<T extends AtProtocolServicePart> {
+	private static Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
 
-    /** participant side protocol service address */
-    protected String partServiceAddr;
-    /** Map that holds all participants managed by this manager, id as key*/
-    protected Map<String, T> managedParticipants = new HashMap<>();
+	/**
+	 * participant side protocol service address
+	 */
+	protected String partServiceAddr;
+	/**
+	 * Map that holds all participants managed by this manager, id as key
+	 */
+	protected Map<String, T> managedParticipants = new HashMap<>();
 
-    public T retrieveProtocolParticipant(String id){
-        T part = managedParticipants.get(id);
-        if (part == null) {
-            if (__LOG.isWarnEnabled()) {
-                __LOG.warn("failed to retrieve corresponding protocol service participant " +
-                        "coordinator with id" + id);
-            }
-        }
-        return part;
-    }
+	public T retrieveProtocolParticipant(String id) {
+		T part = managedParticipants.get(id);
+		if (part == null) {
+			if (__LOG.isWarnEnabled()) {
+				__LOG.warn("failed to retrieve corresponding protocol service participant " +
+						"coordinator with id" + id);
+			}
+		}
+		return part;
+	}
 
-    /**
-     * Register participant
-     * @param coorContext coordination context of the transaction that the participant take part in
-     * @param participantSer  the target participant
-     * @param protocolId protocol identifier
-     */
-    protected void doRegister(CoordinationContext coorContext, T participantSer, String protocolId){
-        String id = CommonUtils.genPrivateId();
-        managedParticipants.put(id, participantSer);
+	/**
+	 * Register participant
+	 *
+	 * @param coorContext    coordination context of the transaction that the participant take part in
+	 * @param participantSer the target participant
+	 * @param protocolId     protocol identifier
+	 */
+	protected void doRegister(CoordinationContext coorContext, T participantSer, String protocolId) {
+		String id = CommonUtils.genPrivateId();
+		managedParticipants.put(id, participantSer);
 
-        //registration information
-        EndpointReferenceType PartEpr = EprUtils.createCxfEprInstance(partServiceAddr, new PrivateIdType(id));
-        RegisterType registerInfo = new RegisterType();
-        registerInfo.setParticipantProtocolService(PartEpr);
-        registerInfo.setProtocolIdentifier(protocolId);
+		//registration information
+		EndpointReferenceType PartEpr = EprUtils.createCxfEprInstance(partServiceAddr, new PrivateIdType(id));
+		RegisterType registerInfo = new RegisterType();
+		registerInfo.setParticipantProtocolService(PartEpr);
+		registerInfo.setProtocolIdentifier(protocolId);
 
-        // registration service proxy
-        EndpointReferenceType regSerEpr = coorContext.getRegistrationService();
-        RegistrationPortType regSerClient = EprUtils.createWsaddrClientProxy(
-                RegistrationPortType.class, regSerEpr);
-        RegisterResponseType response = regSerClient.registerOperation(registerInfo);
+		// registration service proxy
+		EndpointReferenceType regSerEpr = coorContext.getRegistrationService();
+		RegistrationPortType regSerClient = EprUtils.createWsaddrClientProxy(
+				RegistrationPortType.class, regSerEpr);
+		RegisterResponseType response = regSerClient.registerOperation(registerInfo);
 
-        EndpointReferenceType coorEpr = response.getCoordinatorProtocolService();
-        participantSer.setCoordinatorEpr(coorEpr);
-    }
+		EndpointReferenceType coorEpr = response.getCoordinatorProtocolService();
+		participantSer.setCoordinatorEpr(coorEpr);
+	}
 
-    public String getPartServiceAddr() {
-        return partServiceAddr;
-    }
+	public String getPartServiceAddr() {
+		return partServiceAddr;
+	}
 
-    public void setPartServiceAddr(String partServiceAddr) {
-        this.partServiceAddr = partServiceAddr;
-    }
+	public void setPartServiceAddr(String partServiceAddr) {
+		this.partServiceAddr = partServiceAddr;
+	}
 }

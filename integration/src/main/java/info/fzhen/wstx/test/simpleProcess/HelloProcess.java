@@ -1,9 +1,9 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import info.fzhen.wstx.test.services.HelloService;
-import info.fzhen.wstx.at.participant.TransactionFactory;
 import info.fzhen.wstx.at.participant.AtInitiatorPartManager;
+import info.fzhen.wstx.at.participant.TransactionFactory;
 import info.fzhen.wstx.at.participant.WsatTransaction;
+import info.fzhen.wstx.test.services.HelloService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
@@ -13,26 +13,26 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingProvider;
 
 @WebService
-public class HelloProcess extends TransactionalProcess{
+public class HelloProcess extends TransactionalProcess {
 	private static final Log __log = LogFactory.getLog(TransactionalProcess.class);
-	
+
 	private HelloService helloSer;
 	private ClassPathXmlApplicationContext context;
 	private ClassPathXmlApplicationContext services;
-	
+
 	public HelloProcess() {
 	}
 
 	@Override
-	public void execute(){
+	public void execute() {
 		context = new ClassPathXmlApplicationContext(
 				new String[]{"coor-beans.xml"});
 		services = new ClassPathXmlApplicationContext(
 				new String[]{"service-beans.xml"});
-		if (__log.isDebugEnabled()){
+		if (__log.isDebugEnabled()) {
 			__log.debug("Service bean configurations read.");
 		}
-		ActivationPortType activationSer = (ActivationPortType)context.getBean("activationService");
+		ActivationPortType activationSer = (ActivationPortType) context.getBean("activationService");
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
 		transaction.begin();
 
@@ -41,13 +41,13 @@ public class HelloProcess extends TransactionalProcess{
 		manager.registerInitiator(transaction);
 
 		//then send application messages with CC
-		helloSer = (HelloService)services.getBean("helloService");
+		helloSer = (HelloService) services.getBean("helloService");
 		addTransactionInfo2Client((BindingProvider) helloSer, transaction);
 		helloSer.sayHello();
 
 		transaction.commit();
 
-        context.close();
+		context.close();
 		services.close();
 	}
 

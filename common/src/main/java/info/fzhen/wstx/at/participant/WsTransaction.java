@@ -12,5 +12,6 @@ public abstract class WsTransaction {
 	public void setCoordinationContext(CoordinationContext coordinationContext) {
 		this.coordinationContext = coordinationContext;
 	}
+
 	public abstract void begin();
 }

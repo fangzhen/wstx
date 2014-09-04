@@ -3,7 +3,7 @@ package info.fzhen.wstx.web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-public class WstxPartContextLoaderListener implements ServletContextListener{
+public class WstxPartContextLoaderListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {

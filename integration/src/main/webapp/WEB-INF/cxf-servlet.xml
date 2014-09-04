@@ -9,77 +9,77 @@
 	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
-       xmlns:wsa="http://cxf.apache.org/ws/addressing" xmlns:cxf="http://cxf.apache.org/core"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:wsa="http://cxf.apache.org/ws/addressing"
+	   xmlns:cxf="http://cxf.apache.org/core" xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
-    <import resource="classpath:wstx-parti.xml"/>
-    <cxf:bus>
-        <cxf:features>
-            <wsa:addressing/>
-        </cxf:features>
-    </cxf:bus>
-    <bean id="abstractLoggingInterceptor" abstract="true">
-        <property name="prettyLogging" value="true"/>
-    </bean>
-    <bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"
-          parent="abstractLoggingInterceptor"/>
-    <bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
-          parent="abstractLoggingInterceptor"/>
+	<import resource="classpath:wstx-parti.xml"/>
+	<cxf:bus>
+		<cxf:features>
+			<wsa:addressing/>
+		</cxf:features>
+	</cxf:bus>
+	<bean id="abstractLoggingInterceptor" abstract="true">
+		<property name="prettyLogging" value="true"/>
+	</bean>
+	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"
+		  parent="abstractLoggingInterceptor"/>
+	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
+		  parent="abstractLoggingInterceptor"/>
 
-    <!-- custom interceptors of wstx -->
-    <bean id="wstxHeaderInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxHeaderInterceptor"/>
-    <bean id="wstxOutInterceptor" class = "info.fzhen.wstx.cxf.interceptor.WstxEprOutInterceptor"/>
-    <bean id="wstxInInterceptor" class = "info.fzhen.wstx.cxf.interceptor.WstxEprInInterceptor"/>
+	<!-- custom interceptors of wstx -->
+	<bean id="wstxHeaderInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxHeaderInterceptor"/>
+	<bean id="wstxOutInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxEprOutInterceptor"/>
+	<bean id="wstxInInterceptor" class="info.fzhen.wstx.cxf.interceptor.WstxEprInInterceptor"/>
 
-    <cxf:bus>
-        <cxf:inInterceptors>
-            <ref bean="loggingInInterceptor"/>
-            <ref bean="wstxInInterceptor"/>
-            <ref bean="wstxHeaderInterceptor"/>
-        </cxf:inInterceptors>
-        <cxf:outInterceptors>
-            <ref bean="loggingOutInterceptor"/>
-            <ref bean="wstxOutInterceptor"/>
-            <ref bean="wstxHeaderInterceptor"/>
-       </cxf:outInterceptors>
-        <cxf:outFaultInterceptors>
-            <ref bean="loggingOutInterceptor"/>
-        </cxf:outFaultInterceptors>
-        <cxf:inFaultInterceptors>
-            <ref bean="loggingInInterceptor"/>
-        </cxf:inFaultInterceptors>
-    </cxf:bus>
+	<cxf:bus>
+		<cxf:inInterceptors>
+			<ref bean="loggingInInterceptor"/>
+			<ref bean="wstxInInterceptor"/>
+			<ref bean="wstxHeaderInterceptor"/>
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<ref bean="loggingOutInterceptor"/>
+			<ref bean="wstxOutInterceptor"/>
+			<ref bean="wstxHeaderInterceptor"/>
+		</cxf:outInterceptors>
+		<cxf:outFaultInterceptors>
+			<ref bean="loggingOutInterceptor"/>
+		</cxf:outFaultInterceptors>
+		<cxf:inFaultInterceptors>
+			<ref bean="loggingInInterceptor"/>
+		</cxf:inFaultInterceptors>
+	</cxf:bus>
 
-    <jaxws:endpoint id="helloService"
-                    implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
-    </jaxws:endpoint>
-    <jaxws:endpoint id="helloProcess"
-                    implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess">
-    </jaxws:endpoint>
+	<jaxws:endpoint id="helloService"
+					implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
+	</jaxws:endpoint>
+	<jaxws:endpoint id="helloProcess"
+					implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess">
+	</jaxws:endpoint>
 
-    <bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
-        <property name="initiatorEp" ref="completionInitiator"/>
-        <property name="twoPcParticipantEp" ref="twoPcParticipant"/>
-        <property name="prefix">
-            <value>http://localhost:8080</value>
-        </property>
-    </bean>
-    <bean id="at2pcPartManager" class="info.fzhen.wstx.at.participant.At2pcPartManager" scope="singleton">
-        <property name="partServiceAddr" value="#{eprConfig.twoPcPtcpAddress}"/>
-        <property name="instance">
-            <ref bean="at2pcPartManager"/>
-        </property>
-    </bean>
-    <bean id="atInitiatorPartManager" class="info.fzhen.wstx.at.participant.AtInitiatorPartManager"
-          scope="singleton">
-        <property name="partServiceAddr" value="#{eprConfig.initiatorAddress}"/>
-        <property name="instance">
-            <ref bean="atInitiatorPartManager"/>
-        </property>
-    </bean>
+	<bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
+		<property name="initiatorEp" ref="completionInitiator"/>
+		<property name="twoPcParticipantEp" ref="twoPcParticipant"/>
+		<property name="prefix">
+			<value>http://localhost:8080</value>
+		</property>
+	</bean>
+	<bean id="at2pcPartManager" class="info.fzhen.wstx.at.participant.At2pcPartManager" scope="singleton">
+		<property name="partServiceAddr" value="#{eprConfig.twoPcPtcpAddress}"/>
+		<property name="instance">
+			<ref bean="at2pcPartManager"/>
+		</property>
+	</bean>
+	<bean id="atInitiatorPartManager" class="info.fzhen.wstx.at.participant.AtInitiatorPartManager"
+		  scope="singleton">
+		<property name="partServiceAddr" value="#{eprConfig.initiatorAddress}"/>
+		<property name="instance">
+			<ref bean="atInitiatorPartManager"/>
+		</property>
+	</bean>
 </beans>

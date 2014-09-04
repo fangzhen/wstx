@@ -16,8 +16,8 @@ import java.util.Map;
 /**
  * Coordinator Manager that manages activities of this site.
  * This is used in coordinator side.
- * @author fangzhen
  *
+ * @author fangzhen
  */
 public class CoordinatorManager {
 	private static final Log __LOG = LogFactory.getLog(CoordinatorManager.class);
@@ -30,8 +30,8 @@ public class CoordinatorManager {
 	private CoorEprConfig coorEprConfiguration;
 
 	public static CoordinatorManager getInstance() {
-		if (instance == null){
-			if (__LOG.isErrorEnabled()){
+		if (instance == null) {
+			if (__LOG.isErrorEnabled()) {
 				__LOG.error("Coordinator Manager hasn't been initialized");
 			}
 			throw new WstxRtException("Coordinator Manager hasn't been initialized");
@@ -43,17 +43,17 @@ public class CoordinatorManager {
 		CoordinatorManager.instance = instance;
 	}
 
-	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc){
+	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc) {
 		String pirvateId = CommonUtils.genPrivateId();
 		ActivityCoordinatorContext cctx = null;
 		CoordinationType type = CoordinationType.fromString(ccc.getCoordinationType());
 		switch (type) {
-		case WSAT:
-			cctx = AtomicTxCoordinator.createInstance(ccc, pirvateId);
-		case WSBA:
-			break;
-		default:
-			break;
+			case WSAT:
+				cctx = AtomicTxCoordinator.createInstance(ccc, pirvateId);
+			case WSBA:
+				break;
+			default:
+				break;
 		}
 		activities.put(pirvateId, cctx);
 		return cctx;
@@ -66,8 +66,8 @@ public class CoordinatorManager {
 	public void setCoorEprConfiguration(CoorEprConfig eprConfiguration) {
 		this.coorEprConfiguration = eprConfiguration;
 	}
-	
-	public ActivityCoordinatorContext getActivity(String id){
+
+	public ActivityCoordinatorContext getActivity(String id) {
 		return activities.get(id);
 	}
 }

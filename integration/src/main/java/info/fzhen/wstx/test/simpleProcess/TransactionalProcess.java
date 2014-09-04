@@ -17,31 +17,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebService
-public abstract class TransactionalProcess implements Process{
+public abstract class TransactionalProcess implements Process {
 	private static final Log __LOG = LogFactory.getLog(TransactionalProcess.class);
 
 	/**
 	 * Add coordination context as header when sending application messages.
+	 *
 	 * @param service
 	 * @param transaction
 	 */
 	protected void addTransactionInfo2Client(BindingProvider service, WsTransaction transaction) {
 		List<Header> headers;
 		headers = (List<Header>) service.getRequestContext().get(Header.HEADER_LIST);
-		if (headers == null){
+		if (headers == null) {
 			headers = new ArrayList<Header>();
 			service.getRequestContext().put(Header.HEADER_LIST, headers);
 		}
 		CoordinationContext txCtx = transaction.getCoordinationContext();
 		try {
-			SoapHeader ctxHeader = new SoapHeader(new QName(WstxTransform.Wstx200606.WSCOOR_NAMESPACE_URI, 
+			SoapHeader ctxHeader = new SoapHeader(new QName(WstxTransform.Wstx200606.WSCOOR_NAMESPACE_URI,
 					CoordinationContext.class.getSimpleName()), txCtx, new JAXBDataBinding(CoordinationContext.class));
 			headers.add(ctxHeader);
 		} catch (JAXBException e) {
-			if (__LOG.isWarnEnabled()){
+			if (__LOG.isWarnEnabled()) {
 				__LOG.warn("Failed when trying to add soap header to application message");
 			}
-			if (__LOG.isDebugEnabled()){
+			if (__LOG.isDebugEnabled()) {
 				__LOG.debug(e);
 			}
 			e.printStackTrace();

@@ -14,20 +14,26 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 /**
  * WSAT transaction instance. It is used in initiator side of
  * CompletionProtocol. It provides a useful interface to applications.
- * 
+ *
  * @author fangzhen
  */
 public class WsatTransaction extends WsTransaction {
-    private static final Log __LOG = LogFactory.getLog(WsatTransaction.class);
-	/**completion participant */
+	private static final Log __LOG = LogFactory.getLog(WsatTransaction.class);
+	/**
+	 * completion participant
+	 */
 	private AtInitiatorPartService initiator;
 
-    /**client proxy of coordinator activation service */
-    private ActivationPortType activationSer;
+	/**
+	 * client proxy of coordinator activation service
+	 */
+	private ActivationPortType activationSer;
 
-    /** current state */
-    private State state;
-    private Object stateLock = new Object();
+	/**
+	 * current state
+	 */
+	private State state;
+	private Object stateLock = new Object();
 
 	public WsatTransaction() {
 	}
@@ -38,86 +44,88 @@ public class WsatTransaction extends WsTransaction {
 	 */
 	@Override
 	public void begin() {
-        if (__LOG.isInfoEnabled()){
-            __LOG.info("start an atomic transaction now.");
-        }
+		if (__LOG.isInfoEnabled()) {
+			__LOG.info("start an atomic transaction now.");
+		}
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ActivationPortType activationSer = getActivationSer();
 		ccc.setCoordinationType(CoordinationType.WSAT.getText());
 		CreateCoordinationContextResponseType res = activationSer
 				.createCoordinationContextOperation(ccc);
 		setCoordinationContext(res.getCoordinationContext());
-        if (__LOG.isDebugEnabled()){
-            CoordinationContext ctx = res.getCoordinationContext();
-            EndpointReferenceType regEpr = ctx.getRegistrationService();
-            String id = null;
-            try{
-                id = ((PrivateIdType)regEpr.getReferenceParameters().getAny().get(0)).getPrivateId();
-            }catch (Exception e){
-                id = "Unable to retrieve private id";
-            }
-            __LOG.debug("started atomic transaction. " +
-                    "Registration Service address: " + regEpr.getAddress().getValue() +
-                            " activity id: " + id);
-        }
+		if (__LOG.isDebugEnabled()) {
+			CoordinationContext ctx = res.getCoordinationContext();
+			EndpointReferenceType regEpr = ctx.getRegistrationService();
+			String id = null;
+			try {
+				id = ((PrivateIdType) regEpr.getReferenceParameters().getAny().get(0)).getPrivateId();
+			} catch (Exception e) {
+				id = "Unable to retrieve private id";
+			}
+			__LOG.debug("started atomic transaction. " +
+					"Registration Service address: " + regEpr.getAddress().getValue() +
+					" activity id: " + id);
+		}
 	}
 
-    /**
-     * Try to commit the transaction synchronously
-     */
+	/**
+	 * Try to commit the transaction synchronously
+	 */
 	public void commit() {
-        //TODO commit result
-        startCommit();
-        synchronized (stateLock){
-            while (state != State.Completed) {
-                try {
-                    stateLock.wait();
-                } catch (InterruptedException e) {
-                    //TODO handle
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-    public void startCommit(){
-        state = State.Completing;
-        initiator.commit();
-    }
+		//TODO commit result
+		startCommit();
+		synchronized (stateLock) {
+			while (state != State.Completed) {
+				try {
+					stateLock.wait();
+				} catch (InterruptedException e) {
+					//TODO handle
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
-    /**
-     * Received the committed message
-     */
-    public void committed() {
-        synchronized (stateLock){
-            if (state == State.Completing) {
-                state = State.Completed;
-                stateLock.notifyAll();
-            }
-        }
-    }
+	public void startCommit() {
+		state = State.Completing;
+		initiator.commit();
+	}
 
-    public void rollback() {
+	/**
+	 * Received the committed message
+	 */
+	public void committed() {
+		synchronized (stateLock) {
+			if (state == State.Completing) {
+				state = State.Completed;
+				stateLock.notifyAll();
+			}
+		}
+	}
+
+	public void rollback() {
 		//TODO
 	}
-    public ActivationPortType getActivationSer() {
-        return activationSer;
-    }
 
-    public void setActivationSer(ActivationPortType activationSer) {
-        this.activationSer = activationSer;
-    }
+	public ActivationPortType getActivationSer() {
+		return activationSer;
+	}
 
-    public void setInitiator(AtInitiatorPartService initiator) {
-        if (this.initiator != null) {
-            throw new WstxRtException("Too many initiators. One is enough");
-        }
-        this.initiator = initiator;
-    }
+	public void setActivationSer(ActivationPortType activationSer) {
+		this.activationSer = activationSer;
+	}
 
-    public static enum State{
-        None,
-        Active,
-        Completing,
-        Completed
-    }
+	public void setInitiator(AtInitiatorPartService initiator) {
+		if (this.initiator != null) {
+			throw new WstxRtException("Too many initiators. One is enough");
+		}
+		this.initiator = initiator;
+	}
+
+	public static enum State {
+		None,
+		Active,
+		Completing,
+		Completed
+	}
 }

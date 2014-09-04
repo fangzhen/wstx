@@ -18,84 +18,87 @@ import java.util.List;
 
 /**
  * WS-C/Tx in interceptor to decode WS-Coordination and Ws-Tx soap header
- * @author fangzhen
  *
+ * @author fangzhen
  */
-public class WstxHeaderInterceptor extends AbstractSoapInterceptor{
+public class WstxHeaderInterceptor extends AbstractSoapInterceptor {
 	public static final Log __LOG = LogFactory.getLog(WstxHeaderInterceptor.class);
 
-	public WstxHeaderInterceptor(){
+	public WstxHeaderInterceptor() {
 		super(Phase.PRE_PROTOCOL);
-        addAfter(MAPCodec.class.getName());
+		addAfter(MAPCodec.class.getName());
 	}
-	public WstxHeaderInterceptor(String phase){
+
+	public WstxHeaderInterceptor(String phase) {
 		super(phase);
 	}
 
-    @Override
+	@Override
 	public void handleMessage(SoapMessage message) throws Fault {
-        if (ContextUtils.isOutbound(message)) {
-            marshalWstxHeader(message);
-        }else{
-            unmarshalWstxHeader(message);
-        }
-    }
-    private void unmarshalWstxHeader(SoapMessage message){
-        List<Header> headers = message.getHeaders();
-        for (Header header : headers) {
-            if (header.getObject() instanceof Element) {
-                Element ele = (Element) header.getObject();
-                String headerNsp = ele.getNamespaceURI();
-                if (WstxTransform.isSupport(headerNsp)) {
-                    JAXBContext jaxbctx;
-                    try {
-                        jaxbctx = WstxTransform.getJAXBContext(headerNsp);
-                        Unmarshaller unmarshaller = jaxbctx.createUnmarshaller();
-                        Object unmared = unmarshaller.unmarshal(ele);
-                        Object obj = unmared;
-                        if (unmared instanceof JAXBElement) {
-                            @SuppressWarnings("rawtypes")
-                            JAXBElement element = (JAXBElement) unmared;
-                            obj = element.getValue();
-                        }
-                        header.setObject(obj);
-                        if (__LOG.isDebugEnabled()){
-                            __LOG.debug("unmarshalled soap header of type " + obj.getClass());
-                        }
-                    } catch (JAXBException e) {
-                        if (__LOG.isWarnEnabled()) {
-                            __LOG.warn("Failed when decode Ws-coor or Ws-Tx soap header due"
-                                    + "to jaxbExceptions");
-                        }
-                        if (__LOG.isDebugEnabled()) {
-                            __LOG.debug(e);
-                        }
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-    private void marshalWstxHeader(SoapMessage message){
-        List<Header> headers = message.getHeaders();
-        for (Header header : headers){
-            if (!(header.getObject() instanceof Element)){
-                Object obj = header.getObject();
-                String headerNsp = header.getName().getNamespaceURI();
-                if (WstxTransform.isSupport(headerNsp)){
-                    JAXBContext jaxbContext;
-                    try{
-                        jaxbContext = WstxTransform.getJAXBContext(headerNsp);
-                        Marshaller marshaller = jaxbContext.createMarshaller();
-                        DOMResult domResult = new DOMResult();
-                        marshaller.marshal(obj, domResult);
-                        Element ele = ((Document)domResult.getNode()).getDocumentElement();
-                        header.setObject(ele);
-                    } catch (JAXBException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
+		if (ContextUtils.isOutbound(message)) {
+			marshalWstxHeader(message);
+		} else {
+			unmarshalWstxHeader(message);
+		}
+	}
+
+	private void unmarshalWstxHeader(SoapMessage message) {
+		List<Header> headers = message.getHeaders();
+		for (Header header : headers) {
+			if (header.getObject() instanceof Element) {
+				Element ele = (Element) header.getObject();
+				String headerNsp = ele.getNamespaceURI();
+				if (WstxTransform.isSupport(headerNsp)) {
+					JAXBContext jaxbctx;
+					try {
+						jaxbctx = WstxTransform.getJAXBContext(headerNsp);
+						Unmarshaller unmarshaller = jaxbctx.createUnmarshaller();
+						Object unmared = unmarshaller.unmarshal(ele);
+						Object obj = unmared;
+						if (unmared instanceof JAXBElement) {
+							@SuppressWarnings("rawtypes")
+							JAXBElement element = (JAXBElement) unmared;
+							obj = element.getValue();
+						}
+						header.setObject(obj);
+						if (__LOG.isDebugEnabled()) {
+							__LOG.debug("unmarshalled soap header of type " + obj.getClass());
+						}
+					} catch (JAXBException e) {
+						if (__LOG.isWarnEnabled()) {
+							__LOG.warn("Failed when decode Ws-coor or Ws-Tx soap header due"
+									+ "to jaxbExceptions");
+						}
+						if (__LOG.isDebugEnabled()) {
+							__LOG.debug(e);
+						}
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	private void marshalWstxHeader(SoapMessage message) {
+		List<Header> headers = message.getHeaders();
+		for (Header header : headers) {
+			if (!(header.getObject() instanceof Element)) {
+				Object obj = header.getObject();
+				String headerNsp = header.getName().getNamespaceURI();
+				if (WstxTransform.isSupport(headerNsp)) {
+					JAXBContext jaxbContext;
+					try {
+						jaxbContext = WstxTransform.getJAXBContext(headerNsp);
+						Marshaller marshaller = jaxbContext.createMarshaller();
+						DOMResult domResult = new DOMResult();
+						marshaller.marshal(obj, domResult);
+						Element ele = ((Document) domResult.getNode()).getDocumentElement();
+						header.setObject(ele);
+					} catch (JAXBException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 }

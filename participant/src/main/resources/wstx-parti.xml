@@ -9,19 +9,16 @@
 	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
 	OF ANY KIND, either express or implied. See the License for the specific 
 	language governing permissions and limitations under the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws" 
-	xmlns:wsa="http://cxf.apache.org/ws/addressing"
-	xmlns:cxf="http://cxf.apache.org/core"
-	xmlns:soap="http://cxf.apache.org/bindings/soap"
-	xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
-    <jaxws:endpoint id="completionInitiator"
-		implementor="info.fzhen.wstx.wsat.participant.CompletionInitiatorPort" address="/completionInitiator" />
-    <jaxws:endpoint id="twoPcParticipant"
-		implementor="info.fzhen.wstx.wsat.participant.twoPcParticipantPort" address="/twoPcParticipant" />
+	<jaxws:endpoint id="completionInitiator"
+					implementor="info.fzhen.wstx.wsat.participant.CompletionInitiatorPort"
+					address="/completionInitiator"/>
+	<jaxws:endpoint id="twoPcParticipant"
+					implementor="info.fzhen.wstx.wsat.participant.twoPcParticipantPort" address="/twoPcParticipant"/>
 </beans>

@@ -13,32 +13,32 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 
 @WebService
-public class CompletionCoordinatorPort implements CompletionCoordinatorPortType{
-    private static final Log __LOG = LogFactory.getLog(CompletionCoordinatorPort.class);
+public class CompletionCoordinatorPort implements CompletionCoordinatorPortType {
+	private static final Log __LOG = LogFactory.getLog(CompletionCoordinatorPort.class);
 
 	@Resource
 	private WebServiceContext wsContext;
-	
+
 	@Override
 	public void commitOperation(Notification parameters) {
-        AtInitiatorCoor initiatorCoor = getTargetedCoordinator();
-        if (initiatorCoor == null){
-            return;
-        }
+		AtInitiatorCoor initiatorCoor = getTargetedCoordinator();
+		if (initiatorCoor == null) {
+			return;
+		}
 		initiatorCoor.commit();
-    }
+	}
 
 	@Override
 	public void rollbackOperation(Notification parameters) {
-				
+
 	}
 
-    private AtInitiatorCoor getTargetedCoordinator(){
-        String id = MsgContextUtil.retrievePrivateId(wsContext);
-        AtInitiatorCoor coorService = AtInitiatorCoorManager.getInstance().retrieveProtocolCoordinator(id);
-        if (__LOG.isErrorEnabled()){
-            __LOG.error("Failed to get initiator protocol service with id: " + id);
-        }
-        return  coorService;
-    }
+	private AtInitiatorCoor getTargetedCoordinator() {
+		String id = MsgContextUtil.retrievePrivateId(wsContext);
+		AtInitiatorCoor coorService = AtInitiatorCoorManager.getInstance().retrieveProtocolCoordinator(id);
+		if (__LOG.isErrorEnabled()) {
+			__LOG.error("Failed to get initiator protocol service with id: " + id);
+		}
+		return coorService;
+	}
 }

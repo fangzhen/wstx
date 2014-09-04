@@ -10,40 +10,40 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 /**
  * Coordiantor side initiator manager.
  */
-public class AtInitiatorCoorManager extends AtAbstractCoorManager<AtInitiatorCoor>{
-    private static final Log __LOG = LogFactory.getLog(AtInitiatorCoorManager.class);
+public class AtInitiatorCoorManager extends AtAbstractCoorManager<AtInitiatorCoor> {
+	private static final Log __LOG = LogFactory.getLog(AtInitiatorCoorManager.class);
 
-    private static AtInitiatorCoorManager instance;
+	private static AtInitiatorCoorManager instance;
 
-    public static AtInitiatorCoorManager getInstance(){
-        if (instance == null){
-            if (__LOG.isErrorEnabled()){
-                __LOG.error("Initiator Manager(InitiatorCoorManager) " +
-                        "hasn't been initialized. It should be initiated " +
-                        "by Spring as singleton. Please check your conf file.");
-            }
-            throw new WstxRtException("Initiator Manager(InitiatorCoorManager) " +
-                        "hasn't been initialized. It should be initiated " +
-                        "by Spring as singleton. Please check your conf file.");
-        }
-        return instance;
-    }
+	public static AtInitiatorCoorManager getInstance() {
+		if (instance == null) {
+			if (__LOG.isErrorEnabled()) {
+				__LOG.error("Initiator Manager(InitiatorCoorManager) " +
+						"hasn't been initialized. It should be initiated " +
+						"by Spring as singleton. Please check your conf file.");
+			}
+			throw new WstxRtException("Initiator Manager(InitiatorCoorManager) " +
+					"hasn't been initialized. It should be initiated " +
+					"by Spring as singleton. Please check your conf file.");
+		}
+		return instance;
+	}
 
-    public RegisterResponseType registerInitiator(AtomicTxCoordinator activity, RegisterType regPara){
-        AtInitiatorCoor initiatorCoor = new AtInitiatorCoor();
-        initiatorCoor.setActivity(activity);
-        activity.setInitiatorCoor(initiatorCoor);
-        initiatorCoor.setParticipantEpr(regPara.getParticipantProtocolService());
+	public static void setInstance(AtInitiatorCoorManager instance) {
+		AtInitiatorCoorManager.instance = instance;
+	}
 
-        String privateId = CommonUtils.genPrivateId();
-        managedCoordinators.put(privateId, initiatorCoor);
+	public RegisterResponseType registerInitiator(AtomicTxCoordinator activity, RegisterType regPara) {
+		AtInitiatorCoor initiatorCoor = new AtInitiatorCoor();
+		initiatorCoor.setActivity(activity);
+		activity.setInitiatorCoor(initiatorCoor);
+		initiatorCoor.setParticipantEpr(regPara.getParticipantProtocolService());
 
-        //construct the response
-        RegisterResponseType response = constructRegisterResponse(privateId);
-        return response;
-    }
+		String privateId = CommonUtils.genPrivateId();
+		managedCoordinators.put(privateId, initiatorCoor);
 
-    public static void setInstance(AtInitiatorCoorManager instance) {
-        AtInitiatorCoorManager.instance = instance;
-    }
+		//construct the response
+		RegisterResponseType response = constructRegisterResponse(privateId);
+		return response;
+	}
 }

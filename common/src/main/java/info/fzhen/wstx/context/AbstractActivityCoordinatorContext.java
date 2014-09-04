@@ -17,14 +17,15 @@ public abstract class AbstractActivityCoordinatorContext implements
 	protected long expires;
 	protected String coordinationType;
 
-	public AbstractActivityCoordinatorContext(){
+	public AbstractActivityCoordinatorContext() {
 		this.coordinatorManager = CoordinatorManager.getInstance();
 	}
 
-    /**
-     * Build coordination context for the activity.
-     * @return coordination context
-     */
+	/**
+	 * Build coordination context for the activity.
+	 *
+	 * @return coordination context
+	 */
 	@Override
 	public CoordinationContext buildCoordinationContext() {
 		CoordinationContext coordinationContext = new CoordinationContext();
@@ -39,7 +40,7 @@ public abstract class AbstractActivityCoordinatorContext implements
 		coordinationContext.setIdentifier(id);
 
 		String regAddr = eprConf.getRegistrationService();
-        EndpointReferenceType registrationEPR = EprUtils.createCxfEprInstance(regAddr, new PrivateIdType(privateId));
+		EndpointReferenceType registrationEPR = EprUtils.createCxfEprInstance(regAddr, new PrivateIdType(privateId));
 
 		coordinationContext.setRegistrationService(registrationEPR);
 		return coordinationContext;

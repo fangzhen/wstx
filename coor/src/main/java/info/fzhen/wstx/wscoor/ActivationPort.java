@@ -6,10 +6,11 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextRespo
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 import javax.jws.WebService;
+
 /**
  * jax-ws web service wrapper to ActivationService
- * @author fangzhen
  *
+ * @author fangzhen
  */
 
 @WebService(endpointInterface = "org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType")

@@ -2,10 +2,10 @@ package info.fzhen.wstx.config;
 
 import org.apache.cxf.jaxws.EndpointImpl;
 
-public class JaxWsCoorEprConfig extends AbstractJaxWsEprConfig implements CoorEprConfig{
+public class JaxWsCoorEprConfig extends AbstractJaxWsEprConfig implements CoorEprConfig {
 	private EndpointImpl activationEp;
 	private EndpointImpl registrationEp;
-	
+
 	@Override
 	public String getRegistrationService() {
 		return getPrefixedServicesUrl() + registrationEp.getAddress();

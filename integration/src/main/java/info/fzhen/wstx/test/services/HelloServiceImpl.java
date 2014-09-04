@@ -11,21 +11,21 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 
 @WebService
-public class HelloServiceImpl implements HelloService{
+public class HelloServiceImpl implements HelloService {
 	private static final Log __LOG = LogFactory.getLog(HelloServiceImpl.class);
-	
+
 	@Resource
 	private WebServiceContext wsContext;
 
-    @Override
+	@Override
 	public String sayHello() {
 		String helloStr = "Hello";
 		CoordinationContext ctx = MsgContextUtil.retrieveCoorCtx(wsContext);
-		if (ctx != null){ //coordination context are found, do registration now
-            HelloD2pcPartcipant part = new HelloD2pcPartcipant();
-            At2pcPartManager d2pdManager = At2pcPartManager.getInstance();
-            d2pdManager.registerDurable2Pc(ctx, part);
-            part.log();
+		if (ctx != null) { //coordination context are found, do registration now
+			HelloD2pcPartcipant part = new HelloD2pcPartcipant();
+			At2pcPartManager d2pdManager = At2pcPartManager.getInstance();
+			d2pdManager.registerDurable2Pc(ctx, part);
+			part.log();
 		}
 		return helloStr;
 	}

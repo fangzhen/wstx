@@ -18,29 +18,21 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 
 public class JAXBUtils {
-	
-	public static class PreferredMapper extends NamespacePrefixMapper {  
-        @Override  
-        public String getPreferredPrefix(String namespaceUri,  
-                String suggestion, boolean requirePrefix) {  
-            return "wstx";  
-        }
-    }
-	
+
 	public static <T> Element marshal2Element(Class<T> cls, Object obj) {
 		try {
-			JAXBContext ctx = JAXBContext.newInstance(new Class[] { cls });
+			JAXBContext ctx = JAXBContext.newInstance(new Class[]{cls});
 			Marshaller marshaller = ctx.createMarshaller();
-			NamespacePrefixMapper mapper = new PreferredMapper();  
-	        marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", mapper);  
+			NamespacePrefixMapper mapper = new PreferredMapper();
+			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", mapper);
 			DOMResult res = new DOMResult();
 			marshaller.marshal(obj, res);
 			Element elt = ((Document) res.getNode()).getDocumentElement();
-            return elt;
+			return elt;
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-        return null;
+		return null;
 	}
 
 	public static String getStringFromDoc(Document doc) {
@@ -60,6 +52,14 @@ public class JAXBUtils {
 		} catch (TransformerException ex) {
 			ex.printStackTrace();
 			return null;
+		}
+	}
+
+	public static class PreferredMapper extends NamespacePrefixMapper {
+		@Override
+		public String getPreferredPrefix(String namespaceUri,
+										 String suggestion, boolean requirePrefix) {
+			return "wstx";
 		}
 	}
 }

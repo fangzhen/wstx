@@ -14,14 +14,15 @@ import javax.xml.ws.WebServiceContext;
 public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	@Resource
 	WebServiceContext wsContext;
-	public CompletionInitiatorPort(){
-		
+
+	public CompletionInitiatorPort() {
+
 	}
 
 	@Override
 	public void committedOperation(Notification parameters) {
-        AtInitiatorPartService targetedParticipant = getTargetedParticipant();
-        targetedParticipant.committed();
+		AtInitiatorPartService targetedParticipant = getTargetedParticipant();
+		targetedParticipant.committed();
 	}
 
 	@Override
@@ -29,9 +30,9 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 
 	}
 
-    private AtInitiatorPartService getTargetedParticipant(){
-        String id = MsgContextUtil.retrievePrivateId(wsContext);
-        AtInitiatorPartService targetedPart = AtInitiatorPartManager.getInstance().retrieveProtocolParticipant(id);
-        return targetedPart;
-    }
+	private AtInitiatorPartService getTargetedParticipant() {
+		String id = MsgContextUtil.retrievePrivateId(wsContext);
+		AtInitiatorPartService targetedPart = AtInitiatorPartManager.getInstance().retrieveProtocolParticipant(id);
+		return targetedPart;
+	}
 }

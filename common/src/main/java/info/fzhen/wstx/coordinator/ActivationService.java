@@ -6,12 +6,13 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextRespo
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 /**
- * Activation service. 
- * @author fangzhen
+ * Activation service.
  *
+ * @author fangzhen
  */
 public class ActivationService {
 	private static CoordinatorManager coordinator = CoordinatorManager.getInstance();
+
 	public CreateCoordinationContextResponseType createCoordinationContextOperation(
 			CreateCoordinationContextType ccc) {
 		ActivityCoordinatorContext coordinatorContext = coordinator.createActivityCoordinatorContext(ccc);
@@ -23,6 +24,7 @@ public class ActivationService {
 
 	/**
 	 * Activation services specific response info.--nothing currently
+	 *
 	 * @param coordinationContext
 	 * @return
 	 */
