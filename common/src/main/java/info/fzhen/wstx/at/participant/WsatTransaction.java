@@ -3,12 +3,9 @@ package info.fzhen.wstx.at.participant;
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.coordinator.PrivateIdType;
-import info.fzhen.wstx.util.EprUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
-import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;
-import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
@@ -27,6 +24,10 @@ public class WsatTransaction extends WsTransaction {
 
     /**client proxy of coordinator activation service */
     private ActivationPortType activationSer;
+
+    /** current state */
+    private State state;
+    private Object stateLock = new Object();
 
 	public WsatTransaction() {
 	}
@@ -61,27 +62,41 @@ public class WsatTransaction extends WsTransaction {
         }
 	}
 
-	public void setInitiator(AtInitiatorPartService initiator) {
-		if (this.initiator != null) {
-			throw new WstxRtException("Too many initiators. One is enough");
-		}
-		this.initiator = initiator;
-	}
-
     /**
-     * prepareVolatile2PC the atomic transaction
+     * Try to commit the transaction synchronously
      */
 	public void commit() {
-        if (__LOG.isInfoEnabled()){
-            __LOG.info("start to commit the transaction");
+        //TODO commit result
+        startCommit();
+        synchronized (stateLock){
+            while (state != State.Completed) {
+                try {
+                    stateLock.wait();
+                } catch (InterruptedException e) {
+                    //TODO handle
+                    e.printStackTrace();
+                }
+            }
         }
-		CompletionCoordinatorPortType completionCoordinator = EprUtils
-				.createWsaddrClientProxy(CompletionCoordinatorPortType.class,
-						initiator.getCoordinatorEpr());
-		completionCoordinator.commitOperation(new Notification());
     }
-	
-	public void rollback() {
+    public void startCommit(){
+        state = State.Completing;
+        initiator.commit();
+    }
+
+    /**
+     * Received the committed message
+     */
+    public void committed() {
+        synchronized (stateLock){
+            if (state == State.Completing) {
+                state = State.Completed;
+                stateLock.notifyAll();
+            }
+        }
+    }
+
+    public void rollback() {
 		//TODO
 	}
     public ActivationPortType getActivationSer() {
@@ -90,5 +105,19 @@ public class WsatTransaction extends WsTransaction {
 
     public void setActivationSer(ActivationPortType activationSer) {
         this.activationSer = activationSer;
+    }
+
+    public void setInitiator(AtInitiatorPartService initiator) {
+        if (this.initiator != null) {
+            throw new WstxRtException("Too many initiators. One is enough");
+        }
+        this.initiator = initiator;
+    }
+
+    public static enum State{
+        None,
+        Active,
+        Completing,
+        Completed
     }
 }

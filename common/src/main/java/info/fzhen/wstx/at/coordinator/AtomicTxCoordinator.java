@@ -31,7 +31,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 
     /** state of the activity */
     private State state;
-
+    private Object stateLock = new Object();
     /**
      * Factory method that create new instance of Atomic Tx.
      *
@@ -73,10 +73,12 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
      * commit the activity synchronously
      */
     public void commitActivity(){
-        synchronized (state){
+        //TODO should give different result
+        synchronized (stateLock){
+            prepareVolatile2PC();
             try {
                 while(state != State.AllCommitted) {
-                    state.wait();
+                    stateLock.wait();
                 }
             } catch (InterruptedException e) {
                 //TODO handle this
@@ -85,21 +87,25 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
                 }
             }
         }
-        prepareVolatile2PC();
     }
 
     /**
      * start to prepare volatile 2PC.
      */
     public void prepareVolatile2PC() {
-        synchronized (state) {
+        synchronized (stateLock) {
             synchronized (v2pcCoors) {
                 synchronized (volatileNum) {
-                    state = State.VolatilePraparing;
-                    for (At2pcCoor coor2pc : v2pcCoors) {
-                        coor2pc.prepare();
-                        volatileNum[At2pcCoor.State.Active.getId()]--;
-                        volatileNum[At2pcCoor.State.Prepared.getId()]++;
+                    if (v2pcCoors.size() == 0){
+                        state = State.VolatileAllPrepared;
+                        prepareDurable2PC();
+                    }else {
+                        state = State.VolatilePraparing;
+                        for (At2pcCoor coor2pc : v2pcCoors) {
+                            coor2pc.prepare();
+                            volatileNum[At2pcCoor.State.Active.getId()]--;
+                            volatileNum[At2pcCoor.State.Preparing.getId()]++;
+                        }
                     }
                 }
             }
@@ -107,7 +113,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
     }
 
     public void preparedVolatile2PC() {
-        synchronized (state) {
+        synchronized (stateLock) {
             synchronized (volatileNum) {
                 volatileNum[At2pcCoor.State.Preparing.getId()]--;
                 volatileNum[At2pcCoor.State.Prepared.getId()]++;
@@ -120,14 +126,19 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
     }
 
     private void prepareDurable2PC() {
-        synchronized (state) {
+        synchronized (stateLock) {
             synchronized (d2pcCoors) {
                 synchronized (durableNum) {
-                    state = State.DurablePreparing;
-                    for (At2pcCoor d2pc : d2pcCoors) {
-                        d2pc.prepare();
-                        durableNum[At2pcCoor.State.Active.getId()]--;
-                        durableNum[At2pcCoor.State.Prepared.getId()]++;
+                    if (d2pcCoors.size() == 0) {
+                        state = State.DurableAllPrepared;
+                        commitPhase();
+                    } else {
+                        state = State.DurablePreparing;
+                        for (At2pcCoor d2pc : d2pcCoors) {
+                            d2pc.prepare();
+                            durableNum[At2pcCoor.State.Active.getId()]--;
+                            durableNum[At2pcCoor.State.Preparing.getId()]++;
+                        }
                     }
                 }
             }
@@ -135,12 +146,12 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
     }
 
     public void preparedDurable2PC() {
-        synchronized (state){
+        synchronized (stateLock){
             synchronized (durableNum){
                 durableNum[At2pcCoor.State.Preparing.getId()]--;
                 durableNum[At2pcCoor.State.Prepared.getId()]++;
                 if (durableNum[At2pcCoor.State.Preparing.getId()] == 0){
-                    state = State.DurablePrePared;
+                    state = State.DurableAllPrepared;
                     commitPhase();
                 }
             }
@@ -149,24 +160,36 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 
     /** Phase 2: commit phase*/
     private void commitPhase() {
-        synchronized (state){
+        synchronized (stateLock){
             state = State.Committing;
             synchronized (v2pcCoors) {
                 synchronized (volatileNum) {
-                    for (At2pcCoor v2pc : v2pcCoors){
-                        v2pc.commit();
-                        volatileNum[At2pcCoor.State.Prepared.getId()] --;
-                        volatileNum[At2pcCoor.State.Committing.getId()] ++;
+                    if (v2pcCoors.size() == 0){
+                        state = State.VolatileAllCommitted;
+                    }else {
+                        for (At2pcCoor v2pc : v2pcCoors) {
+                            v2pc.commit();
+                            volatileNum[At2pcCoor.State.Prepared.getId()]--;
+                            volatileNum[At2pcCoor.State.Committing.getId()]++;
+                        }
                     }
                 }
             }
 
             synchronized(d2pcCoors){
                 synchronized (durableNum){
-                    for (At2pcCoor d2pc : d2pcCoors){
-                        d2pc.commit();
-                        durableNum[At2pcCoor.State.Prepared.getId()] --;
-                        durableNum[At2pcCoor.State.Committing.getId()] ++;
+                    if (d2pcCoors.size() == 0){
+                        if (state == State.VolatileAllCommitted) {
+                            completeActivity();
+                        } else {
+                            state = State.DurableAllCommitted;
+                        }
+                    }else {
+                        for (At2pcCoor d2pc : d2pcCoors) {
+                            d2pc.commit();
+                            durableNum[At2pcCoor.State.Prepared.getId()]--;
+                            durableNum[At2pcCoor.State.Committing.getId()]++;
+                        }
                     }
                 }
             }
@@ -174,9 +197,9 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
     }
 
     public void CommittedVolatile2PC(){
-        synchronized (state){
+        synchronized (stateLock){
             synchronized (volatileNum) {
-                if (state == State.Committing) {
+                if (state == State.Committing || state == State.DurableAllCommitted) {
                     volatileNum[At2pcCoor.State.Committing.getId()]--;
                     if (volatileNum[At2pcCoor.State.Committing.getId()] == 0) {
                         if (state == State.DurableAllCommitted) {
@@ -191,9 +214,9 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
     }
 
     public void CommittedDurable2PC() {
-        synchronized (state){
+        synchronized (stateLock){
             synchronized (durableNum) {
-                if (state == State.Committing) {
+                if (state == State.Committing || state == State.VolatileAllCommitted) {
                     durableNum[At2pcCoor.State.Committing.getId()]--;
                     if (durableNum[At2pcCoor.State.Committing.getId()] == 0) {
                         if (state == State.VolatileAllCommitted) {
@@ -208,9 +231,9 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
     }
 
     private void completeActivity() {
-        synchronized (state) {
+        synchronized (stateLock) {
             state = State.AllCommitted;
-            state.notifyAll();
+            stateLock.notifyAll();
         }
     }
 
@@ -249,7 +272,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
         VolatilePraparing,
         VolatileAllPrepared,
         DurablePreparing,
-        DurablePrePared,
+        DurableAllPrepared,
         PreparedSuccess,
         Committing,
         VolatileAllCommitted,

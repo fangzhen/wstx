@@ -58,12 +58,7 @@ public class At2pcPartManager extends AtAbstractPartManager<At2pcPartService>{
         } else {
             protocolId = AtProtocol.DURABLE2PC.getText();
         }
+        participantSer.setState(At2pcPartService.State.Active);
         doRegister(coorContext, participantSer, protocolId);
-    }
-
-    public At2pcPartService get2PcParticipant(String id){
-        AtProtocolServicePart part = retrieveProtocolParticipant(id);
-        if (part == null) return null;
-        return (At2pcPartService)part;
     }
 }

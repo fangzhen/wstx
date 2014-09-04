@@ -28,12 +28,12 @@ public class At2pcCoor extends AtProtocolServiceCoor<ParticipantPortType> {
             if (__LOG.isInfoEnabled()) {
                 __LOG.info("Parpared parcipant " + participantEpr.getAddress().getValue());
             }
+            state = State.Prepared;
             if (isVolatile) {
                 getActivity().preparedVolatile2PC();
             }else{
                 getActivity().preparedDurable2PC();
             }
-            state = State.Prepared;
         }
     }
 

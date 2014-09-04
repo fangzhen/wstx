@@ -1,7 +1,6 @@
 package info.fzhen.wstx.at.participant;
 
 import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.util.EprUtils;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
@@ -9,7 +8,7 @@ public class At2pcPartService extends AtProtocolServicePart<At2pcParticipant, Co
     public void prepare() {
         if (state == State.Active) {
             Vote vote = participant.prepare();
-            CoordinatorPortType coorProxy = EprUtils.createWsaddrClientProxy(CoordinatorPortType.class, coordinatorEpr);
+            CoordinatorPortType coorProxy = getCoordinatorProxy(CoordinatorPortType.class);
             switch (vote) {
                 case Prepared:
                     coorProxy.preparedOperation(new Notification());

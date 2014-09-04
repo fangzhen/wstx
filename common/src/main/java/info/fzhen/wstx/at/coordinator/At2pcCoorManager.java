@@ -53,6 +53,7 @@ public class At2pcCoorManager extends AtAbstractCoorManager<At2pcCoor>{
             at2pcCoor.setVolatile(false);
             activity.addD2pcCoor(at2pcCoor);
         }
+        at2pcCoor.setState(At2pcCoor.State.Active);
         at2pcCoor.setParticipantEpr(regPara.getParticipantProtocolService());
 
         String privateId = CommonUtils.genPrivateId();
