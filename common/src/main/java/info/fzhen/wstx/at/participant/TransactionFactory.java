@@ -15,9 +15,10 @@ public class TransactionFactory {
 	}
 
 	public static TransactionFactory getInstance() {
-		//TODO synchronize
-		if (instance == null) {
-			instance = new TransactionFactory();
+		synchronized (TransactionFactory.class){
+			if (instance == null) {
+				instance = new TransactionFactory();
+			}
 		}
 		return instance;
 	}

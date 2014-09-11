@@ -50,6 +50,7 @@ public class CoordinatorManager {
 		switch (type) {
 			case WSAT:
 				cctx = AtomicTxCoordinator.createInstance(ccc, pirvateId);
+				break;
 			case WSBA:
 				break;
 			default:
