@@ -2,6 +2,7 @@ package info.fzhen.wstx.at.coordinator;
 
 
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,4 +1,4 @@
-package info.fzhen.wstx.context;
+package info.fzhen.wstx.coordinator;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;

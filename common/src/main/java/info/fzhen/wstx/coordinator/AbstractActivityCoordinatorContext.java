@@ -1,8 +1,6 @@
-package info.fzhen.wstx.context;
+package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.config.CoorEprConfig;
-import info.fzhen.wstx.coordinator.CoordinatorManager;
-import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;

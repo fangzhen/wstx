@@ -1,6 +1,7 @@
 package info.fzhen.wstx.at.coordinator;
 
 import info.fzhen.wstx.StateEnum;
+import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 

@@ -2,9 +2,7 @@ package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.coordinator.AtomicTxCoordinator;
 import info.fzhen.wstx.config.CoorEprConfig;
-import info.fzhen.wstx.context.ActivityCoordinatorContext;
 import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,7 +47,7 @@ public class CoordinatorManager {
 		CoordinationType type = CoordinationType.fromString(ccc.getCoordinationType());
 		switch (type) {
 			case WSAT:
-				cctx = AtomicTxCoordinator.createInstance(ccc, pirvateId);
+				cctx = new ActivityCoordinatorFactory().createAtActivity(ccc, pirvateId);
 				break;
 			case WSBA:
 				break;

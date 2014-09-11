@@ -1,9 +1,9 @@
-package info.fzhen.wstx.at.coordinator;
+package info.fzhen.wstx.at;
 
-import info.fzhen.wstx.context.AbstractActivityCoordinatorContext;
+import info.fzhen.wstx.at.coordinator.*;
+import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
@@ -36,24 +36,6 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	 */
 	private State state;
 	private Object stateLock = new Object();
-
-	/**
-	 * Factory method that create new instance of Atomic Tx.
-	 *
-	 * @param ccc
-	 * @param pirvateId
-	 * @return
-	 */
-	public static AtomicTxCoordinator createInstance(CreateCoordinationContextType ccc, String pirvateId) {
-		AtomicTxCoordinator activityCoordinatorContext = new AtomicTxCoordinator();
-		activityCoordinatorContext.setCoordinationType(ccc.getCoordinationType());
-		if (ccc.getExpires() != null) {
-			activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
-		}
-		activityCoordinatorContext.setPrivateId(pirvateId);
-		activityCoordinatorContext.state = State.Active;
-		return activityCoordinatorContext;
-	}
 
 	@Override
 	public RegisterResponseType register(RegisterType registerPara) {
@@ -268,6 +250,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 		synchronized (volatileNum) {
 			volatileNum[At2pcCoor.State.Active.getId()]++;
 		}
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	/**
