@@ -16,14 +16,13 @@ public class At2pcCoorManager extends AtAbstractCoorManager<At2pcCoor> {
 
 	public static At2pcCoorManager getInstance() {
 		if (instance == null) {
-			if (__LOG.isErrorEnabled()) {
-				__LOG.error("Durable 2PC Manager(AtDurable2pcCoorManager) " +
+			String msg = "2PC protocol service coordinator manager: " + At2pcCoorManager.class.getSimpleName() +
 						"hasn't been initialized. It should be initiated " +
-						"by Spring as singleton. Please check your conf file.");
+						"by Spring as singleton. Please check your conf file.";
+			if (__LOG.isErrorEnabled()) {
+				__LOG.error(msg);
 			}
-			throw new WstxRtException("Durable 2PC Manager(AtDurable2pcCoorManager) " +
-					"hasn't been initialized. It should be initiated " +
-					"by Spring as singleton. Please check your conf file.");
+			throw new WstxRtException(msg);
 		}
 		return instance;
 	}

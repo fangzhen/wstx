@@ -1,5 +1,6 @@
 package info.fzhen.wstx.at;
 
+import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.at.coordinator.*;
 import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
 import org.apache.commons.logging.Log;
@@ -259,7 +260,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	/**
 	 * States of the activity
 	 */
-	public static enum State {
+	public static enum State implements StateEnum{
 		None,
 		Active,
 		VolatilePraparing,

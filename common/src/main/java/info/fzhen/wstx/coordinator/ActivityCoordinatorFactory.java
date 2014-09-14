@@ -12,22 +12,24 @@ public class ActivityCoordinatorFactory {
 	 * @param pirvateId
 	 * @return
 	 */
-	public AtomicTxCoordinator createAtActivity(CreateCoordinationContextType ccc, String pirvateId) {
+	public ActivityCoordinatorContext createAtActivity(CreateCoordinationContextType ccc, String pirvateId) {
 		CreateCoordinationContextType.CurrentContext sctx = ccc.getCurrentContext();
-		AtomicTxCoordinator activityCoordinatorContext;
+		ActivityCoordinatorContext activityCoordinatorContext;
 		if (sctx != null){
 			AtomicTxSubordinate subordinate = new AtomicTxSubordinate();
 			subordinate.setSuperiorCtx(sctx);
+			subordinate.setState(AtomicTxSubordinate.State.Active);
 			activityCoordinatorContext = subordinate;
 		}else{
-			activityCoordinatorContext = new AtomicTxCoordinator();
+			AtomicTxCoordinator atcoordinator = new AtomicTxCoordinator();
+			atcoordinator.setState(AtomicTxCoordinator.State.Active);
+			activityCoordinatorContext = atcoordinator;
 		}
 		activityCoordinatorContext.setCoordinationType(ccc.getCoordinationType());
 		if (ccc.getExpires() != null) {
 			activityCoordinatorContext.setExpires(ccc.getExpires().getValue());
 		}
 		activityCoordinatorContext.setPrivateId(pirvateId);
-		activityCoordinatorContext.setState(AtomicTxCoordinator.State.Active);
 		return activityCoordinatorContext;
 	}
 }

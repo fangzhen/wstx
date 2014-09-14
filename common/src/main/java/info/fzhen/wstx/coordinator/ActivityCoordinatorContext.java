@@ -24,4 +24,10 @@ public interface ActivityCoordinatorContext {
 	 * @return Register Response
 	 */
 	RegisterResponseType register(RegisterType registerPara);
+
+	void setCoordinationType(String coordinationType);
+
+	void setExpires(long value);
+
+	void setPrivateId(String pirvateId);
 }
