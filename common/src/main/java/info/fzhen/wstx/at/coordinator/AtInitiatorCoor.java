@@ -5,6 +5,9 @@ import info.fzhen.wstx.StateEnum;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionInitiatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
+/**
+ * Protocol service of AT Initiator
+ */
 public class AtInitiatorCoor extends AtProtocolServiceCoor<CompletionInitiatorPortType> {
 
 	public void commit() {

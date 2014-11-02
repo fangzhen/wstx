@@ -6,6 +6,9 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.ParticipantPortType;
 
+/**
+ * Protocol service of coordinator in AT 2PC protocol
+ */
 public class At2pcCoor extends AtProtocolServiceCoor<ParticipantPortType> {
 	private static Log __LOG = LogFactory.getLog(At2pcCoor.class);
 	boolean isVolatile;
