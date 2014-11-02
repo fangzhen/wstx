@@ -1,7 +1,7 @@
 package info.fzhen.wstx.test.services;
 
-import info.fzhen.wstx.at.participant.At2pcPartService;
-import info.fzhen.wstx.at.participant.At2pcParticipant;
+import info.fzhen.wstx.at.twopc.At2pcPartService;
+import info.fzhen.wstx.at.twopc.At2pcParticipant;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

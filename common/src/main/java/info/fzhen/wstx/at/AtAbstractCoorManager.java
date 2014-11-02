@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at.coordinator;
+package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.EprUtils;

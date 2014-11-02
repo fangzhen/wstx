@@ -1,4 +1,4 @@
-package info.fzhen.wstx.participant;
+package info.fzhen.wstx;
 
 /**
  * The base particiapnt. A participant is the way that a resource participate in a transaction.

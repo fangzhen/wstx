@@ -78,13 +78,13 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<value>http://localhost:8080</value>
 		</property>
 	</bean>
-	<bean id="atInitiatorCoorManager" class="info.fzhen.wstx.at.coordinator.AtInitiatorCoorManager" scope="singleton">
+	<bean id="atInitiatorCoorManager" class="info.fzhen.wstx.at.completion.AtInitiatorCoorManager" scope="singleton">
 		<property name="coorServiceAddr" value="#{atCoorEprConfig.AtCompletionCoorAddress}"/>
 		<property name="instance">
 			<ref bean="atInitiatorCoorManager"/>
 		</property>
 	</bean>
-	<bean id="at2pcCoorManager" class="info.fzhen.wstx.at.coordinator.At2pcCoorManager" scope="singleton">
+	<bean id="at2pcCoorManager" class="info.fzhen.wstx.at.twopc.At2pcCoorManager" scope="singleton">
 		<property name="coorServiceAddr" value="#{atCoorEprConfig.At2PcCoorAddress}"/>
 		<property name="instance">
 			<ref bean="at2pcCoorManager"/>

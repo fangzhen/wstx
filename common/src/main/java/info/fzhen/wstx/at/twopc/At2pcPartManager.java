@@ -1,7 +1,8 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at.twopc;
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.coordinator.AtProtocol;
+import info.fzhen.wstx.at.AtAbstractPartManager;
+import info.fzhen.wstx.at.AtProtocol;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;

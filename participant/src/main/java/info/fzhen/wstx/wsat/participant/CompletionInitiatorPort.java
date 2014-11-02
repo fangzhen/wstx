@@ -1,7 +1,7 @@
 package info.fzhen.wstx.wsat.participant;
 
-import info.fzhen.wstx.at.participant.AtInitiatorPartManager;
-import info.fzhen.wstx.at.participant.AtInitiatorPartService;
+import info.fzhen.wstx.at.completion.AtInitiatorPartManager;
+import info.fzhen.wstx.at.completion.AtInitiatorPartService;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionInitiatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;

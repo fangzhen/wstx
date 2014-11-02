@@ -1,7 +1,7 @@
 package info.fzhen.wstx.wsat.participant;
 
-import info.fzhen.wstx.at.participant.At2pcPartManager;
-import info.fzhen.wstx.at.participant.At2pcPartService;
+import info.fzhen.wstx.at.twopc.At2pcPartManager;
+import info.fzhen.wstx.at.twopc.At2pcPartService;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.ParticipantPortType;

@@ -1,5 +1,6 @@
-package info.fzhen.wstx.at.coordinator;
+package info.fzhen.wstx.at.twopc;
 
+import info.fzhen.wstx.at.AtProtocolServiceCoor;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.ParticipantPortType;
 
 /**

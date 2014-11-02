@@ -1,7 +1,9 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at.completion;
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.coordinator.AtProtocol;
+import info.fzhen.wstx.at.AtAbstractPartManager;
+import info.fzhen.wstx.at.AtProtocol;
+import info.fzhen.wstx.at.WsatTransaction;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

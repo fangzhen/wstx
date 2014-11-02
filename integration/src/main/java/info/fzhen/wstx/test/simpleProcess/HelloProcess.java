@@ -1,8 +1,8 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import info.fzhen.wstx.at.participant.AtInitiatorPartManager;
-import info.fzhen.wstx.at.participant.TransactionFactory;
-import info.fzhen.wstx.at.participant.WsatTransaction;
+import info.fzhen.wstx.at.completion.AtInitiatorPartManager;
+import info.fzhen.wstx.TransactionFactory;
+import info.fzhen.wstx.at.WsatTransaction;
 import info.fzhen.wstx.test.services.HelloService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

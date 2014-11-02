@@ -1,6 +1,7 @@
-package info.fzhen.wstx.at.coordinator;
+package info.fzhen.wstx.at.twopc;
 
 import info.fzhen.wstx.StateEnum;
+import info.fzhen.wstx.at.AtProtocolServiceCoor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;

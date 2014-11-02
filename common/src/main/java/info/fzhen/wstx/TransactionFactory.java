@@ -1,5 +1,6 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx;
 
+import info.fzhen.wstx.at.WsatTransaction;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 
 /**

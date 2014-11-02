@@ -1,6 +1,7 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at.twopc;
 
 import info.fzhen.wstx.StateEnum;
+import info.fzhen.wstx.at.AtProtocolServicePart;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 

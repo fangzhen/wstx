@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx;
 
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 

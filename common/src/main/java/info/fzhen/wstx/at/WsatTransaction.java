@@ -1,7 +1,9 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.at.completion.AtInitiatorPartService;
+import info.fzhen.wstx.WsTransaction;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

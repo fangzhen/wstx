@@ -1,7 +1,7 @@
 package info.fzhen.wstx.wsat.coordinator;
 
-import info.fzhen.wstx.at.coordinator.AtInitiatorCoor;
-import info.fzhen.wstx.at.coordinator.AtInitiatorCoorManager;
+import info.fzhen.wstx.at.completion.AtInitiatorCoor;
+import info.fzhen.wstx.at.completion.AtInitiatorCoorManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

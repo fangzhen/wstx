@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at.coordinator;
+package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.at.AtomicTxCoordinator;

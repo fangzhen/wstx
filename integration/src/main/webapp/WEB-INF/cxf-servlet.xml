@@ -69,13 +69,13 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<value>http://localhost:8080</value>
 		</property>
 	</bean>
-	<bean id="at2pcPartManager" class="info.fzhen.wstx.at.participant.At2pcPartManager" scope="singleton">
+	<bean id="at2pcPartManager" class="info.fzhen.wstx.at.twopc.At2pcPartManager" scope="singleton">
 		<property name="partServiceAddr" value="#{eprConfig.twoPcPtcpAddress}"/>
 		<property name="instance">
 			<ref bean="at2pcPartManager"/>
 		</property>
 	</bean>
-	<bean id="atInitiatorPartManager" class="info.fzhen.wstx.at.participant.AtInitiatorPartManager"
+	<bean id="atInitiatorPartManager" class="info.fzhen.wstx.at.completion.AtInitiatorPartManager"
 		  scope="singleton">
 		<property name="partServiceAddr" value="#{eprConfig.initiatorAddress}"/>
 		<property name="instance">

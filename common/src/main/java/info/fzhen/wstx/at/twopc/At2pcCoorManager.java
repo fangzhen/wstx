@@ -1,7 +1,8 @@
-package info.fzhen.wstx.at.coordinator;
+package info.fzhen.wstx.at.twopc;
 
 
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.at.AtAbstractCoorManager;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;

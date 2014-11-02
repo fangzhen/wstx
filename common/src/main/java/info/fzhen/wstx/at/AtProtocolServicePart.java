@@ -1,7 +1,7 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.participant.Participant;
+import info.fzhen.wstx.Participant;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 

@@ -1,7 +1,9 @@
 package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.at.coordinator.*;
+import info.fzhen.wstx.at.completion.*;
+import info.fzhen.wstx.at.twopc.At2pcCoor;
+import info.fzhen.wstx.at.twopc.At2pcCoorManager;
 import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,7 +29,7 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	private final List<At2pcCoor> v2pcCoors = new ArrayList<>();
 
 	/**
-	 * number of participant of each state. see {@link info.fzhen.wstx.at.coordinator.At2pcCoor.State}
+	 * number of participant of each state. see {@link info.fzhen.wstx.at.twopc.At2pcCoor.State}
 	 */
 	private final int[] volatileNum = new int[10];
 	private final int[] durableNum = new int[10];

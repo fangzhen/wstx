@@ -1,6 +1,6 @@
 package info.fzhen.wstx.test.simpleProcess;
 
-import info.fzhen.wstx.at.participant.WsTransaction;
+import info.fzhen.wstx.WsTransaction;
 import info.fzhen.wstx.cxf.interceptor.WstxTransform;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

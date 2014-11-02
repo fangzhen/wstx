@@ -1,7 +1,10 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at.completion;
 
 import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.at.WsatTransaction;
+import info.fzhen.wstx.WsTransaction;
+import info.fzhen.wstx.at.AtProtocolServicePart;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;

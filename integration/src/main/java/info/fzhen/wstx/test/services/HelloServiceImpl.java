@@ -1,6 +1,6 @@
 package info.fzhen.wstx.test.services;
 
-import info.fzhen.wstx.at.participant.At2pcPartManager;
+import info.fzhen.wstx.at.twopc.At2pcPartManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

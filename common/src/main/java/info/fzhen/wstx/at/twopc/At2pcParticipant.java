@@ -1,6 +1,6 @@
-package info.fzhen.wstx.at.participant;
+package info.fzhen.wstx.at.twopc;
 
-import info.fzhen.wstx.participant.Participant;
+import info.fzhen.wstx.Participant;
 
 public interface At2pcParticipant extends Participant {
 	public At2pcPartService.Vote prepare();

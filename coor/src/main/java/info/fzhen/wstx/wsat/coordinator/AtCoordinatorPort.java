@@ -1,7 +1,7 @@
 package info.fzhen.wstx.wsat.coordinator;
 
-import info.fzhen.wstx.at.coordinator.At2pcCoor;
-import info.fzhen.wstx.at.coordinator.At2pcCoorManager;
+import info.fzhen.wstx.at.twopc.At2pcCoor;
+import info.fzhen.wstx.at.twopc.At2pcCoorManager;
 import info.fzhen.wstx.util.MsgContextUtil;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
