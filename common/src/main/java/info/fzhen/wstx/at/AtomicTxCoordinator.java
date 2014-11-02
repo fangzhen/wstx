@@ -23,20 +23,20 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	 * Protocol services of this activity
 	 */
 	private AtInitiatorCoor initiatorCoor;
-	private List<At2pcCoor> d2pcCoors = new ArrayList<>();
-	private List<At2pcCoor> v2pcCoors = new ArrayList<>();
+	private final List<At2pcCoor> d2pcCoors = new ArrayList<>();
+	private final List<At2pcCoor> v2pcCoors = new ArrayList<>();
 
 	/**
 	 * number of participant of each state. see {@link info.fzhen.wstx.at.coordinator.At2pcCoor.State}
 	 */
-	private int[] volatileNum = new int[10];
-	private int[] durableNum = new int[10];
+	private final int[] volatileNum = new int[10];
+	private final int[] durableNum = new int[10];
 
 	/**
 	 * state of the activity
 	 */
 	private State state;
-	private Object stateLock = new Object();
+	private final Object stateLock = new Object();
 
 	@Override
 	public RegisterResponseType register(RegisterType registerPara) {
