@@ -14,4 +14,9 @@ public class ProcessesTest {
 	public void executeHelloProcess() throws Exception {
 		executeProcess("helloProcess");
 	}
+
+	@Test(groups = {"integration"})
+	public void executeAtProcessSubordinate() throws Exception {
+		executeProcess("atProcessSubordinate");
+	}
 }

@@ -6,20 +6,26 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-
-	<!-- functional services used by the integration tests -->
-
-	<jaxws:client id="helloService"
-				  serviceClass="info.fzhen.wstx.test.services.HelloService"
-				  address="http://localhost:8080/integration/services/helloService"/>
-	<jaxws:client id="helloProcess"
-				  serviceClass="info.fzhen.wstx.test.processes.Process"
-				  address="http://localhost:8080/integration/services/helloProcess"/>
-
 	<cxf:bus>
 		<cxf:features>
 			<wsa:addressing/>
 		</cxf:features>
 	</cxf:bus>
+
+	<!-- functional services and processes used by the integration tests -->
+	<jaxws:client id="helloService"
+				  serviceClass="info.fzhen.wstx.test.services.HelloService"
+				  address="http://localhost:8080/integration/services/helloService"/>
+	<jaxws:client id="helloServiceSubordinate"
+				  serviceClass="info.fzhen.wstx.test.services.HelloService"
+				  address="http://localhost:8080/integration/services/helloServiceSubordinate"/>
+
+	<jaxws:client id="helloProcess"
+				  serviceClass="info.fzhen.wstx.test.processes.Process"
+				  address="http://localhost:8080/integration/services/helloProcess"/>
+	<jaxws:client id="atProcessSubordinate"
+				  serviceClass="info.fzhen.wstx.test.processes.Process"
+				  address="http://localhost:8080/integration/services/atProcessSubordinate"/>
+
 
 </beans>

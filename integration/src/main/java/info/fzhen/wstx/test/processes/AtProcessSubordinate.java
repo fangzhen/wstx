@@ -12,19 +12,18 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import javax.jws.WebService;
 import javax.xml.ws.BindingProvider;
 
-@WebService(serviceName = "helloProcess")
-public class HelloProcess extends TransactionalProcess {
-	private static final Log __log = LogFactory.getLog(TransactionalProcess.class);
+/**
+ * Atomic transaction with subordinate
+ */
+@WebService(serviceName = "atProcessSubordinate")
+public class AtProcessSubordinate extends TransactionalProcess{
+	private static final Log __LOG = LogFactory.getLog(TransactionalProcess.class);
 
 	private ClientProxies clientProxies = ClientProxies.getInstance();
-
-	public HelloProcess() {
-	}
-
 	@Override
 	public void execute() {
-		if (__log.isInfoEnabled()){
-			__log.info("Testing hello process");
+		if (__LOG.isInfoEnabled()){
+			__LOG.info("Testing process with subordinate");
 		}
 		ActivationPortType activationSer = clientProxies.getActivationService();
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
@@ -35,11 +34,11 @@ public class HelloProcess extends TransactionalProcess {
 		manager.registerInitiator(transaction);
 
 		//then send application messages with CC
-		HelloService helloSer = clientProxies.getService("helloService");
+		HelloService helloSer = clientProxies.getService("helloServiceSubordinate");
 		addTransactionInfo2Client((BindingProvider) helloSer, transaction);
 		helloSer.sayHello();
 
 		transaction.commit();
-	}
 
+	}
 }

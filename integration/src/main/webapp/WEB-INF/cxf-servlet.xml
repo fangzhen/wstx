@@ -58,8 +58,15 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	<jaxws:endpoint id="helloService"
 					implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
 	</jaxws:endpoint>
+	<jaxws:endpoint id="helloServiceSubordinate"
+					implementor="info.fzhen.wstx.test.services.HelloServiceSubordinate" address="/helloServiceSubordinate">
+	</jaxws:endpoint>
+
 	<jaxws:endpoint id="helloProcess"
 					implementor="info.fzhen.wstx.test.processes.HelloProcess" address="/helloProcess">
+	</jaxws:endpoint>
+	<jaxws:endpoint id="atProcessSubordinate"
+					implementor="info.fzhen.wstx.test.processes.AtProcessSubordinate" address="/atProcessSubordinate">
 	</jaxws:endpoint>
 
 	<bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">

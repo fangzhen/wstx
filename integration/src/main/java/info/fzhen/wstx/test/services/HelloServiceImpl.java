@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 
-@WebService
+@WebService(serviceName = "helloService")
 public class HelloServiceImpl implements HelloService {
 	private static final Log __LOG = LogFactory.getLog(HelloServiceImpl.class);
 
