@@ -13,7 +13,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 				  serviceClass="info.fzhen.wstx.test.services.HelloService"
 				  address="http://localhost:8080/integration/services/helloService"/>
 	<jaxws:client id="helloProcess"
-				  serviceClass="info.fzhen.wstx.test.simpleProcess.Process"
+				  serviceClass="info.fzhen.wstx.test.processes.Process"
 				  address="http://localhost:8080/integration/services/helloProcess"/>
 
 	<cxf:bus>

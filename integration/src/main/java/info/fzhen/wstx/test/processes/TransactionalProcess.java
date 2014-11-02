@@ -1,4 +1,4 @@
-package info.fzhen.wstx.test.simpleProcess;
+package info.fzhen.wstx.test.processes;
 
 import info.fzhen.wstx.WsTransaction;
 import info.fzhen.wstx.cxf.interceptor.WstxTransform;

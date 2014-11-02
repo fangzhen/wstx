@@ -59,7 +59,7 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 					implementor="info.fzhen.wstx.test.services.HelloServiceImpl" address="/helloService">
 	</jaxws:endpoint>
 	<jaxws:endpoint id="helloProcess"
-					implementor="info.fzhen.wstx.test.simpleProcess.HelloProcess" address="/helloProcess">
+					implementor="info.fzhen.wstx.test.processes.HelloProcess" address="/helloProcess">
 	</jaxws:endpoint>
 
 	<bean id="eprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">

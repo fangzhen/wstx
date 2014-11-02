@@ -1,4 +1,4 @@
-package info.fzhen.wstx.test.simpleProcess;
+package info.fzhen.wstx.test.processes;
 
 import javax.jws.WebService;
 

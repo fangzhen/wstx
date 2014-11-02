@@ -1,13 +1,13 @@
-package info.fzhen.wstx.test.simpleProcess;
+package info.fzhen.wstx.test.processes;
 
-import info.fzhen.wstx.at.completion.AtInitiatorPartManager;
 import info.fzhen.wstx.TransactionFactory;
 import info.fzhen.wstx.at.WsatTransaction;
+import info.fzhen.wstx.at.completion.AtInitiatorPartManager;
+import info.fzhen.wstx.test.ClientProxies;
 import info.fzhen.wstx.test.services.HelloService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingProvider;
@@ -16,23 +16,17 @@ import javax.xml.ws.BindingProvider;
 public class HelloProcess extends TransactionalProcess {
 	private static final Log __log = LogFactory.getLog(TransactionalProcess.class);
 
-	private HelloService helloSer;
-	private ClassPathXmlApplicationContext context;
-	private ClassPathXmlApplicationContext services;
+	private ClientProxies clientProxies = ClientProxies.getInstance();
 
 	public HelloProcess() {
 	}
 
 	@Override
 	public void execute() {
-		context = new ClassPathXmlApplicationContext(
-				new String[]{"coor-beans.xml"});
-		services = new ClassPathXmlApplicationContext(
-				new String[]{"service-beans.xml"});
-		if (__log.isDebugEnabled()) {
-			__log.debug("Service bean configurations read.");
+		if (__log.isInfoEnabled()){
+			__log.info("Testing hello process");
 		}
-		ActivationPortType activationSer = (ActivationPortType) context.getBean("activationService");
+		ActivationPortType activationSer = clientProxies.getActivationService();
 		WsatTransaction transaction = TransactionFactory.getInstance().createWsatTransaction(activationSer);
 		transaction.begin();
 
@@ -41,14 +35,11 @@ public class HelloProcess extends TransactionalProcess {
 		manager.registerInitiator(transaction);
 
 		//then send application messages with CC
-		helloSer = (HelloService) services.getBean("helloService");
+		HelloService helloSer = clientProxies.getService("helloService");
 		addTransactionInfo2Client((BindingProvider) helloSer, transaction);
 		helloSer.sayHello();
 
 		transaction.commit();
-
-		context.close();
-		services.close();
 	}
 
 }
