@@ -4,13 +4,14 @@ package info.fzhen.wstx.at.twopc;
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.at.AtAbstractCoorManager;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
+import info.fzhen.wstx.at.AtomicTxSubordinate;
 import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
-public class At2pcCoorManager extends AtAbstractCoorManager<At2pcCoor> {
+public class At2pcCoorManager extends AtAbstractCoorManager<CoorService2Pc> {
 	private static final Log __LOG = LogFactory.getLog(At2pcCoorManager.class);
 
 	private static At2pcCoorManager instance;
@@ -55,20 +56,33 @@ public class At2pcCoorManager extends AtAbstractCoorManager<At2pcCoor> {
 	 * @return
 	 */
 	public RegisterResponseType register2pcParticipant(AtomicTxCoordinator activity, RegisterType regPara, boolean v) {
-		At2pcCoor at2pcCoor = new At2pcCoor();
-		at2pcCoor.setActivity(activity);
+		At2pcCoorService at2pcCoorService = new At2pcCoorService();
+		at2pcCoorService.setActivity(activity);
 		if (v) {
-			at2pcCoor.setVolatile(true);
-			activity.addV2pcCoor(at2pcCoor);
+			at2pcCoorService.setVolatile(true);
+			activity.addV2pcCoor(at2pcCoorService);
 		} else {
-			at2pcCoor.setVolatile(false);
-			activity.addD2pcCoor(at2pcCoor);
+			at2pcCoorService.setVolatile(false);
+			activity.addD2pcCoor(at2pcCoorService);
 		}
-		at2pcCoor.setState(At2pcCoor.State.Active);
-		at2pcCoor.setParticipantEpr(regPara.getParticipantProtocolService());
+		at2pcCoorService.setState(At2pcCoorService.State.Active);
+		at2pcCoorService.setParticipantEpr(regPara.getParticipantProtocolService());
 
 		String privateId = CommonUtils.genPrivateId();
-		managedCoordinators.put(privateId, at2pcCoor);
+		managedCoordinators.put(privateId, at2pcCoorService);
+
+		RegisterResponseType response = constructRegisterResponse(privateId);
+		return response;
+	}
+
+	public RegisterResponseType registerSub2Pc(
+			At2pcSubordinateService.CoorService subordinate,
+			AtomicTxSubordinate activity, RegisterType registerPara) {
+		subordinate.setActivity(activity);
+
+		subordinate.setParticipantEpr(registerPara.getParticipantProtocolService());
+		String privateId = CommonUtils.genPrivateId();
+		managedCoordinators.put(privateId, subordinate);
 
 		RegisterResponseType response = constructRegisterResponse(privateId);
 		return response;

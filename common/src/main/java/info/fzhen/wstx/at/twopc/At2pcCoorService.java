@@ -1,7 +1,7 @@
 package info.fzhen.wstx.at.twopc;
 
 import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.at.AtProtocolServiceCoor;
+import info.fzhen.wstx.at.AtomicTxCoordinator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
@@ -10,10 +10,12 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.ParticipantPortType;
 /**
  * Protocol service of coordinator in AT 2PC protocol
  */
-public class At2pcCoor extends AtProtocolServiceCoor<ParticipantPortType> {
-	private static Log __LOG = LogFactory.getLog(At2pcCoor.class);
+public class At2pcCoorService extends CoorService2Pc
+		<ParticipantPortType, AtomicTxCoordinator>{
+	private static Log __LOG = LogFactory.getLog(At2pcCoorService.class);
 	boolean isVolatile;
 
+	@Override
 	public void prepare() {
 		if (state == State.Active) {
 			if (__LOG.isInfoEnabled()) {
@@ -27,6 +29,7 @@ public class At2pcCoor extends AtProtocolServiceCoor<ParticipantPortType> {
 		}
 	}
 
+	@Override
 	public void prepared() {
 		if (state == State.Preparing) {
 			if (__LOG.isInfoEnabled()) {
@@ -44,6 +47,7 @@ public class At2pcCoor extends AtProtocolServiceCoor<ParticipantPortType> {
 	/**
 	 * commit phase
 	 */
+	@Override
 	public void commit() {
 		if (state == State.Prepared) {
 			if (__LOG.isInfoEnabled()) {
@@ -55,6 +59,7 @@ public class At2pcCoor extends AtProtocolServiceCoor<ParticipantPortType> {
 		}
 	}
 
+	@Override
 	public void committed() {
 		if (state == State.Committing) {
 			if (__LOG.isInfoEnabled()) {

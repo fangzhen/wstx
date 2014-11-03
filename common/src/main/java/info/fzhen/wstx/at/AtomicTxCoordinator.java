@@ -2,7 +2,7 @@ package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.at.completion.*;
-import info.fzhen.wstx.at.twopc.At2pcCoor;
+import info.fzhen.wstx.at.twopc.At2pcCoorService;
 import info.fzhen.wstx.at.twopc.At2pcCoorManager;
 import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
 import org.apache.commons.logging.Log;
@@ -25,11 +25,11 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	 * Protocol services of this activity
 	 */
 	private AtInitiatorCoor initiatorCoor;
-	private final List<At2pcCoor> d2pcCoors = new ArrayList<>();
-	private final List<At2pcCoor> v2pcCoors = new ArrayList<>();
+	private final List<At2pcCoorService> d2pcCoors = new ArrayList<>();
+	private final List<At2pcCoorService> v2pcCoors = new ArrayList<>();
 
 	/**
-	 * number of participant of each state. see {@link info.fzhen.wstx.at.twopc.At2pcCoor.State}
+	 * number of participant of each state. see {@link info.fzhen.wstx.at.twopc.At2pcCoorService.State}
 	 */
 	private final int[] volatileNum = new int[10];
 	private final int[] durableNum = new int[10];
@@ -91,10 +91,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 						prepareDurable2PC();
 					} else {
 						state = State.VolatilePraparing;
-						for (At2pcCoor coor2pc : v2pcCoors) {
+						for (At2pcCoorService coor2pc : v2pcCoors) {
 							coor2pc.prepare();
-							volatileNum[At2pcCoor.State.Active.getId()]--;
-							volatileNum[At2pcCoor.State.Preparing.getId()]++;
+							volatileNum[At2pcCoorService.State.Active.getId()]--;
+							volatileNum[At2pcCoorService.State.Preparing.getId()]++;
 						}
 					}
 				}
@@ -105,9 +105,9 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	public void preparedVolatile2PC() {
 		synchronized (stateLock) {
 			synchronized (volatileNum) {
-				volatileNum[At2pcCoor.State.Preparing.getId()]--;
-				volatileNum[At2pcCoor.State.Prepared.getId()]++;
-				if (volatileNum[At2pcCoor.State.Preparing.getId()] == 0) {
+				volatileNum[At2pcCoorService.State.Preparing.getId()]--;
+				volatileNum[At2pcCoorService.State.Prepared.getId()]++;
+				if (volatileNum[At2pcCoorService.State.Preparing.getId()] == 0) {
 					state = State.VolatileAllPrepared;
 					prepareDurable2PC();
 				}
@@ -124,10 +124,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 						commitPhase();
 					} else {
 						state = State.DurablePreparing;
-						for (At2pcCoor d2pc : d2pcCoors) {
+						for (At2pcCoorService d2pc : d2pcCoors) {
 							d2pc.prepare();
-							durableNum[At2pcCoor.State.Active.getId()]--;
-							durableNum[At2pcCoor.State.Preparing.getId()]++;
+							durableNum[At2pcCoorService.State.Active.getId()]--;
+							durableNum[At2pcCoorService.State.Preparing.getId()]++;
 						}
 					}
 				}
@@ -138,9 +138,9 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 	public void preparedDurable2PC() {
 		synchronized (stateLock) {
 			synchronized (durableNum) {
-				durableNum[At2pcCoor.State.Preparing.getId()]--;
-				durableNum[At2pcCoor.State.Prepared.getId()]++;
-				if (durableNum[At2pcCoor.State.Preparing.getId()] == 0) {
+				durableNum[At2pcCoorService.State.Preparing.getId()]--;
+				durableNum[At2pcCoorService.State.Prepared.getId()]++;
+				if (durableNum[At2pcCoorService.State.Preparing.getId()] == 0) {
 					state = State.DurableAllPrepared;
 					commitPhase();
 				}
@@ -159,10 +159,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 					if (v2pcCoors.size() == 0) {
 						state = State.VolatileAllCommitted;
 					} else {
-						for (At2pcCoor v2pc : v2pcCoors) {
+						for (At2pcCoorService v2pc : v2pcCoors) {
 							v2pc.commit();
-							volatileNum[At2pcCoor.State.Prepared.getId()]--;
-							volatileNum[At2pcCoor.State.Committing.getId()]++;
+							volatileNum[At2pcCoorService.State.Prepared.getId()]--;
+							volatileNum[At2pcCoorService.State.Committing.getId()]++;
 						}
 					}
 				}
@@ -177,10 +177,10 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 							state = State.DurableAllCommitted;
 						}
 					} else {
-						for (At2pcCoor d2pc : d2pcCoors) {
+						for (At2pcCoorService d2pc : d2pcCoors) {
 							d2pc.commit();
-							durableNum[At2pcCoor.State.Prepared.getId()]--;
-							durableNum[At2pcCoor.State.Committing.getId()]++;
+							durableNum[At2pcCoorService.State.Prepared.getId()]--;
+							durableNum[At2pcCoorService.State.Committing.getId()]++;
 						}
 					}
 				}
@@ -192,8 +192,8 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 		synchronized (stateLock) {
 			synchronized (volatileNum) {
 				if (state == State.Committing || state == State.DurableAllCommitted) {
-					volatileNum[At2pcCoor.State.Committing.getId()]--;
-					if (volatileNum[At2pcCoor.State.Committing.getId()] == 0) {
+					volatileNum[At2pcCoorService.State.Committing.getId()]--;
+					if (volatileNum[At2pcCoorService.State.Committing.getId()] == 0) {
 						if (state == State.DurableAllCommitted) {
 							completeActivity();
 						} else {
@@ -209,8 +209,8 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 		synchronized (stateLock) {
 			synchronized (durableNum) {
 				if (state == State.Committing || state == State.VolatileAllCommitted) {
-					durableNum[At2pcCoor.State.Committing.getId()]--;
-					if (durableNum[At2pcCoor.State.Committing.getId()] == 0) {
+					durableNum[At2pcCoorService.State.Committing.getId()]--;
+					if (durableNum[At2pcCoorService.State.Committing.getId()] == 0) {
 						if (state == State.VolatileAllCommitted) {
 							completeActivity();
 						} else {
@@ -237,21 +237,21 @@ public class AtomicTxCoordinator extends AbstractActivityCoordinatorContext {
 		this.initiatorCoor = initiatorCoor;
 	}
 
-	public void addD2pcCoor(At2pcCoor d2pcCoor) {
+	public void addD2pcCoor(At2pcCoorService d2pcCoor) {
 		synchronized (d2pcCoors) {
 			d2pcCoors.add(d2pcCoor);
 		}
 		synchronized (durableNum) {
-			durableNum[At2pcCoor.State.Active.getId()]++;
+			durableNum[At2pcCoorService.State.Active.getId()]++;
 		}
 	}
 
-	public void addV2pcCoor(At2pcCoor v2pcCoor) {
+	public void addV2pcCoor(At2pcCoorService v2pcCoor) {
 		synchronized (v2pcCoors) {
 			v2pcCoors.add(v2pcCoor);
 		}
 		synchronized (volatileNum) {
-			volatileNum[At2pcCoor.State.Active.getId()]++;
+			volatileNum[At2pcCoorService.State.Active.getId()]++;
 		}
 	}
 

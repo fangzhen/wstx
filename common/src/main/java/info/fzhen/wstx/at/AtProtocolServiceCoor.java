@@ -1,7 +1,7 @@
 package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.at.AtomicTxCoordinator;
+import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
@@ -9,12 +9,13 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
  * Abstract class of protocol coordinator service
  *
  * @param <T> type of corresponding participant service port type
+ * @param <E> activity type it belongs to
  */
-public abstract class AtProtocolServiceCoor<T> {
+public abstract class AtProtocolServiceCoor<T, E extends AbstractActivityCoordinatorContext> {
 	/**
 	 * The activity it belongs to
 	 */
-	protected AtomicTxCoordinator activity;
+	protected E activity;
 
 	/**
 	 * participant protocol service EPR
@@ -31,11 +32,11 @@ public abstract class AtProtocolServiceCoor<T> {
 		return PartProxy;
 	}
 
-	public AtomicTxCoordinator getActivity() {
+	public E getActivity() {
 		return activity;
 	}
 
-	public void setActivity(AtomicTxCoordinator activity) {
+	public void setActivity(E activity) {
 		this.activity = activity;
 	}
 

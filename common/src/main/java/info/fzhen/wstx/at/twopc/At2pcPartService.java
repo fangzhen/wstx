@@ -1,11 +1,13 @@
 package info.fzhen.wstx.at.twopc;
 
 import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.at.AtProtocolServicePart;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
-public class At2pcPartService extends AtProtocolServicePart<At2pcParticipant, CoordinatorPortType> {
+public class At2pcPartService extends PartService2Pc
+		<At2pcParticipant, CoordinatorPortType>{
+
+	@Override
 	public void prepare() {
 		if (state == State.Active) {
 			Vote vote = participant.prepare();
@@ -33,6 +35,7 @@ public class At2pcPartService extends AtProtocolServicePart<At2pcParticipant, Co
 		}
 	}
 
+	@Override
 	public void commit() {
 		if (state == State.Prepared) {
 			participant.commit();

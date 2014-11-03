@@ -3,15 +3,17 @@ package info.fzhen.wstx.at.twopc;
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.at.AtAbstractPartManager;
 import info.fzhen.wstx.at.AtProtocol;
+import info.fzhen.wstx.at.AtomicTxSubordinate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
 /**
  * Participant side 2PC participant manager. This manager is
  * singleton to the site which manages all the participants.
  */
-public class At2pcPartManager extends AtAbstractPartManager<At2pcPartService> {
+public class At2pcPartManager extends AtAbstractPartManager<PartService2Pc> {
 	private static final Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
 
 	private static At2pcPartManager instance;
@@ -62,5 +64,11 @@ public class At2pcPartManager extends AtAbstractPartManager<At2pcPartService> {
 		}
 		participantSer.setState(At2pcPartService.State.Active);
 		doRegister(coorContext, participantSer, protocolId);
+	}
+
+	public void registerSub2Pc(At2pcSubordinateService.PartService partService,
+							   AtomicTxSubordinate activity, RegisterType registerPara) {
+		doRegister(activity.getSuperiorCtx(), partService,
+				registerPara.getProtocolIdentifier());
 	}
 }
