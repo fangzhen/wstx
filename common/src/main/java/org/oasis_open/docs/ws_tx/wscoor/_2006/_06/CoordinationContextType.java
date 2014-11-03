@@ -1,18 +1,12 @@
 
 package org.oasis_open.docs.ws_tx.wscoor._2006._06;
 
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.namespace.QName;
-import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 
 /**
@@ -54,7 +48,6 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
     "registrationService"
 })
 @XmlSeeAlso({
-    org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType.CurrentContext.class,
     CoordinationContext.class
 })
 public class CoordinationContextType {

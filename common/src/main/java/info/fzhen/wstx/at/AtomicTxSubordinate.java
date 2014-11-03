@@ -2,7 +2,7 @@ package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
-import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
@@ -10,7 +10,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
  * subordinate
  */
 public class AtomicTxSubordinate extends AbstractActivityCoordinatorContext {
-	private CreateCoordinationContextType.CurrentContext superiorCtx;
+	private CoordinationContext superiorCtx;
 	private State state;
 
 	@Override
@@ -18,7 +18,7 @@ public class AtomicTxSubordinate extends AbstractActivityCoordinatorContext {
 		return null;
 	}
 
-	public void setSuperiorCtx(CreateCoordinationContextType.CurrentContext superiorCtx) {
+	public void setSuperiorCtx(CoordinationContext superiorCtx) {
 		this.superiorCtx = superiorCtx;
 	}
 

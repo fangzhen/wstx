@@ -2,6 +2,7 @@ package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.at.AtomicTxSubordinate;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
 public class ActivityCoordinatorFactory {
@@ -13,7 +14,7 @@ public class ActivityCoordinatorFactory {
 	 * @return
 	 */
 	public ActivityCoordinatorContext createAtActivity(CreateCoordinationContextType ccc, String pirvateId) {
-		CreateCoordinationContextType.CurrentContext sctx = ccc.getCurrentContext();
+		CoordinationContext sctx = ccc.getCurrentContext();
 		ActivityCoordinatorContext activityCoordinatorContext;
 		if (sctx != null){
 			AtomicTxSubordinate subordinate = new AtomicTxSubordinate();

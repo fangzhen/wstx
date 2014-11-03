@@ -101,14 +101,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateCoordinationContextType.CurrentContext }
-     * 
-     */
-    public CreateCoordinationContextType.CurrentContext createCreateCoordinationContextTypeCurrentContext() {
-        return new CreateCoordinationContextType.CurrentContext();
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RegisterType }{@code >}}
      * 
      */
