@@ -15,11 +15,10 @@ public class At2pcCoorService extends CoorService2Pc
 	private static Log __LOG = LogFactory.getLog(At2pcCoorService.class);
 	boolean isVolatile;
 
-	@Override
 	public void prepare() {
 		if (state == State.Active) {
 			if (__LOG.isInfoEnabled()) {
-				__LOG.info("Parpare parcipant " + participantEpr.getAddress().getValue());
+				__LOG.info("Prepare participant " + participantEpr.getAddress().getValue());
 			}
 			ParticipantPortType partProxy = getParticipantProxy(ParticipantPortType.class);
 			partProxy.prepareOperation(new Notification());
@@ -33,7 +32,7 @@ public class At2pcCoorService extends CoorService2Pc
 	public void prepared() {
 		if (state == State.Preparing) {
 			if (__LOG.isInfoEnabled()) {
-				__LOG.info("Parpared parcipant " + participantEpr.getAddress().getValue());
+				__LOG.info("Prepared participant " + participantEpr.getAddress().getValue());
 			}
 			state = State.Prepared;
 			if (isVolatile) {
@@ -47,7 +46,6 @@ public class At2pcCoorService extends CoorService2Pc
 	/**
 	 * commit phase
 	 */
-	@Override
 	public void commit() {
 		if (state == State.Prepared) {
 			if (__LOG.isInfoEnabled()) {

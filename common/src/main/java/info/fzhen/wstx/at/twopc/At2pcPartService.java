@@ -10,7 +10,7 @@ public class At2pcPartService extends PartService2Pc
 	@Override
 	public void prepare() {
 		if (state == State.Active) {
-			Vote vote = participant.prepare();
+			PartService2Pc.Vote vote = participant.prepare();
 			CoordinatorPortType coorProxy = getCoordinatorProxy(CoordinatorPortType.class);
 			switch (vote) {
 				case Prepared:
@@ -54,11 +54,5 @@ public class At2pcPartService extends PartService2Pc
 		Prepared,
 		PrepareSuccess,
 		Committing
-	}
-
-	public static enum Vote {
-		Prepared,
-		Aborted,
-		ReadOnly
 	}
 }
