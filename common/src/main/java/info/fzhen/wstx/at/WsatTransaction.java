@@ -35,7 +35,7 @@ public class WsatTransaction extends WsTransaction {
 	 * current state
 	 */
 	private State state;
-	private Object stateLock = new Object();
+	private final Object stateLock = new Object();
 
 	public WsatTransaction() {
 	}

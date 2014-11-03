@@ -2,6 +2,7 @@ package info.fzhen.wstx;
 
 import info.fzhen.wstx.at.WsatTransaction;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
+import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 
 /**
  * stateless
@@ -9,18 +10,13 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
  * @author fangzhen
  */
 public class TransactionFactory {
-	private static TransactionFactory instance;
+	private static TransactionFactory instance = new TransactionFactory();
 
 	private TransactionFactory() {
 
 	}
 
 	public static TransactionFactory getInstance() {
-		synchronized (TransactionFactory.class){
-			if (instance == null) {
-				instance = new TransactionFactory();
-			}
-		}
 		return instance;
 	}
 
@@ -35,4 +31,7 @@ public class TransactionFactory {
 		return transaction;
 	}
 
+	public <T extends WsTransaction> T createSubTransaction(ActivationPortType activationSer, CoordinationContext ctx) {
+		return null;
+	}
 }

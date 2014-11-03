@@ -13,7 +13,7 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingProvider;
 
 @WebService(serviceName = "helloProcess")
-public class HelloProcess extends TransactionalProcess {
+public class HelloProcess extends TransactionalProcess implements Process{
 	private static final Log __log = LogFactory.getLog(TransactionalProcess.class);
 
 	private ClientProxies clientProxies = ClientProxies.getInstance();

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebService
-public abstract class TransactionalProcess implements Process {
+public abstract class TransactionalProcess{
 	private static final Log __LOG = LogFactory.getLog(TransactionalProcess.class);
 
 	/**

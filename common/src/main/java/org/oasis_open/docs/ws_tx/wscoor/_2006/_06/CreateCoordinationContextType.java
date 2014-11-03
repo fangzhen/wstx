@@ -1,19 +1,14 @@
 
 package org.oasis_open.docs.ws_tx.wscoor._2006._06;
 
+import org.w3c.dom.Element;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.namespace.QName;
-import org.w3c.dom.Element;
 
 
 /**
@@ -62,7 +57,7 @@ public class CreateCoordinationContextType {
     @XmlElement(name = "Expires")
     protected Expires expires;
     @XmlElement(name = "CurrentContext")
-    protected CreateCoordinationContextType.CurrentContext currentContext;
+    protected CoordinationContext currentContext;
     @XmlElement(name = "CoordinationType", required = true)
     @XmlSchemaType(name = "anyURI")
     protected String coordinationType;
@@ -100,10 +95,10 @@ public class CreateCoordinationContextType {
      * 
      * @return
      *     possible object is
-     *     {@link CreateCoordinationContextType.CurrentContext }
+     *     {@link CoordinationContextType }
      *     
      */
-    public CreateCoordinationContextType.CurrentContext getCurrentContext() {
+    public CoordinationContext getCurrentContext() {
         return currentContext;
     }
 
@@ -112,10 +107,10 @@ public class CreateCoordinationContextType {
      * 
      * @param value
      *     allowed object is
-     *     {@link CreateCoordinationContextType.CurrentContext }
+     *     {@link CoordinationContext }
      *     
      */
-    public void setCurrentContext(CreateCoordinationContextType.CurrentContext value) {
+    public void setCurrentContext(CoordinationContext value) {
         this.currentContext = value;
     }
 
@@ -189,70 +184,6 @@ public class CreateCoordinationContextType {
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;extension base="{http://docs.oasis-open.org/ws-tx/wscoor/2006/06}CoordinationContextType">
-     *       &lt;sequence>
-     *         &lt;any processContents='lax' namespace='##other' maxOccurs="unbounded" minOccurs="0"/>
-     *       &lt;/sequence>
-     *       &lt;anyAttribute processContents='lax' namespace='##other'/>
-     *     &lt;/extension>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "any"
-    })
-    public static class CurrentContext
-        extends CoordinationContextType
-    {
-
-        @XmlAnyElement(lax = true)
-        protected List<Object> any;
-
-        /**
-         * Gets the value of the any property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the any property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getAny().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Object }
-         * {@link Element }
-         * 
-         * 
-         */
-        public List<Object> getAny() {
-            if (any == null) {
-                any = new ArrayList<Object>();
-            }
-            return this.any;
-        }
-
     }
 
 }

@@ -16,7 +16,7 @@ import javax.xml.ws.BindingProvider;
  * Atomic transaction with subordinate
  */
 @WebService(serviceName = "atProcessSubordinate")
-public class AtProcessSubordinate extends TransactionalProcess{
+public class AtProcessSubordinate extends TransactionalProcess implements Process{
 	private static final Log __LOG = LogFactory.getLog(TransactionalProcess.class);
 
 	private ClientProxies clientProxies = ClientProxies.getInstance();
