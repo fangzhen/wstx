@@ -58,7 +58,7 @@ public class At2pcSubordinateManager {
 		return response;
 	}
 
-	public RegisterResponseType register2Pc(AtomicTxSubordinate activity,
+	private RegisterResponseType register2Pc(AtomicTxSubordinate activity,
 											RegisterType registerPara) {
 		At2pcSubordinateService subordinateService = new At2pcSubordinateService();
 		partManager.registerSub2Pc(subordinateService.partService, activity, registerPara);

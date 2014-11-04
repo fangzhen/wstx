@@ -26,17 +26,18 @@ public class AtomicTxSubordinate extends AbstractActivityCoordinatorContext {
 		if (__LOG.isInfoEnabled()){
 			__LOG.info("register protocol " + protocolId + " on subordinate");
 		}
+		RegisterResponseType response = null;
 		switch (protocol){
 			case DURABLE2PC:
-				At2pcSubordinateManager.getInstance().registerDurable2Pc(this, registerPara);
+				response = At2pcSubordinateManager.getInstance().registerDurable2Pc(this, registerPara);
 				break;
 			case VOLATILE2PC:
-				At2pcSubordinateManager.getInstance().registerVolatile2Pc(this, registerPara);
+				response = At2pcSubordinateManager.getInstance().registerVolatile2Pc(this, registerPara);
 				break;
 			case COMPLETION:
 				throw new WstxRtException("Cannot register completion protocol on subordinate");
 		}
-		return null;
+		return response;
 	}
 
 	public void setSuperiorCtx(CoordinationContext superiorCtx) {
