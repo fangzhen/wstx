@@ -172,7 +172,31 @@
 						<scanIntervalSeconds>3</scanIntervalSeconds>
 						<stopPort>9966</stopPort>
 						<stopKey>stopjetty</stopKey>
+						<stopWait>10</stopWait>
+						<systemProperties>
+							<systemProperty>
+								<name>log4j.configuration</name>
+								<value>${project.baseUri}/src/test/resources/log4j.properties</value>
+							</systemProperty>
+						</systemProperties>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>log4j</groupId>
+							<artifactId>log4j</artifactId>
+							<version>1.2.17</version>
+						</dependency>
+						<dependency>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+							<version>1.6.1</version>
+						</dependency>
+						<dependency>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-log4j12</artifactId>
+							<version>1.6.1</version>
+						</dependency>
+					</dependencies>
 					<executions>
 						<execution>
 							<id>start-jetty</id>
@@ -189,9 +213,6 @@
 							<goals>
 								<goal>stop</goal>
 							</goals>
-							<configuration>
-								<stopWait>10</stopWait>
-							</configuration>
 						</execution>
 					</executions>
 				</plugin>
