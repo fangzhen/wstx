@@ -41,20 +41,39 @@ public class CoordinatorManager {
 		CoordinatorManager.instance = instance;
 	}
 
+	/**
+	 * Factory method to create activities
+	 * @param ccc
+	 * @return
+	 */
 	public ActivityCoordinatorContext createActivityCoordinatorContext(CreateCoordinationContextType ccc) {
-		String pirvateId = CommonUtils.genPrivateId();
+		String privateId = CommonUtils.genPrivateId();
 		ActivityCoordinatorContext cctx = null;
-		CoordinationType type = CoordinationType.fromString(ccc.getCoordinationType());
-		switch (type) {
-			case WSAT:
-				cctx = new ActivityCoordinatorFactory().createAtActivity(ccc, pirvateId);
-				break;
-			case WSBA:
-				break;
-			default:
-				break;
+		CoordinationType type;
+		if (ccc.getCurrentContext() == null) {
+			type = CoordinationType.fromString(ccc.getCoordinationType());
+			switch (type) {
+				case WSAT:
+					cctx = new ActivityCoordinatorFactory().createAtActivity(ccc, privateId);
+					break;
+				case WSBA:
+					break;
+				default:
+					break;
+			}
+		}else{
+			type = CoordinationType.fromString(ccc.getCurrentContext().getCoordinationType());
+			switch (type){
+				case WSAT:
+					cctx = new ActivityCoordinatorFactory().createAtSubActivity(ccc, privateId);
+					break;
+				case WSBA:
+					break;
+				default:
+					break;
+			}
 		}
-		activities.put(pirvateId, cctx);
+		activities.put(privateId, cctx);
 		return cctx;
 	}
 
