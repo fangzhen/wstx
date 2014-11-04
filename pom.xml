@@ -189,6 +189,9 @@
 							<goals>
 								<goal>stop</goal>
 							</goals>
+							<configuration>
+								<stopWait>10</stopWait>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
