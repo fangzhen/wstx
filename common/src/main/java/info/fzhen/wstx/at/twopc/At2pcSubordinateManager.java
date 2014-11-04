@@ -7,6 +7,11 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
+/**
+ * Subordinate manager. It use {@link info.fzhen.wstx.at.twopc.At2pcCoorManager} and
+ * {@link info.fzhen.wstx.at.twopc.At2pcPartManager} to act as coordinator side and
+ * participant side manager respectively.
+ */
 public class At2pcSubordinateManager {
 	private static final Log __LOG = LogFactory.getLog(At2pcSubordinateManager.class);
 
@@ -18,7 +23,7 @@ public class At2pcSubordinateManager {
 	public static At2pcSubordinateManager getInstance() {
 		if (instance == null) {
 			String msg = "2PC protocol service subordiante manager " + At2pcSubordinateManager.class.getSimpleName() +
-						"hasn't been initialized. It should be initiated " +
+						" hasn't been initialized. It should be initiated " +
 						"by Spring as singleton. Please check your conf file.";
 			if (__LOG.isErrorEnabled()) {
 				__LOG.error(msg);

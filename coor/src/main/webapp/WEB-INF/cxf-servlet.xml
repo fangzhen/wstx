@@ -98,4 +98,25 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<ref bean="coordinator"/>
 		</property>
 	</bean>
+
+	<!--subordinate manager-->
+	<import resource="classpath:wstx-parti.xml"/>
+	<bean id="partEprConfig" class="info.fzhen.wstx.config.JaxWsATPartEprConfig">
+		<property name="initiatorEp" ref="completionInitiator"/>
+		<property name="twoPcParticipantEp" ref="twoPcParticipant"/>
+		<property name="prefix">
+			<value>http://localhost:8080</value>
+		</property>
+	</bean>
+	<bean id="at2pcPartManager" class="info.fzhen.wstx.at.twopc.At2pcPartManager" scope="singleton">
+		<property name="partServiceAddr" value="#{partEprConfig.twoPcPtcpAddress}"/>
+		<property name="instance">
+			<ref bean="at2pcPartManager"/>
+		</property>
+	</bean>
+	<bean id="at2pcSubordinateManager" class="info.fzhen.wstx.at.twopc.At2pcSubordinateManager" scope="singleton">
+		<property name="coorManager" ref="at2pcCoorManager"/>
+		<property name="partManager" ref="at2pcPartManager"/>
+		<property name="instance" ref="at2pcSubordinateManager"/>
+	</bean>
 </beans>
