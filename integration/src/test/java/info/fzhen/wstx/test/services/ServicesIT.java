@@ -8,9 +8,9 @@ import org.testng.annotations.Test;
  *
  * @author fangzhen
  */
-public class ServicesTest {
+public class ServicesIT {
 
-	@Test(groups = {"integration"})
+	@Test
 	public void testHelloService() {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[]{"service-beans.xml"});

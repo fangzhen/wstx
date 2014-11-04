@@ -8,7 +8,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
-public class TestActivationPort {
+public class ActivationPortIT {
 
 	@Test(groups = {"integration"})
 	public void testBasic() {
