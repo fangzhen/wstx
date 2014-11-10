@@ -1,4 +1,4 @@
-package info.fzhen.wstx.wsat.coordinator;
+package info.fzhen.wstx.at.port;
 
 import info.fzhen.wstx.at.completion.AtInitiatorCoor;
 import info.fzhen.wstx.at.completion.AtInitiatorCoorManager;

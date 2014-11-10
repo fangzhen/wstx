@@ -1,27 +1,24 @@
-package info.fzhen.wstx.wscoor;
+package info.fzhen.wstx.test.wscoor;
 
 import info.fzhen.wstx.CoordinationType;
+import info.fzhen.wstx.test.ClientProxies;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
 public class ActivationPortIT {
+	private ClientProxies proxies = ClientProxies.getInstance();
 
-	@Test(groups = {"integration"})
+	@Test
 	public void testBasic() {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[]{"client-beans.xml"});
-		ActivationPortType port = (ActivationPortType) context.getBean("activation");
+		ActivationPortType port = (ActivationPortType) proxies.getActivationService();
 		CreateCoordinationContextType ccc = new CreateCoordinationContextType();
 		ccc.setCoordinationType(CoordinationType.WSAT.getText());
 		CreateCoordinationContextResponseType res = port.createCoordinationContextOperation(ccc);
 		CoordinationContext coordinationContext = res.getCoordinationContext();
 		assert coordinationContext.getCoordinationType().equals(CoordinationType.WSAT.getText());
-
-		context.close();
 	}
 
 }

@@ -17,8 +17,8 @@
 http://cxf.apache.org/jaxws
 http://cxf.apache.org/schemas/jaxws.xsd">
 	<jaxws:endpoint id="completionInitiator"
-					implementor="info.fzhen.wstx.wsat.participant.CompletionInitiatorPort"
+					implementor="info.fzhen.wstx.at.port.CompletionInitiatorPort"
 					address="/completionInitiator"/>
 	<jaxws:endpoint id="twoPcParticipant"
-					implementor="info.fzhen.wstx.wsat.participant.twoPcParticipantPort" address="/twoPcParticipant"/>
+					implementor="info.fzhen.wstx.at.port.twoPcParticipantPort" address="/twoPcParticipant"/>
 </beans>

@@ -1,4 +1,4 @@
-package info.fzhen.wstx.wsat.participant;
+package info.fzhen.wstx.at.port;
 
 import info.fzhen.wstx.at.twopc.At2pcPartManager;
 import info.fzhen.wstx.at.twopc.PartService2Pc;

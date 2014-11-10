@@ -1,6 +1,6 @@
 package info.fzhen.wstx.test.services;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import info.fzhen.wstx.test.ClientProxies;
 import org.testng.annotations.Test;
 
 /**
@@ -9,13 +9,11 @@ import org.testng.annotations.Test;
  * @author fangzhen
  */
 public class ServicesIT {
+	private ClientProxies proxies = ClientProxies.getInstance();
 
 	@Test
 	public void testHelloService() {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				new String[]{"service-beans.xml"});
-		HelloService port = (HelloService) context.getBean("helloService");
+		HelloService port = proxies.getService("helloService");
 		assert "Hello".equals(port.sayHello());
-		context.close();
 	}
 }

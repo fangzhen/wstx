@@ -1,4 +1,4 @@
-package info.fzhen.wstx.wsat.participant;
+package info.fzhen.wstx.at.port;
 
 import info.fzhen.wstx.at.completion.AtInitiatorPartManager;
 import info.fzhen.wstx.at.completion.AtInitiatorPartService;

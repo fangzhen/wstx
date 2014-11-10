@@ -1,4 +1,4 @@
-package info.fzhen.wstx.wsat.coordinator;
+package info.fzhen.wstx.at.port;
 
 import info.fzhen.wstx.at.twopc.At2pcCoorManager;
 import info.fzhen.wstx.at.twopc.CoorService2Pc;
