@@ -56,7 +56,7 @@ public class CoordinatorManager {
 				case WSAT:
 					cctx = new ActivityCoordinatorFactory().createAtActivity(ccc, privateId);
 					break;
-				case WSBA:
+				case WSBA_ATOMIC:
 					break;
 				default:
 					break;
@@ -67,7 +67,7 @@ public class CoordinatorManager {
 				case WSAT:
 					cctx = new ActivityCoordinatorFactory().createAtSubActivity(ccc, privateId);
 					break;
-				case WSBA:
+				case WSBA_ATOMIC:
 					break;
 				default:
 					break;
