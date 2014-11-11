@@ -1,10 +1,10 @@
 package info.fzhen.wstx.at.completion;
 
+import info.fzhen.wstx.AbstractParticipantProtocolService;
 import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.WstxRtException;
 import info.fzhen.wstx.at.WsatTransaction;
 import info.fzhen.wstx.WsTransaction;
-import info.fzhen.wstx.at.AtProtocolServicePart;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.CompletionCoordinatorPortType;
@@ -15,7 +15,7 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
  *
  * @author fangzhen
  */
-public class AtInitiatorPartService extends AtProtocolServicePart<AtInitiatorParticipant, CompletionCoordinatorPortType> {
+public class AtInitiatorPartService extends AbstractParticipantProtocolService<AtInitiatorParticipant, CompletionCoordinatorPortType> {
 	private static final Log __LOG = LogFactory.getLog(AtInitiatorPartService.class);
 
 	WsatTransaction transaction;

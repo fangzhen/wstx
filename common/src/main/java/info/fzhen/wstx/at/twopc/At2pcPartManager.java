@@ -1,7 +1,7 @@
 package info.fzhen.wstx.at.twopc;
 
+import info.fzhen.wstx.AbstractParticipantProtocolMgr;
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.AtAbstractPartManager;
 import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.at.AtomicTxSubordinate;
 import org.apache.commons.logging.Log;
@@ -13,8 +13,8 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
  * Participant side 2PC participant manager. This manager is
  * singleton to the site which manages all the participants.
  */
-public class At2pcPartManager extends AtAbstractPartManager<PartService2Pc> {
-	private static final Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
+public class At2pcPartManager extends AbstractParticipantProtocolMgr<PartService2Pc> {
+	private static final Log __LOG = LogFactory.getLog(AbstractParticipantProtocolMgr.class);
 
 	private static At2pcPartManager instance;
 

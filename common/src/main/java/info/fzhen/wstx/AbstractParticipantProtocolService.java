@@ -1,7 +1,5 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx;
 
-import info.fzhen.wstx.StateEnum;
-import info.fzhen.wstx.Participant;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
@@ -11,7 +9,7 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
  * @param <T> corresponding functional participant
  * @param <E> corresponding coordinator protocol service port type
  */
-public abstract class AtProtocolServicePart<T extends Participant, E> {
+public abstract class AbstractParticipantProtocolService<T extends Participant, E> {
 	/**
 	 * coordinator protocol service EPR
 	 */

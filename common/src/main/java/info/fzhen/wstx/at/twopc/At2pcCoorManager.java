@@ -2,7 +2,7 @@ package info.fzhen.wstx.at.twopc;
 
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.AtAbstractCoorManager;
+import info.fzhen.wstx.AbstractCoordinatorProtocolMgr;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.at.AtomicTxSubordinate;
 import info.fzhen.wstx.util.CommonUtils;
@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterResponseType;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 
-public class At2pcCoorManager extends AtAbstractCoorManager<CoorService2Pc> {
+public class At2pcCoorManager extends AbstractCoordinatorProtocolMgr<CoorService2Pc> {
 	private static final Log __LOG = LogFactory.getLog(At2pcCoorManager.class);
 
 	private static At2pcCoorManager instance;

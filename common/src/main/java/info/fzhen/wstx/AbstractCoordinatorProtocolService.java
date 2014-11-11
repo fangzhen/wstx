@@ -1,6 +1,5 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx;
 
-import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.coordinator.AbstractActivityCoordinatorContext;
 import info.fzhen.wstx.util.EprUtils;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
@@ -11,7 +10,7 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
  * @param <T> type of corresponding participant service port type
  * @param <E> activity type it belongs to
  */
-public abstract class AtProtocolServiceCoor<T, E extends AbstractActivityCoordinatorContext> {
+public abstract class AbstractCoordinatorProtocolService<T, E extends AbstractActivityCoordinatorContext> {
 	/**
 	 * The activity it belongs to
 	 */

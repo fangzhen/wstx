@@ -1,7 +1,7 @@
 package info.fzhen.wstx.at.completion;
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.AtAbstractPartManager;
+import info.fzhen.wstx.AbstractParticipantProtocolMgr;
 import info.fzhen.wstx.at.AtProtocol;
 import info.fzhen.wstx.at.WsatTransaction;
 import org.apache.commons.logging.Log;
@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author fangzhen
  */
-public class AtInitiatorPartManager extends AtAbstractPartManager<AtInitiatorPartService> {
+public class AtInitiatorPartManager extends AbstractParticipantProtocolMgr<AtInitiatorPartService> {
 	private static final Log __LOG = LogFactory.getLog(Process.class);
 
 	private static AtInitiatorPartManager instance;

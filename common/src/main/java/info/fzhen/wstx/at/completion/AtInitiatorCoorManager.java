@@ -1,7 +1,7 @@
 package info.fzhen.wstx.at.completion;
 
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.AtAbstractCoorManager;
+import info.fzhen.wstx.AbstractCoordinatorProtocolMgr;
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.util.CommonUtils;
 import org.apache.commons.logging.Log;
@@ -12,7 +12,7 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
 /**
  * Coordiantor side initiator manager.
  */
-public class AtInitiatorCoorManager extends AtAbstractCoorManager<AtInitiatorCoor> {
+public class AtInitiatorCoorManager extends AbstractCoordinatorProtocolMgr<AtInitiatorCoor> {
 	private static final Log __LOG = LogFactory.getLog(AtInitiatorCoorManager.class);
 
 	private static AtInitiatorCoorManager instance;

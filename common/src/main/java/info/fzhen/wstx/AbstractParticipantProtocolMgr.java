@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx;
 
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.CommonUtils;
@@ -17,8 +17,8 @@ import java.util.Map;
 /**
  * Base class of participant side protocol service managers
  */
-public class AtAbstractPartManager<T extends AtProtocolServicePart> {
-	private static Log __LOG = LogFactory.getLog(AtAbstractPartManager.class);
+public class AbstractParticipantProtocolMgr<T extends AbstractParticipantProtocolService> {
+	private static Log __LOG = LogFactory.getLog(AbstractParticipantProtocolMgr.class);
 
 	/**
 	 * participant side protocol service address

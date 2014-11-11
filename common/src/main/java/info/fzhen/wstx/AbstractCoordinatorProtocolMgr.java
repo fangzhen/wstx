@@ -1,4 +1,4 @@
-package info.fzhen.wstx.at;
+package info.fzhen.wstx;
 
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.util.EprUtils;
@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * Base class of coordinator side protocol service managers
  */
-public abstract class AtAbstractCoorManager<T extends AtProtocolServiceCoor> {
-	private static Log __LOG = LogFactory.getLog(AtAbstractCoorManager.class);
+public abstract class AbstractCoordinatorProtocolMgr<T extends AbstractCoordinatorProtocolService> {
+	private static Log __LOG = LogFactory.getLog(AbstractCoordinatorProtocolMgr.class);
 
 	/**
 	 * protocol service coordinator address
