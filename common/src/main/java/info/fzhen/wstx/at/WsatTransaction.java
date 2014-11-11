@@ -27,11 +27,6 @@ public class WsatTransaction extends WsTransaction {
 	private AtInitiatorPartService initiator;
 
 	/**
-	 * client proxy of coordinator activation service
-	 */
-	private ActivationPortType activationSer;
-
-	/**
 	 * current state
 	 */
 	private State state;
@@ -107,14 +102,6 @@ public class WsatTransaction extends WsTransaction {
 
 	public void rollback() {
 		//TODO
-	}
-
-	public ActivationPortType getActivationSer() {
-		return activationSer;
-	}
-
-	public void setActivationSer(ActivationPortType activationSer) {
-		this.activationSer = activationSer;
 	}
 
 	public void setInitiator(AtInitiatorPartService initiator) {
