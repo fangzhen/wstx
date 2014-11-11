@@ -1,5 +1,6 @@
 package info.fzhen.wstx.ba.cc;
 
+import info.fzhen.wstx.AbstractCoordinatorProtocolMgr;
 import info.fzhen.wstx.WstxRtException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -7,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Coordinator completion coordinator side protocol manager
  */
-public class CcCoordinatorProtocolMgr {
+public class CcCoordinatorProtocolMgr extends AbstractCoordinatorProtocolMgr<CcCoordinatorProtocolService> {
 	private static final Log __LOG = LogFactory.getLog(CcCoordinatorProtocolMgr.class);
 
 	private static CcCoordinatorProtocolMgr instance;
