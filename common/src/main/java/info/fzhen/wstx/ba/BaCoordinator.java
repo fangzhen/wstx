@@ -11,9 +11,18 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.RegisterType;
  */
 public class BaCoordinator extends AbstractActivityCoordinatorContext {
 	private static final Log __LOG = LogFactory.getLog(BaCoordinator.class);
+	private State state;
 
 	@Override
 	public RegisterResponseType register(RegisterType registerPara) {
 		return null;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public enum State {
+		Active,
 	}
 }

@@ -54,9 +54,11 @@ public class CoordinatorManager {
 			type = CoordinationType.fromString(ccc.getCoordinationType());
 			switch (type) {
 				case WSAT:
-					cctx = new ActivityCoordinatorFactory().createAtActivity(ccc, privateId);
+					cctx = ActivityCoordinatorFactory.createAtActivity(ccc, privateId);
 					break;
 				case WSBA_ATOMIC:
+				case WSBA_MIXED:
+					cctx = ActivityCoordinatorFactory.createBusinessActivity(ccc, privateId);
 					break;
 				default:
 					break;
@@ -65,7 +67,7 @@ public class CoordinatorManager {
 			type = CoordinationType.fromString(ccc.getCurrentContext().getCoordinationType());
 			switch (type){
 				case WSAT:
-					cctx = new ActivityCoordinatorFactory().createAtSubActivity(ccc, privateId);
+					cctx = ActivityCoordinatorFactory.createAtSubActivity(ccc, privateId);
 					break;
 				case WSBA_ATOMIC:
 					break;

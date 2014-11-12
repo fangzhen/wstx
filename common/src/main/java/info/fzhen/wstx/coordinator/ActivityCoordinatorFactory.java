@@ -2,6 +2,7 @@ package info.fzhen.wstx.coordinator;
 
 import info.fzhen.wstx.at.AtomicTxCoordinator;
 import info.fzhen.wstx.at.AtomicTxSubordinate;
+import info.fzhen.wstx.ba.BaCoordinator;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 
@@ -13,7 +14,7 @@ public class ActivityCoordinatorFactory {
 	 * @param privateId
 	 * @return
 	 */
-	public ActivityCoordinatorContext createAtActivity(CreateCoordinationContextType ccc, String privateId) {
+	public static ActivityCoordinatorContext createAtActivity(CreateCoordinationContextType ccc, String privateId) {
 		ActivityCoordinatorContext activityCoordinatorContext;
 		AtomicTxCoordinator atcoordinator = new AtomicTxCoordinator();
 		atcoordinator.setState(AtomicTxCoordinator.State.Active);
@@ -26,7 +27,25 @@ public class ActivityCoordinatorFactory {
 		return activityCoordinatorContext;
 	}
 
-	public ActivityCoordinatorContext createAtSubActivity(CreateCoordinationContextType ccc, String privateId) {
+	/**
+	 * create business activity
+	 * @param ccc
+	 * @param privateId
+	 * @return
+	 */
+	public static ActivityCoordinatorContext createBusinessActivity(CreateCoordinationContextType ccc, String privateId) {
+		BaCoordinator coordinator;
+		coordinator = new BaCoordinator();
+		coordinator.setCoordinationType(ccc.getCoordinationType());
+		if (ccc.getExpires() != null){
+			coordinator.setExpires(ccc.getExpires().getValue());
+		}
+		coordinator.setPrivateId(privateId);
+		coordinator.setState(BaCoordinator.State.Active);
+		return coordinator;
+	}
+
+	public static ActivityCoordinatorContext createAtSubActivity(CreateCoordinationContextType ccc, String privateId) {
 		ActivityCoordinatorContext activityCoordinatorContext;
 		CoordinationContext sctx = ccc.getCurrentContext();
 		if (sctx != null) {
