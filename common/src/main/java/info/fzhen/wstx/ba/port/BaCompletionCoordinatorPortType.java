@@ -12,7 +12,6 @@ import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 
-@Deprecated
 @WebService(name = "BACompletionCoordinatorPortType", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
@@ -27,7 +26,7 @@ public interface BaCompletionCoordinatorPortType {
      */
     @WebMethod(operationName = "CommitOperation", action = "http://www.fzhen.info/ws-tx/wsba/Commit")
     @Oneway
-    public void commitOperation(
+    public void completeOperation(
 			@WebParam(name = "Commit", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters")
 			Notification parameters);
 
@@ -37,7 +36,7 @@ public interface BaCompletionCoordinatorPortType {
      */
     @WebMethod(operationName = "RollbackOperation", action = "http://www.fzhen.info/ws-tx/wsba/Rollback")
     @Oneway
-    public void rollbackOperation(
+    public void cancleOperation(
 			@WebParam(name = "Rollback", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters")
 			Notification parameters);
 
