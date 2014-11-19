@@ -1,9 +1,10 @@
 package info.fzhen.wstx.at;
 
 import info.fzhen.wstx.CoordinationType;
-import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.completion.AtInitiatorPartService;
 import info.fzhen.wstx.WsTransaction;
+import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.at.completion.AtInitiatorPartManager;
+import info.fzhen.wstx.at.completion.AtInitiatorPartService;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,6 +64,9 @@ public class WsatTransaction extends WsTransaction {
 					"Registration Service address: " + regEpr.getAddress().getValue() +
 					" activity id: " + id);
 		}
+		//register WSAT completion protocol
+		AtInitiatorPartManager manager = AtInitiatorPartManager.getInstance();
+		manager.registerInitiator(this);
 	}
 
 	/**
