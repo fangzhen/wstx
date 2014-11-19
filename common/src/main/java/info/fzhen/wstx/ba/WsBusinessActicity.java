@@ -3,6 +3,8 @@ package info.fzhen.wstx.ba;
 import info.fzhen.wstx.CoordinationType;
 import info.fzhen.wstx.WsTransaction;
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.ba.completion.CompletionParticipantProtocolMgr;
+import info.fzhen.wstx.ba.completion.CompletionParticipantProtocolService;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,6 +24,7 @@ public class WsBusinessActicity extends WsTransaction {
 	/** coordination type of the activity. {@link CoordinationType.WSBA_ATOMIC}
 	 * or {@link  CoordinationType.WSBA_MIXED} */
 	private CoordinationType type;
+	private CompletionParticipantProtocolService initiator;
 
 	@Override
 	public void begin() {
@@ -48,6 +51,8 @@ public class WsBusinessActicity extends WsTransaction {
 					"Registration Service address: " + regEpr.getAddress().getValue() +
 					" activity id: " + id);
 		}
+		CompletionParticipantProtocolMgr mgr = CompletionParticipantProtocolMgr.getInstance();
+		mgr.reigsterInitiator(this);
 	}
 
 	public CoordinationType getType() {
@@ -62,5 +67,9 @@ public class WsBusinessActicity extends WsTransaction {
 					CoordinationType.WSBA_MIXED.getText());
 		}
 		this.type = type;
+	}
+
+	public void setInitiator(CompletionParticipantProtocolService initiator) {
+		this.initiator = initiator;
 	}
 }

@@ -1,4 +1,6 @@
 package info.fzhen.wstx.ba.completion;
 
-public class CompletionCoordinatorProtocolService {
+import info.fzhen.wstx.AbstractCoordinatorProtocolService;
+
+public class CompletionCoordinatorProtocolService extends AbstractCoordinatorProtocolService{
 }

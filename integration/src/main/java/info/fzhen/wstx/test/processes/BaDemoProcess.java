@@ -28,6 +28,7 @@ public class BaDemoProcess extends TransactionalProcess implements Process{
 		WsBusinessActicity acticity = TransactionFactory.getInstance().
 				createAtomicBusinessActivity(activationSer);
 		acticity.begin();
+
 		HelloService helloService = clientProxies.getService("helloServiceBa");
 		addTransactionInfo2Client((BindingProvider) helloService, acticity);
 		helloService.sayHello();
