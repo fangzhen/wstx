@@ -19,6 +19,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	<jaxws:client id="helloServiceSubordinate"
 				  serviceClass="info.fzhen.wstx.test.services.HelloService"
 				  address="http://localhost:8080/integration/services/helloServiceSubordinate"/>
+	<jaxws:client id="helloServiceBa"
+				  serviceClass="info.fzhen.wstx.test.services.HelloService"
+				  address="http://localhost:8080/integration/services/helloServiceBa"/>
 
 	<jaxws:client id="helloProcess"
 				  serviceClass="info.fzhen.wstx.test.processes.Process"
@@ -26,6 +29,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 	<jaxws:client id="atProcessSubordinate"
 				  serviceClass="info.fzhen.wstx.test.processes.Process"
 				  address="http://localhost:8080/integration/services/atProcessSubordinate"/>
+	<jaxws:client id="baDemoProcess"
+				  serviceClass="info.fzhen.wstx.test.processes.Process"
+				  address="http://localhost:8080/integration/services/baDemoProcess"/>
 
 
 </beans>

@@ -3,9 +3,12 @@ package info.fzhen.wstx.test.processes;
 import info.fzhen.wstx.TransactionFactory;
 import info.fzhen.wstx.ba.WsBusinessActicity;
 import info.fzhen.wstx.test.ClientProxies;
+import info.fzhen.wstx.test.services.HelloService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.ActivationPortType;
+
+import javax.xml.ws.BindingProvider;
 
 /**
  * Business activity process for testing
@@ -25,5 +28,8 @@ public class BaDemoProcess extends TransactionalProcess implements Process{
 		WsBusinessActicity acticity = TransactionFactory.getInstance().
 				createAtomicBusinessActivity(activationSer);
 		acticity.begin();
+		HelloService helloService = clientProxies.getService("helloServiceBa");
+		addTransactionInfo2Client((BindingProvider) helloService, acticity);
+		helloService.sayHello();
 	}
 }

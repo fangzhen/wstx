@@ -19,4 +19,9 @@ public class ProcessesIT {
 	public void executeAtProcessSubordinate() throws Exception {
 		executeProcess("atProcessSubordinate");
 	}
+
+	@Test
+	public void executeBaDemoProcess(){
+		executeProcess("baDemoProcess");
+	}
 }
