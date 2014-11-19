@@ -5,6 +5,7 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+@Deprecated
 @WebService
 public class BaCompletionInitiatorPort implements  BaCompletionInitiatorPortType{
 	@Override

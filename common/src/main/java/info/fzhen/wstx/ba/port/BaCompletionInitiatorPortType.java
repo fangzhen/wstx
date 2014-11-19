@@ -12,6 +12,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 
+@Deprecated
 @WebService(name = "BACompletionInitiatorPortType", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
