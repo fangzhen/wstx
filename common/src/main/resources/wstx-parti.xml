@@ -21,4 +21,14 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 					address="/completionInitiator"/>
 	<jaxws:endpoint id="twoPcParticipant"
 					implementor="info.fzhen.wstx.at.port.twoPcParticipantPort" address="/twoPcParticipant"/>
+
+	<jaxws:endpoint id="baCompletionInitiator"
+					implementor="info.fzhen.wstx.ba.port.BaCompletionInitiatorPort"
+					address="/baCompletionInitiator" />
+	<jaxws:endpoint id="baCCParticipant"
+					implementor="info.fzhen.wstx.ba.port.BaCCParticipantPort"
+					address="/baCCParticipant" />
+	<jaxws:endpoint id="baPCParticipant"
+					implementor="info.fzhen.wstx.ba.port.BaPCParticipantPort"
+					address="/baPCParticipant" />
 </beans>

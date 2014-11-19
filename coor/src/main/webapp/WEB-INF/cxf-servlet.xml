@@ -63,6 +63,15 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 	<jaxws:endpoint id="atCompCoordinator"
 					implementor="info.fzhen.wstx.at.port.CompletionCoordinatorPort"
 					address="/atCompCoordinator"/>
+	<jaxws:endpoint id="baCompCoordinator"
+					implementor="info.fzhen.wstx.ba.port.BaCompletionCoordinatorPort"
+					address="/baCompCoordinator" />
+	<jaxws:endpoint id="baCCCoordinator"
+					implementor="info.fzhen.wstx.ba.port.BaCCCoordinatorPort"
+					address="/baCCCoordinator" />
+	<jaxws:endpoint id="baPCCoordinator"
+					implementor="info.fzhen.wstx.ba.port.BaPCCoordinatorPort"
+					address="/baPCCoordinator" />
 
 	<bean id="coorEprConfig" class="info.fzhen.wstx.config.JaxWsCoorEprConfig">
 		<property name="activationEp" ref="activation"/>
@@ -71,6 +80,15 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<value>http://localhost:8080</value>
 		</property>
 	</bean>
+	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
+		<property name="coorEprConfiguration">
+			<ref bean="coorEprConfig"/>
+		</property>
+		<property name="instance">
+			<ref bean="coordinator"/>
+		</property>
+	</bean>
+
 	<bean id="atCoorEprConfig" class="info.fzhen.wstx.config.JaxWsAtCoorEprConfig">
 		<property name="atCompletionCoorEp" ref="atCompCoordinator"/>
 		<property name="at2PcCoorEp" ref="at2PcCoordinator"/>
@@ -90,12 +108,26 @@ http://cxf.apache.org/schemas/jaxws.xsd">
 			<ref bean="at2pcCoorManager"/>
 		</property>
 	</bean>
-	<bean id="coordinator" class="info.fzhen.wstx.coordinator.CoordinatorManager" scope="singleton">
-		<property name="coorEprConfiguration">
-			<ref bean="coorEprConfig"/>
+
+	<bean id="baCoorEprConfig" class="info.fzhen.wstx.config.JaxWsBaCoorEprConfig">
+		<property name="completionCoordinatorEp" ref="baCompCoordinator"/>
+		<property name="ccCoordinatorEp" ref="baCCCoordinator" />
+		<property name="pcCoordinatorEp" ref="baPCCoordinator" />
+		<property name="prefix">
+			<value>http://localhost:8080</value>
 		</property>
+	</bean>
+	<bean id="baCompletionCoordinatorProtocolMgr"
+		  class="info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolMgr" scope="singleton">
+		<property name="coorServiceAddr" value="#{baCoorEprConfig.CompletionCoorAddress}"/>
 		<property name="instance">
-			<ref bean="coordinator"/>
+			<ref bean="baCompletionCoordinatorProtocolMgr" />
+		</property>
+	</bean>
+	<bean id="baCcCoordinatorProtocolMgr" class="info.fzhen.wstx.ba.cc.CcCoordinatorProtocolMgr" scope="singleton">
+		<property name="coorServiceAddr" value="#{baCoorEprConfig.CCCoorAddress}"/>
+		<property name="instance">
+			<ref bean="baCcCoordinatorProtocolMgr" />
 		</property>
 	</bean>
 
