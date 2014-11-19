@@ -2,6 +2,7 @@ package info.fzhen.wstx.ba.cc;
 
 import info.fzhen.wstx.AbstractParticipantProtocolMgr;
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.ba.BaProtocol;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.ws_tx.wscoor._2006._06.CoordinationContext;
@@ -21,7 +22,10 @@ public class CcParticipantProtocolMgr extends AbstractParticipantProtocolMgr<CcP
 	 * @param part
 	 */
 	public void registerBacc(CoordinationContext ctx, CcParticipant part) {
-
+		CcParticipantProtocolService pps = new CcParticipantProtocolService();
+		pps.setParticipant(part);
+		String protocolId = BaProtocol.COORDINATOR_COMPLETION.getText();
+		doRegister(ctx, pps, protocolId);
 	}
 
 	public static CcParticipantProtocolMgr getInstance() {

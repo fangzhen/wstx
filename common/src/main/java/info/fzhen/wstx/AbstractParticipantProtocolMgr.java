@@ -41,7 +41,7 @@ public class AbstractParticipantProtocolMgr<T extends AbstractParticipantProtoco
 	}
 
 	/**
-	 * Register participant
+	 * Register participant, exchange endpoint of protocol services
 	 *
 	 * @param coorContext    coordination context of the transaction that the participant take part in
 	 * @param participantSer the target participant
