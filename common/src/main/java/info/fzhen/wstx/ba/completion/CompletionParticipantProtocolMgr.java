@@ -2,7 +2,7 @@ package info.fzhen.wstx.ba.completion;
 
 import info.fzhen.wstx.AbstractParticipantProtocolMgr;
 import info.fzhen.wstx.WstxRtException;
-import info.fzhen.wstx.at.AtProtocol;
+import info.fzhen.wstx.ba.BaProtocol;
 import info.fzhen.wstx.ba.WsBusinessActicity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,7 +19,7 @@ public class CompletionParticipantProtocolMgr extends AbstractParticipantProtoco
 		CompletionParticipantProtocolService initiator = new CompletionParticipantProtocolService();
 		initiator.setActicity(acticity);
 		acticity.setInitiator(initiator);
-		doRegister(acticity.getCoordinationContext(), initiator, AtProtocol.COMPLETION.getText());
+		doRegister(acticity.getCoordinationContext(), initiator, BaProtocol.COMPLETION.getText());
 	}
 
 
