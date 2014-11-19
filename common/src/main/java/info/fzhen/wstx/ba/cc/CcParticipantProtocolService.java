@@ -1,4 +1,6 @@
 package info.fzhen.wstx.ba.cc;
 
-public class CcParticipantProtocolService {
+import info.fzhen.wstx.AbstractParticipantProtocolService;
+
+public class CcParticipantProtocolService extends AbstractParticipantProtocolService {
 }

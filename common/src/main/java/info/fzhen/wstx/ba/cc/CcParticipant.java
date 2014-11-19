@@ -5,5 +5,9 @@ import info.fzhen.wstx.Participant;
 /**
  * Coordinator completion participant
  */
-public class CcParticipant implements Participant{
+public interface CcParticipant extends Participant{
+	void complete();
+	void close();
+	void cancel();
+	void compensate();
 }

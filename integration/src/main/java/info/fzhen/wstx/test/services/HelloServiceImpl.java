@@ -15,6 +15,7 @@ public class HelloServiceImpl extends TransactionalService implements HelloServi
 	public String sayHello() {
 		String helloStr = "Hello";
 		CoordinationContext ctx = getCoordinationContext();
+		assert ctx != null;
 		if (ctx != null) { //coordination context are found, do registration now
 			HelloD2pcPartcipant part = new HelloD2pcPartcipant();
 			At2pcPartManager d2pdManager = At2pcPartManager.getInstance();
