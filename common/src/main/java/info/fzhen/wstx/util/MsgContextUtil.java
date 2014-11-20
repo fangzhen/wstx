@@ -1,9 +1,6 @@
 package info.fzhen.wstx.util;
 
-import info.fzhen.wstx.AbstractCoordinatorProtocolMgr;
-import info.fzhen.wstx.AbstractCoordinatorProtocolService;
-import info.fzhen.wstx.AbstractParticipantProtocolMgr;
-import info.fzhen.wstx.AbstractParticipantProtocolService;
+import info.fzhen.wstx.*;
 import info.fzhen.wstx.coordinator.PrivateIdType;
 import info.fzhen.wstx.cxf.interceptor.WstxTransform;
 import org.apache.commons.logging.Log;
@@ -34,9 +31,11 @@ public class MsgContextUtil {
 		String id = retrievePrivateId(wsContext);
 		T coorService = mgr.retrieveProtocolCoordinator(id);
 		if (coorService == null) {
+			String errMsg = "Failed to get corresponding coordinator protocol service with id: " + id;
 			if (__LOG.isErrorEnabled()) {
-				__LOG.error("Failed to get corresponding coordinator protocol service with id: " + id);
+				__LOG.error(errMsg);
 			}
+			throw new WstxRtException(errMsg);
 		}
 		return coorService;
 	}
@@ -51,9 +50,11 @@ public class MsgContextUtil {
 		String id = retrievePrivateId(wsContext);
 		T ptcpService = mgr.retrieveProtocolParticipant(id);
 		if (ptcpService == null) {
+			String errMsg = "Failed to get corresponding participant protocol service with id: " + id;
 			if (__LOG.isErrorEnabled()) {
-				__LOG.error("Failed to get corresponding participant protocol service with id: " + id);
+				__LOG.error(errMsg);
 			}
+			throw new WstxRtException(errMsg);
 		}
 		return ptcpService;
 	}

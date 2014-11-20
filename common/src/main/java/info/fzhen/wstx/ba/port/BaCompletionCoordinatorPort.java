@@ -1,5 +1,8 @@
 package info.fzhen.wstx.ba.port;
 
+import info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolMgr;
+import info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolService;
+import info.fzhen.wstx.util.MsgContextUtil;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
 import javax.annotation.Resource;
@@ -12,9 +15,13 @@ public class BaCompletionCoordinatorPort implements BaCompletionCoordinatorPortT
 	@Resource
 	private WebServiceContext wsContext;
 
+	private CompletionCoordinatorProtocolMgr mgr = CompletionCoordinatorProtocolMgr.getInstance();
+
 	@Override
 	public void completeOperation(@WebParam(name = "Commit", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") Notification parameters) {
-
+		CompletionCoordinatorProtocolService coorService =
+				MsgContextUtil.getTargetCoorService(mgr, wsContext);
+		coorService.complete();
 	}
 
 	@Override

@@ -38,6 +38,9 @@ public class BaCoordinator extends AbstractActivityCoordinatorContext {
 		return response;
 	}
 
+	public void completeActivity() {
+	}
+
 	public void setState(State state) {
 		this.state = state;
 	}
