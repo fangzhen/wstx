@@ -17,7 +17,7 @@ public class CompletionParticipantProtocolMgr extends AbstractParticipantProtoco
 
 	public void reigsterInitiator(WsBusinessActicity acticity) {
 		CompletionParticipantProtocolService initiator = new CompletionParticipantProtocolService();
-		initiator.setActicity(acticity);
+		initiator.setActivity(acticity);
 		acticity.setInitiator(initiator);
 		doRegister(acticity.getCoordinationContext(), initiator, BaProtocol.COMPLETION.getText());
 	}

@@ -1,18 +1,29 @@
 package info.fzhen.wstx.ba.port;
 
+import info.fzhen.wstx.ba.cc.CcCoordinatorProtocolMgr;
+import info.fzhen.wstx.ba.cc.CcCoordinatorProtocolService;
+import info.fzhen.wstx.util.MsgContextUtil;
 import org.oasis_open.docs.ws_tx.wsba._2006._06.BusinessAgreementWithCoordinatorCompletionCoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsba._2006._06.ExceptionType;
 import org.oasis_open.docs.ws_tx.wsba._2006._06.NotificationType;
 import org.oasis_open.docs.ws_tx.wsba._2006._06.StatusType;
 
+import javax.annotation.Resource;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 
 @WebService
 public class BaCCCoordinatorPort implements BusinessAgreementWithCoordinatorCompletionCoordinatorPortType{
+	@Resource
+	private WebServiceContext wsContext;
+
+	private CcCoordinatorProtocolMgr mgr = CcCoordinatorProtocolMgr.getInstance();
+
 	@Override
 	public void completedOperation(@WebParam(name = "Completed", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") NotificationType parameters) {
-
+		CcCoordinatorProtocolService service = MsgContextUtil.getTargetCoorService(mgr, wsContext);
+		service.completed();
 	}
 
 	@Override
@@ -27,7 +38,8 @@ public class BaCCCoordinatorPort implements BusinessAgreementWithCoordinatorComp
 
 	@Override
 	public void closedOperation(@WebParam(name = "Closed", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") NotificationType parameters) {
-
+		CcCoordinatorProtocolService service = MsgContextUtil.getTargetCoorService(mgr, wsContext);
+		service.closed();
 	}
 
 	@Override

@@ -21,8 +21,8 @@ import org.oasis_open.docs.ws_tx.wscoor._2006._06.CreateCoordinationContextType;
 public class WsBusinessActicity extends WsTransaction {
 	private static final Log __LOG = LogFactory.getLog(WsBusinessActicity.class);
 
-	/** coordination type of the activity. {@link CoordinationType.WSBA_ATOMIC}
-	 * or {@link  CoordinationType.WSBA_MIXED} */
+	/** coordination type of the activity. {@link CoordinationType#WSBA_ATOMIC}
+	 * or {@link  CoordinationType#WSBA_MIXED} */
 	private CoordinationType type;
 	private CompletionParticipantProtocolService initiator;
 
@@ -71,5 +71,9 @@ public class WsBusinessActicity extends WsTransaction {
 
 	public void setInitiator(CompletionParticipantProtocolService initiator) {
 		this.initiator = initiator;
+	}
+
+	public void completed() {
+
 	}
 }

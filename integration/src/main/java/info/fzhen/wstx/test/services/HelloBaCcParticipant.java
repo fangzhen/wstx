@@ -8,8 +8,8 @@ import info.fzhen.wstx.ba.cc.CcParticipant;
 public class HelloBaCcParticipant implements CcParticipant{
 
 	@Override
-	public void complete() {
-
+	public Vote complete() {
+		return Vote.Completed;
 	}
 
 	@Override
