@@ -31,8 +31,6 @@ public class CompletionInitiatorPort implements CompletionInitiatorPortType {
 	}
 
 	private AtInitiatorPartService getTargetedParticipant() {
-		String id = MsgContextUtil.retrievePrivateId(wsContext);
-		AtInitiatorPartService targetedPart = AtInitiatorPartManager.getInstance().retrieveProtocolParticipant(id);
-		return targetedPart;
+		return MsgContextUtil.getTargetPtcpService(AtInitiatorPartManager.getInstance(), wsContext);
 	}
 }

@@ -34,11 +34,6 @@ public class CompletionCoordinatorPort implements CompletionCoordinatorPortType 
 	}
 
 	private AtInitiatorCoor getTargetedCoordinator() {
-		String id = MsgContextUtil.retrievePrivateId(wsContext);
-		AtInitiatorCoor coorService = AtInitiatorCoorManager.getInstance().retrieveProtocolCoordinator(id);
-		if (__LOG.isErrorEnabled()) {
-			__LOG.error("Failed to get initiator protocol service with id: " + id);
-		}
-		return coorService;
+		return MsgContextUtil.getTargetCoorService(AtInitiatorCoorManager.getInstance(), wsContext);
 	}
 }

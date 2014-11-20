@@ -34,8 +34,6 @@ public class twoPcParticipantPort implements ParticipantPortType {
 	}
 
 	private PartService2Pc getTargetedParticipant() {
-		String id = MsgContextUtil.retrievePrivateId(wsContext);
-		PartService2Pc targetedPart = At2pcPartManager.getInstance().retrieveProtocolParticipant(id);
-		return targetedPart;
+		return MsgContextUtil.getTargetPtcpService(At2pcPartManager.getInstance(), wsContext);
 	}
 }

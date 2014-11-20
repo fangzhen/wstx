@@ -40,8 +40,6 @@ public class AtCoordinatorPort implements CoordinatorPortType {
 	}
 
 	private CoorService2Pc getTargetedCoordinator() {
-		String id = MsgContextUtil.retrievePrivateId(wsContext);
-		CoorService2Pc coorService = At2pcCoorManager.getInstance().retrieveProtocolCoordinator(id);
-		return coorService;
+		return MsgContextUtil.getTargetCoorService(At2pcCoorManager.getInstance(), wsContext);
 	}
 }
