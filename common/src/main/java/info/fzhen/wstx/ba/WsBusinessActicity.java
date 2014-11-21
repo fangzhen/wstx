@@ -76,4 +76,8 @@ public class WsBusinessActicity extends WsTransaction {
 	public void completed() {
 
 	}
+
+	public void complete() {
+		initiator.complete();
+	}
 }

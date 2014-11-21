@@ -4,7 +4,7 @@ import info.fzhen.wstx.AbstractCoordinatorProtocolService;
 import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.ba.BaCoordinator;
 import info.fzhen.wstx.ba.port.BaCompletionInitiatorPortType;
-import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
+import org.oasis_open.docs.ws_tx.wsba._2006._06.NotificationType;
 
 public class CompletionCoordinatorProtocolService extends AbstractCoordinatorProtocolService<
 		BaCompletionInitiatorPortType, BaCoordinator, CompletionCoordinatorProtocolService.State>{
@@ -12,7 +12,7 @@ public class CompletionCoordinatorProtocolService extends AbstractCoordinatorPro
 		activity.completeActivity();
 		//TODO check state of the activity
 		BaCompletionInitiatorPortType initiator = getParticipantProxy(BaCompletionInitiatorPortType.class);
-		initiator.completedOperation(new Notification());
+		initiator.completedOperation(new NotificationType());
 	}
 
 	/**
@@ -20,7 +20,7 @@ public class CompletionCoordinatorProtocolService extends AbstractCoordinatorPro
 	 */
 	public void close() {
 		BaCompletionInitiatorPortType initiator = getParticipantProxy(BaCompletionInitiatorPortType.class);
-		initiator.completedOperation(new Notification());
+		initiator.completedOperation(new NotificationType());
 	}
 
 	public static class State implements StateEnum{

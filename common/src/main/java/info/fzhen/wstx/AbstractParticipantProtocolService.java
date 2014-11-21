@@ -9,7 +9,7 @@ import org.apache.cxf.ws.addressing.EndpointReferenceType;
  * @param <T> corresponding functional participant
  * @param <E> corresponding coordinator protocol service port type
  */
-public abstract class AbstractParticipantProtocolService<T extends Participant, E> {
+public abstract class AbstractParticipantProtocolService<T extends Participant, E, R extends StateEnum> {
 	/**
 	 * coordinator protocol service EPR
 	 */
@@ -18,7 +18,7 @@ public abstract class AbstractParticipantProtocolService<T extends Participant, 
 	 * corresponding functional participant
 	 */
 	protected T participant;
-	protected StateEnum state;
+	protected R state;
 	private E coordinatorProxy;
 
 	public EndpointReferenceType getCoordinatorEpr() {
@@ -42,11 +42,11 @@ public abstract class AbstractParticipantProtocolService<T extends Participant, 
 		this.participant = participant;
 	}
 
-	public StateEnum getState() {
+	public R getState() {
 		return state;
 	}
 
-	public void setState(StateEnum state) {
+	public void setState(R state) {
 		this.state = state;
 	}
 }

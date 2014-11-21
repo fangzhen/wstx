@@ -3,7 +3,7 @@ package info.fzhen.wstx.ba.port;
 import info.fzhen.wstx.ba.completion.CompletionParticipantProtocolMgr;
 import info.fzhen.wstx.ba.completion.CompletionParticipantProtocolService;
 import info.fzhen.wstx.util.MsgContextUtil;
-import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
+import org.oasis_open.docs.ws_tx.wsba._2006._06.NotificationType;
 
 import javax.annotation.Resource;
 import javax.jws.WebParam;
@@ -17,13 +17,13 @@ public class BaCompletionInitiatorPort implements  BaCompletionInitiatorPortType
 	private CompletionParticipantProtocolMgr mgr = CompletionParticipantProtocolMgr.getInstance();
 
 	@Override
-	public void completedOperation(@WebParam(name = "Committed", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") Notification parameters) {
+	public void completedOperation(@WebParam(name = "Committed", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") NotificationType parameters) {
 		CompletionParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(mgr, wsContext);
 		service.completed();
 	}
 
 	@Override
-	public void canceledOperation(@WebParam(name = "Aborted", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") Notification parameters) {
+	public void canceledOperation(@WebParam(name = "Aborted", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") NotificationType parameters) {
 
 	}
 }

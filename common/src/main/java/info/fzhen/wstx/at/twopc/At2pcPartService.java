@@ -5,7 +5,7 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.CoordinatorPortType;
 import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 
 public class At2pcPartService extends PartService2Pc
-		<At2pcParticipant, CoordinatorPortType>{
+		<At2pcParticipant, CoordinatorPortType, At2pcPartService.State>{
 
 	@Override
 	public void prepare() {

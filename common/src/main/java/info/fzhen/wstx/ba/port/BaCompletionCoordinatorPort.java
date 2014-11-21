@@ -3,7 +3,7 @@ package info.fzhen.wstx.ba.port;
 import info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolMgr;
 import info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolService;
 import info.fzhen.wstx.util.MsgContextUtil;
-import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
+import org.oasis_open.docs.ws_tx.wsba._2006._06.NotificationType;
 
 import javax.annotation.Resource;
 import javax.jws.WebParam;
@@ -18,14 +18,14 @@ public class BaCompletionCoordinatorPort implements BaCompletionCoordinatorPortT
 	private CompletionCoordinatorProtocolMgr mgr = CompletionCoordinatorProtocolMgr.getInstance();
 
 	@Override
-	public void completeOperation(@WebParam(name = "Commit", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") Notification parameters) {
+	public void completeOperation(@WebParam(name = "Commit", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") NotificationType parameters) {
 		CompletionCoordinatorProtocolService coorService =
 				MsgContextUtil.getTargetCoorService(mgr, wsContext);
 		coorService.complete();
 	}
 
 	@Override
-	public void cancleOperation(@WebParam(name = "Rollback", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") Notification parameters) {
+	public void cancleOperation(@WebParam(name = "Rollback", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") NotificationType parameters) {
 
 	}
 

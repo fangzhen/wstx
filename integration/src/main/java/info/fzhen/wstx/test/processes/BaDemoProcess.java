@@ -25,12 +25,14 @@ public class BaDemoProcess extends TransactionalProcess implements Process{
 					+ BaDemoProcess.class);
 		}
 		ActivationPortType activationSer = clientProxies.getActivationService();
-		WsBusinessActicity acticity = TransactionFactory.getInstance().
+		WsBusinessActicity activity = TransactionFactory.getInstance().
 				createAtomicBusinessActivity(activationSer);
-		acticity.begin();
+		activity.begin();
 
 		HelloService helloService = clientProxies.getService("helloServiceBa");
-		addTransactionInfo2Client((BindingProvider) helloService, acticity);
+		addTransactionInfo2Client((BindingProvider) helloService, activity);
 		helloService.sayHello();
+
+		activity.complete();
 	}
 }

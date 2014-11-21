@@ -10,7 +10,8 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
 /**
  * Protocol service of AT Initiator
  */
-public class AtInitiatorCoor extends AbstractCoordinatorProtocolService<CompletionInitiatorPortType, AtomicTxCoordinator> {
+public class AtInitiatorCoor extends AbstractCoordinatorProtocolService
+		<CompletionInitiatorPortType, AtomicTxCoordinator, AtInitiatorCoor.State> {
 
 	public void commit() {
 		activity.commitActivity();

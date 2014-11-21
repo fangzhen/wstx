@@ -6,7 +6,7 @@ import org.oasis_open.docs.ws_tx.wsba._2006._06.BusinessAgreementWithCoordinator
 import org.oasis_open.docs.ws_tx.wsba._2006._06.NotificationType;
 
 public class CcParticipantProtocolService extends AbstractParticipantProtocolService
-		<CcParticipant, BusinessAgreementWithCoordinatorCompletionCoordinatorPortType> {
+		<CcParticipant, BusinessAgreementWithCoordinatorCompletionCoordinatorPortType, CcParticipantProtocolService.State> {
 	public void complete() {
 		if (state == State.Active){
 			state = State.Completing;

@@ -1,5 +1,6 @@
 package info.fzhen.wstx.at.twopc;
 
+import info.fzhen.wstx.StateEnum;
 import info.fzhen.wstx.at.AtomicTxSubordinate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,7 +18,7 @@ public class At2pcSubordinateService {
 	/**
 	 * Protocol service of subordinate as participant
 	 */
-	class PartService extends PartService2Pc<At2pcParticipant, CoordinatorPortType>{
+	class PartService extends PartService2Pc<At2pcParticipant, CoordinatorPortType, At2pcSubordinateService.State>{
 
 		@Override
 		public void prepare() {
@@ -52,7 +53,7 @@ public class At2pcSubordinateService {
 	/**
 	 * Protocol service of subordinate as coordinator
 	 */
-	class CoorService extends CoorService2Pc<ParticipantPortType, AtomicTxSubordinate>{
+	class CoorService extends CoorService2Pc<ParticipantPortType, AtomicTxSubordinate, At2pcSubordinateService.State>{
 
 		public void prepare() {
 			ParticipantPortType participantProxy =
@@ -81,5 +82,9 @@ public class At2pcSubordinateService {
 		public void committed() {
 			partService.committed();
 		}
+
+	}
+	public static enum State implements StateEnum{
+
 	}
 }

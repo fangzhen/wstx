@@ -15,7 +15,8 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.Notification;
  *
  * @author fangzhen
  */
-public class AtInitiatorPartService extends AbstractParticipantProtocolService<AtInitiatorParticipant, CompletionCoordinatorPortType> {
+public class AtInitiatorPartService extends AbstractParticipantProtocolService
+		<AtInitiatorParticipant, CompletionCoordinatorPortType, AtInitiatorPartService.State> {
 	private static final Log __LOG = LogFactory.getLog(AtInitiatorPartService.class);
 
 	WsatTransaction transaction;
@@ -25,7 +26,7 @@ public class AtInitiatorPartService extends AbstractParticipantProtocolService<A
 	 */
 	public void commit() {
 		if (__LOG.isInfoEnabled()) {
-			__LOG.info("The initiator sends commit message to coordiantor");
+			__LOG.info("The initiator sends commit message to coordinator");
 		}
 		CompletionCoordinatorPortType coorProxy = getCoordinatorProxy(CompletionCoordinatorPortType.class);
 		coorProxy.commitOperation(new Notification());

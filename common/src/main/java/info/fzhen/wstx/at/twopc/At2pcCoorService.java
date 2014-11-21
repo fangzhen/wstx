@@ -11,7 +11,7 @@ import org.oasis_open.docs.ws_tx.wsat._2006._06.ParticipantPortType;
  * Protocol service of coordinator in AT 2PC protocol
  */
 public class At2pcCoorService extends CoorService2Pc
-		<ParticipantPortType, AtomicTxCoordinator>{
+		<ParticipantPortType, AtomicTxCoordinator, At2pcCoorService.State>{
 	private static Log __LOG = LogFactory.getLog(At2pcCoorService.class);
 	boolean isVolatile;
 

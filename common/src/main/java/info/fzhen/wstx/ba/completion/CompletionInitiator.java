@@ -1,4 +1,6 @@
 package info.fzhen.wstx.ba.completion;
 
-public class CompletionInitiator {
+import info.fzhen.wstx.Participant;
+
+public interface CompletionInitiator extends Participant{
 }
