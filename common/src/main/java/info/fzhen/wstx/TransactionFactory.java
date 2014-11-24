@@ -48,6 +48,7 @@ public class TransactionFactory {
 			ActivationPortType activationSer, CoordinationType type){
 		WsBusinessActicity acticity = new WsBusinessActicity();
 		acticity.setActivationSer(activationSer);
+		acticity.setType(type);
 		if (type != CoordinationType.WSBA_ATOMIC &&
 				type != CoordinationType.WSBA_MIXED){
 			String msg = "Unsupported coordination type when creating Business activity" + type.getText()
