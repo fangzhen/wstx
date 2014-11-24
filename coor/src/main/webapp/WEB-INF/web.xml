@@ -15,10 +15,6 @@
          http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>cxf</display-name>
 
-	<listener>
-		<listener-class>info.fzhen.wstx.web.WstxContextLoaderListerner</listener-class>
-	</listener>
-
 	<servlet>
 		<description>Apache CXF Endpoint</description>
 		<display-name>cxf</display-name>

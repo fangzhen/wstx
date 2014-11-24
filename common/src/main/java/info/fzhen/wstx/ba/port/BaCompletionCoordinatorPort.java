@@ -15,7 +15,7 @@ public class BaCompletionCoordinatorPort implements BaCompletionCoordinatorPortT
 	@Resource
 	private WebServiceContext wsContext;
 
-	private CompletionCoordinatorProtocolMgr mgr = CompletionCoordinatorProtocolMgr.getInstance();
+	private CompletionCoordinatorProtocolMgr mgr;
 
 	@Override
 	public void completeOperation(@WebParam(name = "Commit", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") NotificationType parameters) {
@@ -29,4 +29,10 @@ public class BaCompletionCoordinatorPort implements BaCompletionCoordinatorPortT
 
 	}
 
+	private CompletionCoordinatorProtocolMgr getMgr() {
+		if (mgr == null){
+			mgr = CompletionCoordinatorProtocolMgr.getInstance();
+		}
+		return mgr;
+	}
 }

@@ -14,7 +14,7 @@ import javax.xml.ws.WebServiceContext;
 public class BaCompletionInitiatorPort implements  BaCompletionInitiatorPortType{
 	@Resource
 	private WebServiceContext wsContext;
-	private CompletionParticipantProtocolMgr mgr = CompletionParticipantProtocolMgr.getInstance();
+	private CompletionParticipantProtocolMgr mgr;
 
 	@Override
 	public void completedOperation(@WebParam(name = "Committed", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") NotificationType parameters) {
@@ -25,5 +25,12 @@ public class BaCompletionInitiatorPort implements  BaCompletionInitiatorPortType
 	@Override
 	public void canceledOperation(@WebParam(name = "Aborted", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") NotificationType parameters) {
 
+	}
+
+	private CompletionParticipantProtocolMgr getMgr() {
+		if (mgr == null){
+			mgr = CompletionParticipantProtocolMgr.getInstance();
+		}
+		return mgr;
 	}
 }

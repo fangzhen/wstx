@@ -16,17 +16,17 @@ import javax.xml.ws.WebServiceContext;
 public class BaCCParticipantPort implements BusinessAgreementWithCoordinatorCompletionParticipantPortType{
 	@Resource
 	private WebServiceContext wsContext;
-	private CcParticipantProtocolMgr mgr = CcParticipantProtocolMgr.getInstance();
+	private CcParticipantProtocolMgr mgr;
 
 	@Override
 	public void completeOperation(@WebParam(name = "Complete", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") NotificationType parameters) {
-		CcParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(mgr, wsContext);
+		CcParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(getMgr(), wsContext);
 		service.complete();
 	}
 
 	@Override
 	public void closeOperation(@WebParam(name = "Close", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") NotificationType parameters) {
-		CcParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(mgr, wsContext);
+		CcParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(getMgr(), wsContext);
 		service.close();
 	}
 
@@ -63,5 +63,12 @@ public class BaCCParticipantPort implements BusinessAgreementWithCoordinatorComp
 	@Override
 	public void statusOperation(@WebParam(name = "Status", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") StatusType parameters) {
 
+	}
+
+	private CcParticipantProtocolMgr getMgr() {
+		if (mgr == null){
+			mgr = CcParticipantProtocolMgr.getInstance();
+		}
+		return mgr;
 	}
 }

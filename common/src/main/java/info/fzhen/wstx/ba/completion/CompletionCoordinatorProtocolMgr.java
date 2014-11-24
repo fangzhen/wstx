@@ -36,10 +36,12 @@ public class CompletionCoordinatorProtocolMgr extends AbstractCoordinatorProtoco
 			String msg = "Business activity completion protocol" +
 						" coordinator side Manager hasn't been initialized yet. " +
 						"the manager instance should be initialized by Spring";
+			WstxRtException e = new WstxRtException(msg);
 			if (__LOG.isErrorEnabled()) {
-				__LOG.error(msg);
+				__LOG.error(e.getMessage());
+				__LOG.error(e.getStackTrace());
 			}
-			throw new WstxRtException(msg);
+			throw e;
 		}
 		return instance;
 	}

@@ -18,11 +18,11 @@ public class BaCCCoordinatorPort implements BusinessAgreementWithCoordinatorComp
 	@Resource
 	private WebServiceContext wsContext;
 
-	private CcCoordinatorProtocolMgr mgr = CcCoordinatorProtocolMgr.getInstance();
+	private CcCoordinatorProtocolMgr mgr;
 
 	@Override
 	public void completedOperation(@WebParam(name = "Completed", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") NotificationType parameters) {
-		CcCoordinatorProtocolService service = MsgContextUtil.getTargetCoorService(mgr, wsContext);
+		CcCoordinatorProtocolService service = MsgContextUtil.getTargetCoorService(getMgr(), wsContext);
 		service.completed();
 	}
 
@@ -38,7 +38,7 @@ public class BaCCCoordinatorPort implements BusinessAgreementWithCoordinatorComp
 
 	@Override
 	public void closedOperation(@WebParam(name = "Closed", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") NotificationType parameters) {
-		CcCoordinatorProtocolService service = MsgContextUtil.getTargetCoorService(mgr, wsContext);
+		CcCoordinatorProtocolService service = MsgContextUtil.getTargetCoorService(getMgr(), wsContext);
 		service.closed();
 	}
 
@@ -65,5 +65,12 @@ public class BaCCCoordinatorPort implements BusinessAgreementWithCoordinatorComp
 	@Override
 	public void statusOperation(@WebParam(name = "Status", targetNamespace = "http://docs.oasis-open.org/ws-tx/wsba/2006/06", partName = "parameters") StatusType parameters) {
 
+	}
+
+	private CcCoordinatorProtocolMgr getMgr() {
+		if (mgr == null){
+			mgr = CcCoordinatorProtocolMgr.getInstance();
+		}
+		return mgr;
 	}
 }
