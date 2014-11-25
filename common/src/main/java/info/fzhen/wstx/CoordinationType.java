@@ -6,7 +6,8 @@ package info.fzhen.wstx;
 public enum CoordinationType {
 	WSAT("http://docs.oasis-open.org/ws-tx/wsat/2006/06"),
 	WSBA_ATOMIC("http://docs.oasis-open.org/ws-tx/wsba/2006/06/AtomicOutcome"),
-	WSBA_MIXED("http://docs.oasis-open.org/ws-tx/wsba/2006/06/MixedOutcome");
+	WSBA_MIXED("http://docs.oasis-open.org/ws-tx/wsba/2006/06/MixedOutcome"),
+	WSBAAS("http://www.fzhen.info/ws-tx/wsbaas/2014/11");
 
 	private String text;
 

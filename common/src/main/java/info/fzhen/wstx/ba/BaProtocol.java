@@ -24,7 +24,7 @@ public enum BaProtocol {
 				}
 			}
 		}
-		throw new IllegalArgumentException("No protocol of " + text + "defined in wsat coordiantion type");
+		throw new IllegalArgumentException("No protocol of " + text + "defined in wsba coordination type");
 	}
 
 	@Override
