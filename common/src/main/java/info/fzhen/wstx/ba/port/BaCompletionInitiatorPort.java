@@ -18,7 +18,7 @@ public class BaCompletionInitiatorPort implements  BaCompletionInitiatorPortType
 
 	@Override
 	public void completedOperation(@WebParam(name = "Committed", targetNamespace = "http://www.fzhen.info/ws-tx/wsba/", partName = "parameters") NotificationType parameters) {
-		CompletionParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(mgr, wsContext);
+		CompletionParticipantProtocolService service = MsgContextUtil.getTargetPtcpService(getMgr(), wsContext);
 		service.completed();
 	}
 

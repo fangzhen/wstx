@@ -20,7 +20,7 @@ public class BaCompletionCoordinatorPort implements BaCompletionCoordinatorPortT
 	@Override
 	public void completeOperation(@WebParam(name = "Commit", targetNamespace = "http://www.fzhen.info/ws-tx/wsba", partName = "parameters") NotificationType parameters) {
 		CompletionCoordinatorProtocolService coorService =
-				MsgContextUtil.getTargetCoorService(mgr, wsContext);
+				MsgContextUtil.getTargetCoorService(getMgr(), wsContext);
 		coorService.complete();
 	}
 

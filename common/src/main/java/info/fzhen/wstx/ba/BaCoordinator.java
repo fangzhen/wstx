@@ -1,6 +1,7 @@
 package info.fzhen.wstx.ba;
 
 import info.fzhen.wstx.WstxRtException;
+import info.fzhen.wstx.ba.cc.CcCoordinatorProtocolMgr;
 import info.fzhen.wstx.ba.cc.CcCoordinatorProtocolService;
 import info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolMgr;
 import info.fzhen.wstx.ba.completion.CompletionCoordinatorProtocolService;
@@ -38,9 +39,10 @@ public class BaCoordinator extends AbstractActivityCoordinatorContext {
 						.registerInitiator(this, registerPara);
 				break;
 			case COORDINATOR_COMPLETION:
+				response = CcCoordinatorProtocolMgr.getInstance().
+						registerCCParticipant(this, registerPara);
 				break;
 			case PARTICIPANT_COMPLETION:
-				break;
 			default:
 				throw new WstxRtException("Unsupported protocol" +
 				protocolId);
@@ -125,6 +127,10 @@ public class BaCoordinator extends AbstractActivityCoordinatorContext {
 			}
 		}
 		state = s;
+	}
+
+	public void addCcCoordinatorProtocolService(CcCoordinatorProtocolService service) {
+		CcCoors.add(service);
 	}
 
 	public enum State {
